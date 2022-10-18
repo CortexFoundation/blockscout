@@ -32,7 +32,7 @@ pool_size =
 
 # Configures the database
 config :explorer, Explorer.Repo,
-  url: System.get_env("DATABASE_URL"),
+  url: System.get_env("DATABASE_URL_BLOCKSCOUT"),
   pool_size: pool_size,
   ssl: ConfigHelper.ssl_enabled?()
 

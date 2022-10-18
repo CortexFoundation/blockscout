@@ -90,7 +90,7 @@ defmodule Explorer.Repo.ConfigHelperTest do
       assert result[:database] == "test_database"
     end
 
-    test "overwrite database password param with empty DATABASE_URL password" do
+    test "overwrite database password param with empty DATABASE_URL_BLOCKSCOUT password" do
       database_url = "postgresql://test_username:@127.8.8.1:7777/test_database"
 
       vars = %{"PGUSER" => "postgrex_user", "PGPASSWORD" => "postgrex_password"}

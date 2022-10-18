@@ -41,8 +41,8 @@ config :block_scout_web, BlockScoutWeb.Endpoint,
 ### Explorer ###
 ################
 
-database = if System.get_env("DATABASE_URL"), do: nil, else: "explorer_dev"
-hostname = if System.get_env("DATABASE_URL"), do: nil, else: "localhost"
+database = if System.get_env("DATABASE_URL_BLOCKSCOUT"), do: nil, else: "explorer_dev"
+hostname = if System.get_env("DATABASE_URL_BLOCKSCOUT"), do: nil, else: "localhost"
 
 pool_size =
   if System.get_env("DATABASE_READ_ONLY_API_URL"),
@@ -53,7 +53,7 @@ pool_size =
 config :explorer, Explorer.Repo,
   database: database,
   hostname: hostname,
-  url: System.get_env("DATABASE_URL"),
+  url: System.get_env("DATABASE_URL_BLOCKSCOUT"),
   pool_size: pool_size
 
 database_api = if System.get_env("DATABASE_READ_ONLY_API_URL"), do: nil, else: database

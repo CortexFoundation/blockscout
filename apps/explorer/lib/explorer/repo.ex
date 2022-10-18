@@ -9,10 +9,10 @@ defmodule Explorer.Repo do
 
   @doc """
   Dynamically loads the repository url from the
-  DATABASE_URL environment variable.
+  DATABASE_URL_BLOCKSCOUT environment variable.
   """
   def init(_, opts) do
-    db_url = System.get_env("DATABASE_URL")
+    db_url = System.get_env("DATABASE_URL_BLOCKSCOUT")
     repo_conf = Application.get_env(:explorer, Explorer.Repo)
 
     merged =

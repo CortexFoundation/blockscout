@@ -14,14 +14,14 @@ ifeq ($(SYSTEM), Linux)
 	HOST=localhost
 endif
 
-ifdef DATABASE_URL
-	DB_URL = $(DATABASE_URL)
+ifdef DATABASE_URL_BLOCKSCOUT
+	DB_URL = $(DATABASE_URL_BLOCKSCOUT)
 else
 	DB_URL = postgresql://postgres:@$(HOST):5432/blockscout?ssl=false
 	ECTO_USE_SSL = 'false'
 endif
 BLOCKSCOUT_CONTAINER_PARAMS = -e 'MIX_ENV=prod' \
-															 -e 'DATABASE_URL=$(DB_URL)'
+															 -e 'DATABASE_URL_BLOCKSCOUT=$(DB_URL)'
 ifeq ($(SYSTEM), Linux)
 	BLOCKSCOUT_CONTAINER_PARAMS += --network=host
 endif
@@ -544,8 +544,8 @@ PG_EXIST := $(shell docker ps -a --no-trunc --filter name=^/${PG_CONTAINER_NAME}
 PG_STARTED := $(shell docker ps --no-trunc --filter name=^/${PG_CONTAINER_NAME}$ | grep ${PG_CONTAINER_NAME})
 
 postgres:
-ifdef DATABASE_URL
-	@echo "==> DATABASE_URL of external DB provided. There is no need to start a container for DB."
+ifdef DATABASE_URL_BLOCKSCOUT
+	@echo "==> DATABASE_URL_BLOCKSCOUT of external DB provided. There is no need to start a container for DB."
 	@$(MAKE) -f $(THIS_FILE) migrate_only
 else
 ifdef PG_EXIST
