@@ -53,3 +53,5 @@ screenshots/
 *.iml
 
 .vscode
+blockscout.env
+blockscout.log

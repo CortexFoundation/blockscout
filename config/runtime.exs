@@ -2,7 +2,7 @@ import Config
 
 import Bitwise
 
-indexer_memory_limit_default = 1
+indexer_memory_limit_default = 3
 
 indexer_memory_limit =
   "INDEXER_MEMORY_LIMIT"
