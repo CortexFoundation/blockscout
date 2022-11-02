@@ -1,6 +1,9 @@
-$tile-type-block-color: $primary !default;
-$tile-type-uncle-color: $cyan !default;
-$tile-type-reorg-color: $purple !default;
+$tile-type-block-color: #573BFF !default;
+$tile-type-block-bgcolor: #F6F8FF !default;
+$tile-type-uncle-color: #53A551 !default;
+$tile-type-uncle-bgcolor: #F3FFF5 !default;
+$tile-type-reorg-color: #7D32CC !default;
+$tile-type-reorg-bgcolor: #FBF5FF !default;
 $tile-type-emission-reward-color: $lilac !default;
 $tile-type-transaction-color: $blue !default;
 $tile-type-contract-call-color: $green !default;
@@ -17,9 +20,16 @@ $tile-padding: 1rem;
 $tile-title-color: #333 !default;
 $tile-body-a-color: #5959d8 !default;
 
-@mixin generate-tile-block($prefix, $color, $label-color: false) {
+@mixin generate-tile-block($prefix, $color, $bgcolor: false, $label-color: false) {
   &#{ $prefix } {
-    border-left: 4px solid $color;
+
+    .row {
+      height: 90px;
+      align-items: center;
+      @if ($bgcolor) {
+        background-color: $bgcolor;
+      }
+    }
 
     .tile-transaction-type-block {
       a {
@@ -44,11 +54,21 @@ $tile-body-a-color: #5959d8 !default;
     }
 
     .tile-transaction-type-block {
-      background-color: rgba($color, 0.1);
-      border-bottom: 1px solid $color;
-      border-right: 1px solid $color;
-      border-top: 1px solid $color;
+      border: 1px solid $color;
+      border-left-width: 6px;
       color: $color;
+      height: 90px;
+      position: relative;
+    }
+
+    .tile-transaction-type-block:after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      top: 0;
+      bottom: 0;
+      right: -3px;
+      background: #fff;
     }
   }
 }
@@ -73,12 +93,7 @@ $tile-body-a-color: #5959d8 !default;
 
 .tile-transaction-type-block {
   align-items: center;
-  bottom: -17px;
   justify-content: center;
-  margin-left: -1px;
-  margin-top: -34px;
-  padding: 0 5px;
-  position: relative;
 
   @include media-breakpoint-down(sm) {
     align-items: flex-start;
@@ -208,21 +223,22 @@ $tile-body-a-color: #5959d8 !default;
       font-size: 16px;
     }
   }
-  border-radius: 4px;
-  border: 1px solid $border-color;
+  
   color: $text-muted;
   flex-grow: 1;
   font-size: 12px;
   line-height: 1.4rem;
-  padding: $tile-padding;
+  padding: 0 $tile-padding;
+  margin-bottom: 10px;
 
   @include generate-tile-block(
     ".tile-type-block",
     $tile-type-block-color,
+    $tile-type-block-bgcolor,
     darken($tile-type-block-color, 20%)
   );
-  @include generate-tile-block(".tile-type-uncle", $tile-type-uncle-color);
-  @include generate-tile-block(".tile-type-reorg", $tile-type-reorg-color);
+  @include generate-tile-block(".tile-type-uncle", $tile-type-uncle-color, $tile-type-uncle-bgcolor);
+  @include generate-tile-block(".tile-type-reorg", $tile-type-reorg-color, $tile-type-reorg-bgcolor);
   @include generate-tile-block(
     ".tile-type-emission-reward",
     $tile-type-emission-reward-color
@@ -270,10 +286,6 @@ $tile-body-a-color: #5959d8 !default;
 
   &.n-p {
     padding: 0;
-  }
-
-  & + & {
-    margin-top: 1rem;
   }
 
   @include media-breakpoint-down(md) {

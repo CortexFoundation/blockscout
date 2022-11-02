@@ -51,11 +51,10 @@ $card-tab-icon-color-active: #fff !default;
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 1.2rem;
-  margin-bottom: 2rem;
-
+  margin-bottom: 20px;
+  color: #202020;
+  font-size: 16px;
+  font-weight: bold;
   &.lg-card-title {
     @media (max-width: 374px) {
       font-size: 13px;
