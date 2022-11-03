@@ -13,16 +13,16 @@
     }
 }
 
+.input-group {
+    flex-wrap: nowrap;
+}
+
+.input-group-text {
+
+}
+
 .search-control {
-    @media screen and (min-width: 992px) {
-        height: 57px !important;
-    }
-    @media screen and (max-width: 992px) {
-        height: 33px !important;
-    }
-    &.focused-field {
-      border: 1px solid $secondary !important;
-    }
+    width: 100%;
 }
 
 .autoComplete_wrapper {

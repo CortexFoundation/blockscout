@@ -2,12 +2,22 @@
 
 .layout-container {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+
+  .leftbox {
+    width: 265px;
+    background-color: #fff;
+    margin-right: 10px;
+  }
 
   main {
     flex-grow: 1;
-    background-color: #fbfafc;
+    background-color: #F7F8FA;
+  }
+
+  .search-form {
+    margin-bottom: 10px;
+    background-color: #fff;
   }
 }
 

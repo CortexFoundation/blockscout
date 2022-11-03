@@ -224,14 +224,18 @@
           <%= gettext("- We're indexing this chain right now. Some of the counts may be inaccurate.") %>
         </div>
       <% end %>
-      <%= render BlockScoutWeb.LayoutView, "_topnav.html", current_user: Conn.get_session(@conn, :current_user), conn: @conn %>
 
-      <main class="js-ad-dependant-pt pt-5">
+<div class="leftbox">
+  <%= render BlockScoutWeb.LayoutView, "_topnav.html", current_user: Conn.get_session(@conn, :current_user), conn: @conn %>
+  <%= render BlockScoutWeb.LayoutView, "_footer.html", assigns %>
+</div>
+	
+      <main class="js-ad-dependant-pt">
+        <%= render BlockScoutWeb.LayoutView, "_search.html", conn: @conn, id: "main-search-autocomplete" %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
         <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
         <%= @inner_content %>
       </main>
-      <%= render BlockScoutWeb.LayoutView, "_footer.html", assigns %>
     </div>
     <%= if (
       @view_module != Elixir.BlockScoutWeb.ChainView &&
