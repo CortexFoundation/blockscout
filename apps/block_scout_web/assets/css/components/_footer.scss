@@ -7,8 +7,7 @@ $footer-logo-height: 28px !default;
 $footer-logo-width: auto !default;
 
 .footer {
-  background: $footer-background-color;
-  color: $footer-text-color;
+  color: #8C91A3;
   font-size: 14px;
   line-height: 20px;
   padding: 40px;
@@ -29,8 +28,7 @@ $footer-logo-width: auto !default;
 }
 
 .footer-info-text {
-  margin: 0 0 25px;
-  padding: 0 20px 0 0;
+  margin-bottom: 15px;
 }
 
 .footer-social-icons {
@@ -60,11 +58,11 @@ $footer-logo-width: auto !default;
 }
 
 .footer-link {
-  color: $footer-link-color;
+  color: #8C91A3;
 
   &:hover {
-    color: $footer-link-color;
     text-decoration: underline;
+    color: #8C91A3;
   }
 }
 
@@ -72,10 +70,9 @@ $footer-logo-width: auto !default;
   padding-top: 0;
 
   h3 {
-    color: $footer-title-color;
+    color: #202020;
     font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4;
+    font-weight: bold;
     margin: 0 0 15px;
   }
 
@@ -90,19 +87,8 @@ $footer-logo-width: auto !default;
       line-height: 2.5;
       padding: 0;
 
-      a {
-        transition: $transition-cont;
-        &:hover {
-          text-decoration: none;
-          color: #fff;
-        }
-        &:focus {
-          color: darken($footer-text-color, 5);
-        }
-      }
-
       &::before {
-        background-color: $footer-item-disc-color;
+        background-color: #00C222;
         border-radius: 50%;
         content: "";
         display: block;

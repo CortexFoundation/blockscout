@@ -15,10 +15,36 @@
 
 .input-group {
     flex-wrap: nowrap;
+    align-items: center;
+}
+
+.net {
+    position: relative;
+    padding-left: 20px;
+    white-space: nowrap;
+    color: #313131;
+    font-size: 14px;
+}
+
+.net:before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00C222;
+}
+
+.input-group-append {
+    margin-left: 0 !important;
+    margin-right: 10px;
 }
 
 .input-group-text {
-
+    background: #fff !important;
+    border: none !important;
 }
 
 .search-control {
@@ -34,15 +60,12 @@
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
-    background-color: #f5f6fa !important;
-    @media screen and (max-width: 992px) {
-        height: auto !important;
-    }
+    background-color: #fff !important;
 }
 
 .main-search-autocomplete, .main-search-autocomplete-mobile {
     font-size: 14px !important;
-    color: #828ba0 !important;
+    color: #8C91A3 !important;
 }
 
 .autocomplete-category {

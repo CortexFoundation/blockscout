@@ -10,6 +10,7 @@
             <% average_block_time -> %>
               <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-1">
                 <span class="dashboard-banner-network-stats-label">
+		  <div><img src="../images/home/banner1.png"></div>
                   <%= gettext "Average block time" %>
                 </span>
                 <span class="dashboard-banner-network-stats-value" data-selector="average-block-time">
@@ -19,6 +20,7 @@
           <% end %>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-2">
             <span class="dashboard-banner-network-stats-label">
+		<div><img src="../images/home/banner2.png"></div>
               <%= gettext "Total transactions" %>
             </span>
             <div class="d-flex">
@@ -40,6 +42,7 @@
           </div>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-3">
             <span class="dashboard-banner-network-stats-label">
+		<div><img src="../images/home/banner3.png"></div>
               <%= gettext "Total blocks" %>
             </span>
             <span class="dashboard-banner-network-stats-value" data-selector="block-count">
@@ -48,6 +51,7 @@
           </div>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-4">
             <span class="dashboard-banner-network-stats-label">
+		<div><img src="../images/home/banner4.png"></div>
               <%= gettext "Wallet addresses" %>
             </span>
             <span class="dashboard-banner-network-stats-value" data-selector="address-count">

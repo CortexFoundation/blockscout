@@ -9,9 +9,9 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
   border-radius: 0 0 2px 2px !important;
   border-right: 1px solid #e2e5ec;
   border-top: none;
-  box-shadow: $box-shadow;
   padding: 0;
   width: 100%;
+  position: static !important;
 
   &.right {
     left: auto;

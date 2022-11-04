@@ -24,6 +24,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   overflow: hidden;
   padding: 0;
   position: relative;
+  background: transparent !important;
 }
 
 .dashboard-banner {
@@ -33,16 +34,9 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
 .dashboard-banner-network-graph {
   padding: 15px 0 0 0;
-
-  @include media-breakpoint-up(md) {
-    min-width: 500px;
-  }
-
-  @include media-breakpoint-down(md) {
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-  }
+  height: 250px;
+  width: 100%;
+  background: lightgray;
 }
 
 .dashboard-banner-chart {
@@ -180,65 +174,63 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 }
 
 .dashboard-banner-network-plain-container {
-  align-items: center;
-  display: flex;
-  height: $dashboard-banner-network-plain-container-height;
-  justify-content: center;
   position: relative;
-
-  @include media-breakpoint-down(lg) {
-    margin-top: 15px;
-    width: 550px;
-  }
-
-  @include media-breakpoint-down(md) {
-    border-top-right-radius: 10px;
-    height: auto;
-    justify-content: flex-start;
-    margin-left: 0;
-    max-width: 100%;
-    padding: 20px 0 20px 20px;
-    width: 250px;
-    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  @include media-breakpoint-down(sm) {
-    width: 100%;
-  }
+  margin-bottom: 15px;
 }
 
 .dashboard-banner-network-stats {
-  column-gap: 25px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-
-  @include media-breakpoint-down(lg) {
-    grid-template-columns: 1fr 1fr;
-    row-gap: 20px;
-  }
-
-  @include media-breakpoint-down(md) {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
-
-  @include media-breakpoint-down(sm) {
-    column-gap: 10px;
-    grid-template-columns: 1fr 1fr;
-  }
+  display: flex;
+  width: 100%;
 
   @include stats-item($dashboard-stats-item-border-color, $dashboard-stats-item-label-color, $dashboard-stats-item-value-color);
 
   .dashboard-banner-network-stats-item {
-    @media (max-width: 374px) {
-      padding-left: calc(0.6rem + 4px);
-      padding-right: 0.5rem;
+    flex: 1;
+    padding: 30px;
+    background: #fff;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border: 20px solid #F7F8FA;
+      border-left-color: transparent;
+      border-top-color: transparent;
+    }
+  }
+
+  .dashboard-banner-network-stats-item + .dashboard-banner-network-stats-item {
+    margin-left: 15px;
+  }
+
+  .dashboard-banner-network-stats-label {
+    color: #474747;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    div {
+      width: 34px;
+      height: 34px;
+      padding: 5px;
+      margin-right: 10px;
+      background: #573BFF;
+      border-radius: 50px;
+    }
+
+    img {
+      width: 100%;
+      display: block;
     }
   }
 
   .dashboard-banner-network-stats-value {
-    @media (max-width: 374px) {
-      font-size: 0.9rem;
-    }
+    color: #272727;
+    font-size: 32px;
+    font-weight: bolder;
   }
 }

@@ -230,7 +230,7 @@
   <%= render BlockScoutWeb.LayoutView, "_footer.html", assigns %>
 </div>
 	
-      <main class="js-ad-dependant-pt">
+      <main class="js-ad-dependant-pt_">
         <%= render BlockScoutWeb.LayoutView, "_search.html", conn: @conn, id: "main-search-autocomplete" %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
         <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
