@@ -1,15 +1,6 @@
 .bs-label {
-    display: inline-block;
-    padding: 0 5px;
-    background: #f5f6fa;
-    color: #77838f;
-    border-radius: 5px;
-    &.large {
-        font-size: 14px;
-    }
+    color: #868686;
     font-size: 12px;
-    padding: 5px;
-    line-height: normal;
 
     &.right {
         margin-left: auto;
@@ -42,9 +33,6 @@
     &.secondary {
         background: $secondary;
         color: #fff;
-    }
-    &.method {
-        color: #1e2022;
     }
     &.from-dropdown {
         margin-top: -3px;

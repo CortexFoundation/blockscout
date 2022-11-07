@@ -131,22 +131,6 @@ $tile-body-a-color: #5959d8 !default;
   }
 }
 
-.tile-bottom-contents {
-  background-color: #f6f7f9;
-  font-size: 12px;
-  line-height: 1.2;
-  padding: 0.8rem 1rem;
-}
-
-.tile-transactions {
-  color: #a3a9b5;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
 .tile-badge {
   line-height: 1.25rem;
   margin-bottom: 0.1rem;
@@ -191,45 +175,36 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 .tile {
-  span[data-address-hash] {
-    color: $tile-body-a-color;
+  color: #9D9D9D;
+  flex-grow: 1;
+  font-size: 12px;
+  margin-bottom: 10px;
+
+  a {
+    color: #573BFF;
   }
 
-  a[data-test=token_link] {
-    color: $tile-body-a-color;
+  .tile-type-block {
+    .tile-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
 
   .tile-body {
-    a {
-      color: $tile-body-a-color;
-      &:hover {
-        span {
-          text-decoration: underline;
-        }
-      }
+    margin-bottom: 10px;
+    background-color: #F6F8FF;
+    display: flex;
+    align-items: center;
+
+    .tile-title {
+      color: #626262;
+    }
+
+    .text-truncate {
+      font-weight: bold;
     }
   }
-
-  .tile-title {
-    color: $tile-title-color;
-    font-size: 12px;
-
-    &-hash {
-      font-weight: 300;
-    }
-
-    &-lg {
-      color: $body-color;
-      font-size: 16px;
-    }
-  }
-  
-  color: $text-muted;
-  flex-grow: 1;
-  font-size: 12px;
-  line-height: 1.4rem;
-  padding: 0 $tile-padding;
-  margin-bottom: 10px;
 
   @include generate-tile-block(
     ".tile-type-block",
@@ -298,12 +273,6 @@ $tile-body-a-color: #5959d8 !default;
 
   &.tile-type-block {
     max-width: 100%;
-    .tile-title {
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 12px;
-      padding: 1rem 1rem 0 1rem;
-    }
   }
 
   &.tile-type-contract-creation {
@@ -445,6 +414,10 @@ $tile-body-a-color: #5959d8 !default;
 .fade-up-blocks-chain {
   .tile-type-block {
     position: relative;
+    background-color: #F6F8FF;
+    border-left: 6px solid #573BFF;
+    padding: 16px 10px;
+    height: 90px;
   }
   .tile-type-block-animation {
     opacity: 0;
@@ -453,7 +426,6 @@ $tile-body-a-color: #5959d8 !default;
     left: -4px;
     width: calc(100% + 5px);
     height: calc(100% + 2px);
-    background-color: #F6F7F9;
     border-radius: 4px;
     overflow: hidden;
     transition: .24s ease-out;
@@ -467,7 +439,6 @@ $tile-body-a-color: #5959d8 !default;
       left: 0;
       height: calc(100% + 2px);
       width: 4px;
-      background-color: $tile-type-block-color;
       transform: scaleY(0);
       transform-origin: center bottom;
       animation: blockLoaderLine 2s linear forwards;

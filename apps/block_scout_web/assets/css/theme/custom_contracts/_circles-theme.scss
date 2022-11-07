@@ -116,16 +116,6 @@ $c-dark-text-color: #8a8dba;
 	}
 
 	// Components
-	a {
-		color: $c-primary;
-	}
-
-	a:hover, a:focus {
-		color: $c-primary;
-	}
-
-	a.tile-title { color: $c-primary !important; }
-
 	a[data-selector="transaction-count"] {
 		color: $c-primary !important;
 	}
