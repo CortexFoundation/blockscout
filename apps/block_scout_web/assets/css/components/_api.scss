@@ -7,20 +7,22 @@ $api-doc-list-item-title-color: #333 !default;
 $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
 .api-text-monospace {
-  color: $api-text-monospace-color;
+  color: #323BCC;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 }
 
 .api-text-monospace-background {
-  background-color: $api-text-monospace-background;
-  border-radius: 2px;
+  background-color: #F2F2F2;
+  color: #573BFF;
+  border-radius: 3px;
   font-weight: 300;
-  padding: 5px 6px;
+  padding: 5px 15px;
 }
 
 .api-anchors-list {
-  background-color: $api-anchors-list-background-color;
+  background-color: #F5F5FF;
+  margin-top: 20px;
   column-gap: 40px;
   display: grid;
   grid-auto-flow: column;
@@ -38,6 +40,11 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
     grid-auto-flow: row;
     grid-template-columns: 1fr;
     grid-template-rows: none;
+  }
+
+  .api-text-monospace-background {
+    background-color: #EAEAFD;
+    color: #323BCC;
   }
 }
 
@@ -72,7 +79,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
   margin-left: 20px;
 }
 .api-doc-list-item {
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid #EAEBF9;
   padding: $card-vertical-padding $card-horizontal-padding;
 
   &:last-child {
@@ -90,11 +97,11 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-list-item-title {
-  color: $api-doc-list-item-title-color;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.2;
+  color: #202020;
+  font-size: 14px;
   margin: 0 0 15px;
+  font-weight: normal;
+  line-height: normal;
 }
 
 .api-doc-list-item-query {
@@ -111,10 +118,8 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-list-item-text {
-  color: #aaa;
+  color: #C0C3CF;
   font-size: 14px;
-  font-weight: normal;
-  line-height: 1.5;
   margin: 0;
 }
 

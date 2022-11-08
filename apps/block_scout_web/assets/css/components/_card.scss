@@ -40,7 +40,7 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-header {
   background: transparent;
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid #EAEBF9;
   padding: $card-vertical-padding $card-horizontal-padding;
 
   &-tabs {
@@ -86,10 +86,8 @@ $card-tab-icon-color-active: #fff !default;
 }
 
 .card-subtitle {
-  color: #333;
-  font-size: 12px;
-  font-weight: normal;
-  line-height: 1.2;
+  color: #323BCC;
+  font-size: 14px;
   margin: 0 0 30px;
 
   &.margin-bottom-0 {

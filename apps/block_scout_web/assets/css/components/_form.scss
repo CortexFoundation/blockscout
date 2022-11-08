@@ -115,6 +115,8 @@ $form-control-border-color-active: $primary !default;
 
 .tokens-list-search-input-outer-container {
   display: flex;
+  align-items: center;
+  margin-bottom: 10px;
   @include media-breakpoint-down(md) {
     display: block;
   }

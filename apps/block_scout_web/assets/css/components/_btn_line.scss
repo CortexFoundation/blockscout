@@ -4,8 +4,9 @@ $btn-line-color: $secondary !default;
 .btn-line {
   @include btn-line($btn-line-bg, $btn-line-color);
   color: #562CFF !important;
-  border-color: #562CFF !important;
+  border: 1px solid #562CFF !important;
   height: auto !important;
+  background-color: #fff !important;
 }
 
 .btn-line-inversed {

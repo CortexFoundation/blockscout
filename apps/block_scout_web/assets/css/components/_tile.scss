@@ -1,12 +1,14 @@
-$tile-type-block-color: #573BFF !default;
+$tile-type-block-color: #573bff;
 $tile-type-block-bgcolor: #F6F8FF !default;
 $tile-type-uncle-color: #53A551 !default;
 $tile-type-uncle-bgcolor: #F3FFF5 !default;
 $tile-type-reorg-color: #7D32CC !default;
 $tile-type-reorg-bgcolor: #FBF5FF !default;
 $tile-type-emission-reward-color: $lilac !default;
-$tile-type-transaction-color: $blue !default;
-$tile-type-contract-call-color: $green !default;
+$tile-type-transaction-color: #323BCC !default;
+$tile-type-transaction-bgcolor: #E6F0FF !default;
+$tile-type-contract-call-color: #3AB696 !default;
+$tile-type-contract-call-bgcolor: #EEFFFB !default;
 $tile-type-contract-creation-color: $dark-purple !default;
 $tile-type-token-transfer-color: $orange !default;
 $tile-type-unique-token-color: $orange !default;
@@ -20,37 +22,17 @@ $tile-padding: 1rem;
 $tile-title-color: #333 !default;
 $tile-body-a-color: #5959d8 !default;
 
-@mixin generate-tile-block($prefix, $color, $bgcolor: false, $label-color: false) {
+@mixin generate-tile-block($prefix, $color, $bgcolor: false) {
   &#{ $prefix } {
 
-    .row {
+    .tile-type-block, .row, .tile-body {
       height: 90px;
+      width: 100%;
+      margin: 0;
       align-items: center;
       @if ($bgcolor) {
         background-color: $bgcolor;
       }
-    }
-
-    .tile-transaction-type-block {
-      a {
-        @if ($label-color) {
-          color: $label-color;
-        } @else {
-          color: $color;
-        }
-      }
-    }
-
-    .tile-label {
-      @if ($label-color) {
-        color: $label-color;
-      } @else {
-        color: $color;
-      }
-    }
-
-    .tile-status-label {
-      color: inherit;
     }
 
     .tile-transaction-type-block {
@@ -70,6 +52,10 @@ $tile-body-a-color: #5959d8 !default;
       right: -3px;
       background: #fff;
     }
+
+    .row a, .tile-body a {
+      color: $color !important;
+    }
   }
 }
 
@@ -78,8 +64,6 @@ $tile-body-a-color: #5959d8 !default;
 .tile-label {
   font-size: 12px;
   font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 2px;
   text-align: center;
 
   &:last-child {
@@ -181,7 +165,7 @@ $tile-body-a-color: #5959d8 !default;
   margin-bottom: 10px;
 
   a {
-    color: #573BFF;
+    color: #573BFF !important;
   }
 
   .tile-type-block {
@@ -206,26 +190,15 @@ $tile-body-a-color: #5959d8 !default;
     }
   }
 
-  @include generate-tile-block(
-    ".tile-type-block",
-    $tile-type-block-color,
-    $tile-type-block-bgcolor,
-    darken($tile-type-block-color, 20%)
-  );
+  @include generate-tile-block(".tile-type-block", $tile-type-block-color, $tile-type-block-bgcolor );
   @include generate-tile-block(".tile-type-uncle", $tile-type-uncle-color, $tile-type-uncle-bgcolor);
   @include generate-tile-block(".tile-type-reorg", $tile-type-reorg-color, $tile-type-reorg-bgcolor);
   @include generate-tile-block(
     ".tile-type-emission-reward",
     $tile-type-emission-reward-color
   );
-  @include generate-tile-block(
-    ".tile-type-transaction",
-    $tile-type-transaction-color
-  );
-  @include generate-tile-block(
-    ".tile-type-contract-call",
-    $tile-type-contract-call-color
-  );
+  @include generate-tile-block(".tile-type-transaction", $tile-type-transaction-color, $tile-type-transaction-bgcolor );
+  @include generate-tile-block(".tile-type-contract-call", $tile-type-contract-call-color, $tile-type-contract-call-bgcolor );
   @include generate-tile-block(
     ".tile-type-contract-creation",
     $tile-type-contract-creation-color
