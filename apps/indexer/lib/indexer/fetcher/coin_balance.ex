@@ -21,7 +21,7 @@ defmodule Indexer.Fetcher.CoinBalance do
   @behaviour BufferedTask
 
   @defaults [
-    flush_interval: :timer.seconds(10),
+    flush_interval: :timer.seconds(120),
     max_batch_size: 4,
     max_concurrency: 2,
     task_supervisor: Indexer.Fetcher.CoinBalance.TaskSupervisor,

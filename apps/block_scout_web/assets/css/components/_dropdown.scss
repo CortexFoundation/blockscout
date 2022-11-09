@@ -36,9 +36,10 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
 }
 
 .dropdown-item {
-  color: $dropdown-menu-item-color;
-  font-size: 12px;
-  padding: 10px 20px;
+  color: #8C91A3;
+  font-size: 14px;
+  padding: 10px;
+  padding-left: 40px;
   transition: $transition-cont;
   white-space: initial;
 
@@ -46,14 +47,8 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
     &.active,
     &:hover,
     &:focus {
-      background-color: $dropdown-menu-item-hover-background;
-      color: $dropdown-menu-item-hover-color;
-
-      .external-link-icon {
-        path {
-          fill: $header-icon-color-hover;
-        }
-      }
+      background-color: #F6F6F6;
+      color: #474747;
     }
   }
 

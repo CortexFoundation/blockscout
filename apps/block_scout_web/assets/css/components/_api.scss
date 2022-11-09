@@ -147,6 +147,17 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
   .api-badge {
     margin-right: 8px;
+    font-weight: normal;
+
+    &.badge-success {
+      background-color: #E0F4DF;
+      color: #50A64D;
+    }
+
+    &.badge-neutral {
+      background-color: #F5F5FF;
+      color: #573BFF;
+    }
 
     &:last-child {
       margin-right: 0;
@@ -156,7 +167,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
 .api-doc-list-item-controls-view-more {
   align-self: flex-end;
-  color: $api-doc-list-item-view-more-color;
+  color: #474747;
   cursor: pointer;
   font-size: 14px;
   margin-top: auto;
@@ -186,24 +197,34 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-parameters-container {
-  border-top: 1px solid $base-border-color;
+  border-top: 1px solid #EAEBF9;
   margin-top: 20px;
   padding-top: $card-vertical-padding;
+
+  .card-title {
+    button {
+      display: none;
+    }
+  }
 }
 
 .api-doc-parameters-list {
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid #EAEBF9;
   margin-bottom: $card-vertical-padding;
   padding-bottom: math.div($card-vertical-padding, 2);
 }
 
 .api-doc-parameters-list-title {
-  color: #333;
+  color: #202020;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.2;
   margin: 0 0 15px;
   white-space: nowrap;
+
+  .text-danger {
+    color: #FE4C45 !important;
+  }
 }
 
 .api-doc-parameters-list-item {
@@ -224,10 +245,19 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
       }
     }
   }
+
+  .api-doc-tab {
+    color: #C2C2C2 !important;
+  }
+
+  .api-doc-tab.active {
+    color: #573BFF !important;
+    border: none !important;
+  }
 }
 
 .api-doc-parameters-list-item-title {
-  color: #333;
+  color: #202020;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
@@ -235,7 +265,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-parameters-list-item-subtitle {
-  color: #aaa;
+  color: #CDCDCD;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.2;
@@ -243,7 +273,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-parameters-list-item-description {
-  color: #333;
+  color: #202020;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.2;

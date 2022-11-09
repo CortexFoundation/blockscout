@@ -23,30 +23,30 @@ $navbar-logo-width: 100% !default;
 
   .nav-item {
     font-size: 14px;
+    margin-bottom: 15px;
   }
 
   .navbar-nav {
     display: block;
 
-    .nav-link {
+    .nav-link, .home {
       outline: none;
       align-items: center;
-      color: $header-links-color;
+      color: #8C91A2;
       display: flex;
       font-size: 14px;
       position: relative;
       transition: $transition-cont;
+      padding: 5px 15px;
+      text-decoration: none;
 
       .nav-link-icon {
-        align-items: center;
-        display: flex;
-        margin-right: 0.71em;
-        position: relative;
-        top: -1px;
+        margin-right: 10px;
 
-        path {
-          fill: $header-icon-color;
-          transition: $transition-cont;
+	img {
+          display: block;
+          width: 16px;
+          height: 16px;
         }
       }
     }
@@ -98,9 +98,7 @@ $navbar-logo-width: 100% !default;
 }
 
 .navbar-brand {
-  margin-left: 0;
-  flex-shrink: 1;
-  display: inline-flex;
+  margin: 0 0 20px;
   .navbar-logo {
     width: 128px;
   }

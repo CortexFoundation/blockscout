@@ -13,13 +13,13 @@
         <p class="footer-info-text"><%= gettext("Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.") %></p>
         <div class="footer-social-icons">
           <a href="<%= Application.get_env(:block_scout_web, :footer)[:github_link] %>" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Github") %>'>
-            <div class="footer-social-icon-container fontawesome-icon github"></div>
+        	<img src="../images/home/foot1.png">   
           </a>
           <a href="https://www.twitter.com/blockscoutcom/" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Twitter") %>'>
-            <div class="footer-social-icon-container fontawesome-icon twitter"></div>
+		<img src="../images/home/foot2.png">           
           </a>
           <a href="https://t.me/poa_network" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Telegram") %>'>
-            <div class="footer-social-icon-container fontawesome-icon telegram"></div>
+		<img src="../images/home/foot3.png">           
           </a>
         </div>
       </div>

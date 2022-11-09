@@ -124,9 +124,13 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 .tile-muted {
-  background-color: $gray-100;
-  border-left: 1px solid $border-color;
+  background-color: #F2F2F2;
   box-shadow: none;
+  border-radius: 4px;
+
+  pre {
+    color: #474747;
+  }
 }
 
 .tile-code {
