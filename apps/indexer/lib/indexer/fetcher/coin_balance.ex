@@ -76,7 +76,7 @@ defmodule Indexer.Fetcher.CoinBalance do
   end
 
   @impl BufferedTask
-  @decorate trace(name: "fetch", resource: "Indexer.Fetcher.CoinBalance.run/2", service: :indexer, tracer: Tracer)
+  @decorate trace(name: "fetch", resource: "Indexer.Fetcher.CoinBalance.run/2test", service: :indexer, tracer: Tracer)
   def run(entries, json_rpc_named_arguments) do
     # the same address may be used more than once in the same block, but we only want one `Balance` for a given
     # `{address, block}`, so take unique params only
