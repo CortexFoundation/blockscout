@@ -183,6 +183,11 @@ $pagination-page-link-color-active: #fff !default;
 
 .top-pagination-outer-container {
   display: flex;
+  align-items: center;
+
+  .dropdown-menu {
+    position: absolute !important;
+  }
 }
 
 .logs-topbar .pagination-container {

@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-md-12">
       <!-- Transaction Details -->
-      <div class="card js-ad-dependant-mb-3">
+      <div class="card js-ad-dependant-mb-3 tx-detail">
         <div class="card-body">
           <%= cond do %>
             <% Enum.member?(circles_addresses_list, address_hash_str) -> %>

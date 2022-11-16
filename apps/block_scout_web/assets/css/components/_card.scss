@@ -178,9 +178,7 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-tabs {
   align-items: center;
-  border-top-left-radius: $card-default-border-radius;
-  border-top-right-radius: $card-default-border-radius;
-  border-bottom: 1px solid $base-border-color;
+  border-bottom: 1px solid #F7F8FA;
   display: flex;
   justify-content: flex-start;
   overflow: hidden;
@@ -192,8 +190,8 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-tab {
   align-items: center;
-  background-color: $card-background-color;
-  color: #333;
+  background-color: #fff;
+  color: #8C91A3;
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -204,8 +202,8 @@ $card-tab-icon-color-active: #fff !default;
   transition: $transition-cont;
 
   &:hover {
-    background-color: rgba($card-tab-active, .15);
-    color: $card-tab-active;
+    background-color: #573BFF;
+    color: #fff;
     text-decoration: none;
   }
 
@@ -220,7 +218,7 @@ $card-tab-icon-color-active: #fff !default;
   }
 
   &.active {
-    background-color: $card-tab-active;
+    background-color: #573BFF;
     color: #fff;
     cursor: default;
     text-decoration: none;

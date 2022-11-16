@@ -118,14 +118,13 @@
 @mixin btn-line($bg-color: #fff, $text-color: $secondary, $font-size: 12px) {
   -webkit-appearance: none !important;
   align-items: center;
-  background-color: $bg-color;
+  background-color: #fff;
   border-radius: 2px;
-  border: 1px solid $text-color;
-  color: $text-color;
+  border: 1px solid #e1e1e1;
+  color: #686868;
   cursor: pointer;
   display: flex;
   font-size: $font-size;
-  font-weight: 600;
   height: 36px;
   justify-content: center;
   outline: none;
@@ -137,8 +136,6 @@
   font-weight: 400;
 
   &:hover {
-    background-color: $text-color;
-    color: $bg-color;
     text-decoration: none;
 
     path {
@@ -173,7 +170,6 @@
 
 @mixin square-icon-button($color, $dimensions) {
   align-items: center;
-  border: 1px solid $color;
   border-radius: 2px;
   cursor: pointer;
   display: flex;
@@ -181,29 +177,14 @@
   justify-content: center;
   transition: $transition-cont;
   width: $dimensions;
-
-  svg {
-    display: block;
-    height: 100%;
-    width: 100%;
-  }
+  background-color: #F5F8FF;
 
   path {
-    fill: $color;
-    transition: $transition-cont;
-  }
-
-  &:hover {
-    background-color: $color;
-
-    path {
-      fill: #fff;
-    }
+    fill: #573BFF;
   }
 }
 
 @mixin square-icon-button-inline($color, $dimensions) {
-  border: 1px solid $color;
   border-radius: 2px;
   cursor: pointer;
   display: inline;
@@ -212,21 +193,13 @@
   width: $dimensions;
 
   path {
-    fill: $color;
+    fill: #573BFF;
     transition: $transition-cont;
   }
 
   svg {
     vertical-align: text-bottom;   
     margin-bottom: -1.1px;
-  }
-
-  &:hover {
-    background-color: $color;
-
-    path {
-      fill: #fff;
-    }
   }
 }
 

@@ -6,16 +6,16 @@ $tooltip-color: #fff !default;
   min-width: 100px;
 
   .tooltip-inner {
-    background-color: $tooltip-background-color;
+    background-color: rgba(102, 109, 254, 0.9);
     border-radius: 5px;
-    color: $tooltip-color;
+    color: #fff;
     padding: 15px;
     font-size: 12px;
   }
 
   .arrow::before {
-    border-top-color: $tooltip-background-color;
-    border-bottom-color: $tooltip-background-color;
+    border-top-color: rgba(102, 109, 254, 0.9);
+    border-bottom-color: rgba(102, 109, 254, 0.9);
   }
 }
 

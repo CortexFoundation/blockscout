@@ -1,3 +1,22 @@
 dt {
   font-weight: normal;
 }
+
+dt.text-muted {
+  color: #74767D !important;
+}
+
+dd {
+  color: #686868;
+
+  .mr-4 {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    color: #573BFF !important;
+  }
+}
+
+

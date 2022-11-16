@@ -5,7 +5,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg navbar-primary" data-selector="navbar" id="top-navbar">
   <div class="navbar-container">
     <%= link to: webapp_url(@conn), class: "navbar-brand", "data-test": "header_logo" do %>
-        <img class="navbar-logo" id="navbar-logo" src="../images/logo.png" alt="" />
+        <img class="navbar-logo" id="navbar-logo" src="/images/logo.png" alt="" />
     <% end %>
     <div class="" id="navbarSupportedContent">
       <ul class="navbar-nav">
@@ -13,7 +13,7 @@
 	  <li class="nav-item">
             <%= link to: webapp_url(@conn), class: "home", "data-test": "header_logo" do %>
                 <span class="nav-link-icon">
-			<img src="../images/home/nav1.png">
+			<img src="/images/home/nav1.png">
                 </span>
 		Home
             <% end %>
@@ -21,7 +21,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link topnav-nav-link dropdown-toggle" href="#" id="navbarBlocksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
-                <img src="../images/home/nav2.png">
+                <img src="/images/home/nav2.png">
               </span>
               <%= gettext("Blocks") %>
             </a>
@@ -40,7 +40,7 @@
           <li class="nav-item dropdown" id="activeTransactions">
             <a href="#" role="button" id="navbarTransactionsDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
-                <img src="../images/home/nav3.png">
+                <img src="/images/home/nav3.png">
               </span>
               <%= gettext("Transactions") %>
             </a>
@@ -65,7 +65,7 @@
           <li class="nav-item dropdown">
             <a href="#" role="button" id="navbarTokensDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
-                <img src="../images/home/nav4.png">
+                <img src="/images/home/nav4.png">
               </span>
               <%= gettext("Tokens") %>
             </a>
@@ -87,7 +87,7 @@
           <li class="nav-item dropdown">
             <a href="#" role="button" id="navbarAPIsDropdown" class="nav-link topnav-nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="nav-link-icon">
-                <img src="../images/home/nav5.png">
+                <img src="/images/home/nav5.png">
               </span>
               <%= gettext("APIs") %>
             </a>
