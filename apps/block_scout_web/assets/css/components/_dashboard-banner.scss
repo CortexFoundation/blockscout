@@ -11,7 +11,7 @@ $dashboard-line-color-market-dark-theme: $secondary !default;
 $dashboard-line-color-transactions: $warning !default;
 $dashboard-line-color-transactions-dark-theme: $warning !default;
 $dashboard-stats-item-label-color: #fff !default;
-$dashboard-stats-item-value-color: rgba(#fff, 0.8) !default;
+$dashboard-stats-item-value-color: #A5A5A5 !default;
 $dashboard-banner-chart-legend-label-color: #fff !default;
 $dashboard-banner-chart-legend-value-color: $dashboard-stats-item-value-color !default;
 $dashboard-stats-item-border-color: $primary !default;
@@ -33,17 +33,16 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 }
 
 .dashboard-banner-network-graph {
-  padding: 15px 0 0 0;
-  height: 250px;
+  padding: 15px 0;
   width: 100%;
-  background: lightgray;
+  background: #fff;
+  position: relative;
 }
 
 .dashboard-banner-chart {
-  margin: 15px 0 20px 0;
+  margin: 15px 0;
   position: relative;
-  min-height: 100px;
-  height: calc(100% - 86px);
+  height: 250px;
 
   @include media-breakpoint-down(md) {
     flex-grow: 0;
@@ -65,20 +64,18 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
 .dashboard-banner-chart-legend {
   display: grid;
-  grid-template-columns: 0.6fr 0.9fr 0.9fr 0.9fr;
-  padding-bottom: 12px;
-  padding-left:20px;
+  grid-template-columns: 0.9fr 0.9fr 0.9fr;
+  position: absolute;
+  top: 15px;
+  right: 0;
 
   @include media-breakpoint-down(sm) {
     grid-template-columns: 1fr 1fr;
   }
 
   .dashboard-banner-chart-legend-item {
-    padding-bottom: 3px;
-    padding-left: 12px;
-    padding-top: 3px;
     position: relative;
-    padding-right: 12px;
+    padding: 8px 15px;
 
     @include media-breakpoint-down(md) {
       display: flex;
@@ -96,13 +93,14 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     }
 
     &::before {
-      border-radius: 2px;
       content: "";
-      height: 100%;
-      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
       position: absolute;
-      top: 0;
-      width: 4px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &.price-per-day {
@@ -113,7 +111,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
     &.gas-price-oracle {
       &::before {
-        background-color: $dashboard-line-color-price;
+        background-color: #6248FF;
       }
     }
 
@@ -125,18 +123,17 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
     &.tx-per-day {
       &::before {
-        background-color: $dashboard-line-color-transactions;
+        background-color: #1FBFF1;
       }
     }
   }
 
   .dashboard-banner-chart-legend-label {
-    color: $dashboard-banner-chart-legend-label-color;
+    color: #A5A5A5;
     display: block;
     font-size: 12px;
     font-weight: 600;
     line-height: 1.2;
-    margin: 0 0 5px;
 
     @media (max-width: 374px) {
       position: relative;
@@ -149,7 +146,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   }
 
   .dashboard-banner-chart-legend-value {
-    color: $dashboard-banner-chart-legend-value-color;
+    color: #A5A5A5;
     display: block;
     font-size: 12px;
     font-weight: normal;

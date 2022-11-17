@@ -83,7 +83,7 @@ const config = {
       mode: 'index'
     },
     scales: {
-      x: xAxe(sassVariables.dashboardBannerChartAxisFontColor),
+      x: xAxe('#A5A5A5'),
       price: {
         position: 'left',
         grid,
@@ -91,7 +91,7 @@ const config = {
           beginAtZero: true,
           callback: (value, _index, _values) => `$${numeral(value).format('0,0.00')}`,
           maxTicksLimit: 4,
-          color: sassVariables.dashboardBannerChartAxisFontColor
+          color: '#A5A5A5'
         }
       },
       marketCap: {
@@ -101,7 +101,7 @@ const config = {
           callback: (_value, _index, _values) => '',
           maxTicksLimit: 6,
           drawOnChartArea: false,
-          color: sassVariables.dashboardBannerChartAxisFontColor
+          color: '#A5A5A5' 
         }
       },
       numTransactions: {
@@ -111,7 +111,7 @@ const config = {
           beginAtZero: true,
           callback: (value, _index, _values) => formatValue(value),
           maxTicksLimit: 4,
-          color: sassVariables.dashboardBannerChartAxisFontColor
+          color: '#A5A5A5'
         }
       }
     },
@@ -119,7 +119,7 @@ const config = {
       legend,
       title: {
         display: true,
-        color: sassVariables.dashboardBannerChartAxisFontColor
+        color: '#202020'
       },
       tooltip: {
         mode: 'index',
@@ -211,8 +211,8 @@ class MarketHistoryChart {
       fill: false,
       cubicInterpolationMode: 'monotone',
       pointRadius: 0,
-      backgroundColor: priceLineColor,
-      borderColor: priceLineColor
+      backgroundColor: '#6248FF',
+      borderColor: '#6248FF' 
       // lineTension: 0
     }
     if (dataConfig.market === undefined || dataConfig.market.indexOf('price') === -1) {
@@ -247,8 +247,8 @@ class MarketHistoryChart {
       cubicInterpolationMode: 'monotone',
       fill: false,
       pointRadius: 0,
-      backgroundColor: getTxChartColor(),
-      borderColor: getTxChartColor()
+      backgroundColor: '#1FBFF1',
+      borderColor: '#1FBFF1'
       // lineTension: 0
     }
 

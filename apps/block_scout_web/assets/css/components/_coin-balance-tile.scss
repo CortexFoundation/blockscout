@@ -1,9 +1,12 @@
 .tile.tile-type-coin-balance {
+	padding: 10px 0;
+  	border-bottom: 1px solid #F2F2F2;
+
   [data-balance-change-sign="Positive"] {
-    color: $green;
+    color: #50A64D;
   }
 
   [data-balance-change-sign="Negative"] {
-    color: $red;
+    color: #FE4C45;
   }
 }

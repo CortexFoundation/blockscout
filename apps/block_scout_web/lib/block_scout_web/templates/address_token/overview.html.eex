@@ -39,7 +39,7 @@
         native_coin_balance_token
     end
 %>
-<div class="d-md-flex">
+<div class="d-md-flex" style="margin-bottom: 30px;">
     <%= render BlockScoutWeb.AddressTokenView, "overview_item.html",
         title: gettext("Net Worth"),
         tooltip: gettext("Shows total assets held in the address"),

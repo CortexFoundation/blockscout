@@ -24,8 +24,6 @@
           <canvas data-chart="coinBalanceHistoryChart" data-coin_balance_history_data_path="<%= AccessHelpers.get_path(@conn, :address_coin_balance_by_day_path, :index, @address) %>" width="350" height="152"></canvas>
         </div>
 
-        <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", position: "top", cur_page_number: "1", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
-
         <div data-error-message class="alert alert-danger col-12 text-left" style="display: none; padding: 0.75rem 0rem; cursor: pointer;">
           <span href="#" class="alert alert-danger"><%= gettext("Something went wrong, click to reload.") %></span>
         </div>
