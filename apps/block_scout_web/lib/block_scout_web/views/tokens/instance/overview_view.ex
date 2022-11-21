@@ -36,7 +36,7 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
 
   defp get_media_src(metadata, high_quality_media?) do
     cond do
-      metadata["animation_url"] && high_quality_media? ->
+      metadata["animation_url"] && !(metadata["animation_url"] == "") && high_quality_media? ->
         retrieve_image(metadata["animation_url"])
 
       metadata["image_url"] ->
@@ -47,6 +47,9 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
 
       metadata["properties"]["image"]["description"] ->
         metadata["properties"]["image"]["description"]
+
+      metadata["fileSource"]["value"] ->
+        retrieve_image(metadata["fileSource"]["value"])
 
       true ->
         media_src(nil)
@@ -175,7 +178,7 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
 
   defp retrieve_image(image_url) do
     image_url
-    |> URI.encode()
+#    |> URI.encode()
     |> compose_ipfs_url()
   end
 
@@ -188,6 +191,12 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
       image_url =~ ~r/^ipfs:\/\// ->
         "ipfs://" <> ipfs_uid = image_url
         "https://ipfs.io/ipfs/" <> ipfs_uid
+
+      String.slice(image_url, 0, 4) == "http" ->
+        image_url
+
+      String.slice(image_url, 0, 2) == "Qm" ->
+        "https://icarusart.mypinata.cloud/ipfs/" <> image_url  
 
       true ->
         image_url

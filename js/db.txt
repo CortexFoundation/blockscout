@@ -1,0 +1,316 @@
+ Table "public.token_transfers"
+           Column            |            Type             | Collation | Nullable | Default
+-----------------------------+-----------------------------+-----------+----------+---------
+ transaction_hash            | bytea                       |           | not null |
+ log_index                   | integer                     |           | not null |
+ from_address_hash           | bytea                       |           | not null |
+ to_address_hash             | bytea                       |           | not null |
+ amount                      | numeric                     |           |          |
+ token_id                    | numeric(78,0)               |           |          |
+ token_contract_address_hash | bytea                       |           | not null |
+ inserted_at                 | timestamp without time zone |           | not null |
+ updated_at                  | timestamp without time zone |           | not null |
+ block_number                | integer                     |           |          |
+ block_hash                  | bytea                       |           | not null |
+ amounts                     | numeric[]                   |           |          |
+ token_ids                   | numeric(78,0)[]             |           |          |
+Indexes:
+   "token_transfers_pkey" PRIMARY KEY, btree (transaction_hash, block_hash, log_index)
+    "token_transfers_block_number_DESC_log_index_DESC_index" btree (block_number DESC, log_index DESC)
+    "token_transfers_block_number_index" btree (block_number)
+    "token_transfers_from_address_hash_transaction_hash_index" btree (from_address_hash, transaction_hash)
+    "token_transfers_to_address_hash_transaction_hash_index" btree (to_address_hash, transaction_hash)
+    "token_transfers_token_contract_address_hash_block_number_index" btree (token_contract_address_hash, block_number)
+    "token_transfers_token_contract_address_hash_token_id_DESC_block" btree (token_contract_address_hash, token_id DESC, block_number DESC)
+    "token_transfers_token_contract_address_hash_transaction_hash_in" btree (token_contract_address_hash, transaction_hash)
+    "token_transfers_token_id_index" btree (token_id)
+    "token_transfers_token_ids_index" gin (token_ids)
+    "token_transfers_transaction_hash_log_index_index" btree (transaction_hash, log_index)
+Foreign-key constraints:
+    "token_transfers_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash)
+    "token_transfers_from_address_hash_fkey" FOREIGN KEY (from_address_hash) REFERENCES addresses(hash)
+    "token_transfers_to_address_hash_fkey" FOREIGN KEY (to_address_hash) REFERENCES addresses(hash)
+    "token_transfers_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES addresses(hash)
+    "token_transfers_transaction_hash_fkey" FOREIGN KEY (transaction_hash) REFERENCES transactions(hash) ON DELETE CASCADE
+
+
+
+                                Table "public.tokens"
+        Column         |            Type             | Collation | Nullable | Default
+-----------------------+-----------------------------+-----------+----------+---------
+ name                  | text                        |           |          |
+ symbol                | text                        |           |          |
+ total_supply          | numeric                     |           |          |
+ decimals              | numeric                     |           |          |
+ type                  | character varying(255)      |           | not null |
+ cataloged             | boolean                     |           |          | false
+ contract_address_hash | bytea                       |           | not null |
+ inserted_at           | timestamp without time zone |           | not null |
+ updated_at            | timestamp without time zone |           | not null |
+ holder_count          | integer                     |           |          |
+ skip_metadata         | boolean                     |           |          |
+Indexes:
+    "tokens_pkey" PRIMARY KEY, btree (contract_address_hash)
+    "tokens_contract_address_hash_index" UNIQUE, btree (contract_address_hash)
+    "tokens_symbol_index" btree (symbol)
+    "tokens_trgm_idx" gin (to_tsvector('english'::regconfig, (symbol || ' '::text) || name))
+    "tokens_type_index" btree (type)
+Foreign-key constraints:
+    "tokens_contract_address_hash_fkey" FOREIGN KEY (contract_address_hash) REFERENCES addresses(hash) ON DELETE CASCADE
+Referenced by:
+    TABLE "address_current_token_balances" CONSTRAINT "address_current_token_balances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+    TABLE "address_token_balances" CONSTRAINT "address_token_balances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+    TABLE "token_instances" CONSTRAINT "token_instances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+
+
+                               Table "public.token_instances"
+           Column            |            Type             | Collation | Nullable | Default
+-----------------------------+-----------------------------+-----------+----------+---------
+ token_id                    | numeric(78,0)               |           | not null |
+ token_contract_address_hash | bytea                       |           | not null |
+ metadata                    | jsonb                       |           |          |
+ inserted_at                 | timestamp without time zone |           | not null |
+ updated_at                  | timestamp without time zone |           | not null |
+ error                       | character varying(255)      |           |          |
+Indexes:
+    "token_instances_pkey" PRIMARY KEY, btree (token_id, token_contract_address_hash)
+    "token_instances_error_index" btree (error)
+    "token_instances_token_contract_address_hash_token_id_index" btree (token_contract_address_hash, token_id)
+    "token_instances_token_id_index" btree (token_id)
+Foreign-key constraints:
+    "token_instances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+
+
+
+
+address;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | char(44)   | NO   | PRI | NULL    |       |
+| type   | int(11)    | YES  |     | NULL    |       |
+| stdItf | int(11)    | YES  |     | NULL    |       |
+| code   | mediumtext | YES  |     | NULL    |       |
+| source | mediumtext | YES  |     | NULL    |       |
+| tag    | char(255)  | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+
+token
+
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| txHash      | char(68)   | NO   | PRI | NULL    |       |
+| blockNumber | int(11)    | YES  |     | NULL    |       |
+| logIndex    | char(10)   | NO   | PRI | NULL    |       |
+| from        | char(44)   | YES  | MUL | NULL    |       |
+| to          | char(44)   | YES  | MUL | NULL    |       |
+| token       | char(44)   | YES  | MUL | NULL    |       |
+| value       | char(44)   | YES  |     | NULL    |       |
+| timestamp   | bigint(20) | YES  |     | NULL    |       |
+| stdItf      | int(4)     | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+
+nft
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| tokenid     | int(11)      | NO   | MUL | NULL    |                |
+| tokenhash   | char(68)     | NO   | MUL | NULL    |                |
+| url         | varchar(516) | YES  |     | NULL    |                |
+| detail      | text         | YES  |     | NULL    |                |
+| title       | char(68)     | YES  |     | NULL    |                |
+| author      | char(68)     | YES  |     | NULL    |                |
+| description | text         | YES  |     | NULL    |                |
+| image       | varchar(516) | YES  |     | NULL    |                |
+| name        | char(68)     | YES  |     | NULL    |                |
+| timestamp   | bigint(20)   | YES  |     | NULL    |                |
+| owner       | char(44)     | YES  |     |         |                |
+| filetype    | char(8)      | YES  |     | 0       |                |
++-------------+--------------+------+-----+---------+----------------+
+
+| nft   | CREATE TABLE `nft` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tokenid` int(11) NOT NULL,
+  `tokenhash` char(68) NOT NULL,
+  `url` varchar(516) DEFAULT NULL,
+  `detail` text,
+  `title` char(68) DEFAULT NULL,
+  `author` char(68) DEFAULT NULL,
+  `description` text,
+  `image` varchar(516) DEFAULT NULL,
+  `name` char(68) DEFAULT NULL,
+  `timestamp` bigint(20) DEFAULT NULL,
+  `owner` char(44) DEFAULT '',
+  `filetype` char(8) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `tokenid` (`tokenid`),
+  KEY `tokenhash` (`tokenhash`)
+) ENGINE=InnoDB AUTO_INCREMENT=1974 DEFAULT CHARSET=utf8 |
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: token_instances; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.token_instances (
+    token_id numeric(78,0) NOT NULL,
+    token_contract_address_hash bytea NOT NULL,
+    metadata jsonb,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    error character varying(255),
+
+);
+
+
+ALTER TABLE public.token_instances OWNER TO postgres;
+
+--
+-- Name: token_instances token_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token_instances
+    ADD CONSTRAINT token_instances_pkey PRIMARY KEY (token_id, token_contract_address_hash);
+
+
+--
+-- Name: token_instances_error_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_error_index ON public.token_instances USING btree (error);
+
+
+--
+-- Name: token_instances_token_contract_address_hash_token_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_token_contract_address_hash_token_id_index ON public.token_instances USING btree (token_contract_address_hash, token_id);
+
+
+--
+-- Name: token_instances_token_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_token_id_index ON public.token_instances USING btree (token_id);
+
+
+--
+-- Name: token_instances token_instances_token_contract_address_hash_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token_instances
+    ADD CONSTRAINT token_instances_token_contract_address_hash_fkey FOREIGN KEY (token_contract_address_hash) REFERENCES public.tokens(contract_address_hash);
+
+CREATE TABLE nft_info (
+  tokenid numeric(78,0) NOT NULL,
+  tokenhash bytea NOT NULL,
+  url character varying(255) DEFAULT NULL,
+  detail text,
+  title character varying(255) DEFAULT NULL,
+  author character varying(255) DEFAULT NULL,
+  description text,
+  image character varying(255) DEFAULT NULL,
+  name character varying(255) DEFAULT NULL,
+  timestamp timestamp without time zone DEFAULT NULL,
+  owner bytea DEFAULT '',
+  filetype character varying(8) DEFAULT '0',
+  PRIMARY KEY (tokenid,tokenhash)
+  );
+
+
+
+
+
+
+  bad address
+
+
+"0xe00e0017d4e5d6a66fccfb8cd5ca420a37132fb0",
+"0xc4410034ecd32b796a7cf163c10c4fddf73a20c9",
+"0x27d3c3d43c2c41dc5dfdd94dde229ed52766c396",
+"0x9ce5df04b7f9f5aa9bc4c025c82930405f8bc88d",
+"0x4d77c83de4877f46e2cc734ca0fc2e9554c97d2b",
+"0x41bb67b4d006c02d3f58e46e19ac45d561b06cc7",
+//"0x3098cd2ac28af4a068eeb0c1eb3fcb82ff2d0424",
+//"0xb63b189e00b5a845f919c9c9518f903f99cfee63",
+//"0xe0d6d4aa5b33c459ea7616550966ae42cda92862",
+"0x00d4bc4f3c2af920ce7b52a8e8b8d47d15971f43",
+"0xeadcc4634dfdcfbe48d5fcf2fe51fdf83c9740f0",
+"0x8d3e262f02de200ef0576fbcf610a683170d1451",
+"0x5a12356240d0cba1a201161d4c81afb556a7fd4a",
+"0xec3bc67c43e20dd50ca74a73a69843f2615477e7",
+"0x953a9837f5a72966c15cf414e87bdf2634155d5b",
+"0x12e2026a9f764d33461c4e37e672e407bcf3c33f",
+"0x94fca5158d8fbad6f6054d35aab152658bf52671",
+"0xa450b73840276a079434e5cda4c2f6efb06f8911",
+"0x84c728762497306386aa7c3de9c8c9a689698196",
+"0xb5c849c964624a984387001aaee0e1ba801bed03",
+"0xff411d0dd4f92ef89470b829918835e8dba1a2ac",
+"0x9223387cd8494a4f9defb59ac0be700be7c9f8be",
+"0xe2108243092e8df8310c26b20ec0857f6fe46a17",
+"0x5fdd5c303ac99913b83a0942b007e9c7921ca474",
+"0x18ec574cf3a6469d3e8c14da3976f321ec0cad26",
+"0xa5c2882010e36f61fdb969a1de064ec1cd65ea5f",
+"0x5272e91fbf047f65bd6aa356414bae3699856169",
+"0x4b800ecb57b9ccc9f50e46dac81be58ae91125a6",
+"0xb0eb70c2c158b2b0d736dc80c6e5dfceaf76e8cd",
+"0x24fc3fc8622b0002a9816b77d99bbdc1ed72776a",
+"0x6824ee67e135085def9c082f05e83e5f68a51240",
+"0x62f7ffa9ed83f4a6dc46a08b3b0a2653d70e6bd3",
+"0x1511f5792ddeddccbf90f290310f3c66a943e14e",
+"0x9672484ba8cb1ad1f32dc955b09b7f2ed262e7cc",
+"0x7e6b4985a857c1b531f8d388c7ab83a76eb03dbd",
+"0x449ed958062ba2c46dd3ef311dffab15e36bf275",
+"0x83657bbac1e074cfabefc15078b78df693c2ef90",
+"0xf013f34d6243d215cb79bec734664d8503db9774",
+"0x898368e0aaab05db77f3101f5776b887fb56b7b2",
+"0xa5b2cd33852ef00edbf6b63ba8359d81788000ae",
+"0x3a1ab0b001f114c7edb2d0d9f362cef6c793e462",
+"0xaf2a4678ee6b7a137a47868fc933f64ca1bd98e3",
+"0x650f0c1bbce311dce7b6c13e69646e08e1e8d443",
+"0x39bc59074241969f510d38c4d4f972386e0394fc",
+"0x1c34a7940d9d0c77e3178686b05122779a76bcd8",
+"0x9b48a0c1eaf1e93ef96799edd4d5207974450665",
+"0xb8fb2e1fe51b8bb3e1e5f352086fe1e707099348",
+"0xfd9871012bfc9bad4ec8fc0536982e3ca520e3ab",
+"0x290f4f6ee789d2c540d8f4f97baa5b7f54f873b9",
+"0x27c841b7a6ea14290a4427ce0c937dea173ec8cd",
+"0xba19f0fb4472f4710d18b5cc189dbdb62dc7b220",
+"0xb06a249a32616f74bba9bb28bf63737daf8bf7bb",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

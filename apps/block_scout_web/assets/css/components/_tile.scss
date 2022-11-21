@@ -10,7 +10,8 @@ $tile-type-transaction-bgcolor: #E6F0FF !default;
 $tile-type-contract-call-color: #3AB696 !default;
 $tile-type-contract-call-bgcolor: #EEFFFB !default;
 $tile-type-contract-creation-color: $dark-purple !default;
-$tile-type-token-transfer-color: $orange !default;
+$tile-type-token-transfer-color: #323BCC !default;
+$tile-type-token-transfer-bgcolor: #E6F0FF !default;
 $tile-type-unique-token-color: $orange !default;
 $tile-type-unique-token-image-color: $orange !default;
 $tile-type-internal-transaction-color: $teal !default;
@@ -179,13 +180,6 @@ $tile-body-a-color: #5959d8 !default;
     color: #573BFF !important;
   }
 
-  .tile-type-block {
-    .tile-title {
-      font-size: 14px;
-      font-weight: bold;
-    }
-  }
-
   .tile-body {
     margin-bottom: 10px;
     background-color: #F6F8FF;
@@ -214,10 +208,7 @@ $tile-body-a-color: #5959d8 !default;
     ".tile-type-contract-creation",
     $tile-type-contract-creation-color
   );
-  @include generate-tile-block(
-    ".tile-type-token-transfer",
-    $tile-type-token-transfer-color
-  );
+  @include generate-tile-block(".tile-type-token-transfer", $tile-type-token-transfer-color, $tile-type-token-transfer-bgcolor );
   @include generate-tile-block(
     ".tile-type-unique-token",
     $tile-type-unique-token-color
@@ -308,6 +299,13 @@ $tile-body-a-color: #5959d8 !default;
       border-radius: 2px;
     }
   }
+}
+
+.tile-type-block {
+    .tile-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
 }
 
 .card-chain-blocks {

@@ -188,6 +188,16 @@ defmodule Explorer.Token.InstanceMetadataRetriever do
     fetch_metadata_inner(ipfs_url, hex_token_id)
   end
 
+    def fetch_json(%{@token_uri => {:ok, ["Qm" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
+    def fetch_json(%{@uri => {:ok, ["Qm" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
   def fetch_json(%{@token_uri => {:ok, [json]}}, hex_token_id) do
     {:ok, json} = decode_json(json)
 
@@ -221,7 +231,9 @@ defmodule Explorer.Token.InstanceMetadataRetriever do
   end
 
   defp fetch_metadata_inner(uri, hex_token_id) do
+
     prepared_uri = substitute_token_id_to_token_uri(uri, hex_token_id)
+
 
     case HTTPoison.get(prepared_uri) do
       {:ok, %Response{body: body, status_code: 200, headers: headers}} ->

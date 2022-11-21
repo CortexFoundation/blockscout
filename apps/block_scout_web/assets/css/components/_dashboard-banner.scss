@@ -64,7 +64,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
 .dashboard-banner-chart-legend {
   display: grid;
-  grid-template-columns: 0.9fr 0.9fr 0.9fr;
+  grid-template-columns: 1fr 1fr 1fr;
   position: absolute;
   top: 15px;
   right: 0;
@@ -131,7 +131,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .dashboard-banner-chart-legend-label {
     color: #A5A5A5;
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
 
@@ -148,7 +148,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .dashboard-banner-chart-legend-value {
     color: #A5A5A5;
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     line-height: 1.2;
 

@@ -119,7 +119,10 @@ const config = {
       legend,
       title: {
         display: true,
-        color: '#202020'
+        color: '#202020',
+	font: {
+	  size: 20
+	}
       },
       tooltip: {
         mode: 'index',
