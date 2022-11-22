@@ -8,7 +8,7 @@ $i-tooltip-background-active: $primary !default;
   width: 16px;
 
   .i-tooltip-circle  {
-    fill: $i-tooltip-background;
+    fill: #CDD5F4;
   }
 
   .i-tooltip-info  {
@@ -17,7 +17,7 @@ $i-tooltip-background-active: $primary !default;
 
   &:hover {
     .i-tooltip-circle {
-      fill: $i-tooltip-background-active;
+      fill: #666DFE;
     }
   }
 

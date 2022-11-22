@@ -48,13 +48,13 @@ p {
 }
 
 a {
-  color: $common-link-color;
+  color: #573BFF;
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: darken($common-link-color, 20%);
     text-decoration: underline;
+    color: #573BFF;
   }
 
   .bg-primary &:hover,
@@ -107,17 +107,6 @@ textarea.form-control {
   color: $success;
 }
 
-[data-internal-transaction-type="Call"] {
-  color: $blue;
-}
-
-[data-internal-transaction-type="Delegate Call"] {
-  color: $purple;
-}
-
-[data-internal-transaction-type="Create"] {
-  color: $pink;
-}
 
 [data-transaction-status^="Error"],
 [data-internal-transaction-type="Suicide"] {

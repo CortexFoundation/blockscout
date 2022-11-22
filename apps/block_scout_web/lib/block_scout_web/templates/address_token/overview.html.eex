@@ -48,8 +48,8 @@
         classes: ["fs-14"]
     %>
     <%= render BlockScoutWeb.AddressTokenView, "overview_item.html",
-        title: "#{native_coin} #{gettext("Balance")}",
-        tooltip: "#{gettext("Shows the current")} #{native_coin} #{gettext("balance of the address")}",
+        title: gettext("CTXC Balance"),
+        tooltip: "#{gettext("Shows the current")} #{gettext("CTXC balance of the address")}",
         value: raw(native_coin_balance),
         data_test: "address-tokens-panel-native-worth",
         classes: ["fs-14"]

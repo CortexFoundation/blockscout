@@ -14,14 +14,12 @@ $button-secondary-color: $secondary !default;
   white-space: nowrap;
 
   &-primary {
-    background-color: $button-primary-color;
-    border: 1px solid $button-primary-color;
+    background-color: #573BFF;
     color: #fff;
 
     &:hover,
     &:focus {
-      background-color: darken($button-primary-color, 10%);
-      border-color: darken($button-primary-color, 10%);
+      background-color: #573BFF;
       color: #fff;
       outline: none !important;
       text-decoration: none;
@@ -29,7 +27,7 @@ $button-secondary-color: $secondary !default;
 
     &:disabled {
       background-color: $gray-300;
-      color: $gray-800;
+      color: #fff;
       text-decoration: none;
     }
   }

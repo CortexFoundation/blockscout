@@ -38,6 +38,8 @@
                 ) %>
               </div>
             </div>
+            <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
+
           </div>
         </div>
         <div data-selector="channel-batching-message" style="display: none;">
