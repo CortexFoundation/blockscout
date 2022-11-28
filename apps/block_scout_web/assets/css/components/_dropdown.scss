@@ -35,6 +35,10 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
   }
 }
 
+.dropdown.u-push-sm {
+  margin-right: 10px;
+}
+
 .dropdown-item {
   color: #8C91A3;
   font-size: 14px;
@@ -47,8 +51,8 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
     &.active,
     &:hover,
     &:focus {
-      background-color: #F6F6F6;
-      color: #474747;
+      background-color: #573BFF;
+      color: #fff;
     }
   }
 

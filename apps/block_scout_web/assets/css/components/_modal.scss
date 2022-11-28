@@ -55,17 +55,7 @@
   position: relative;
   .btn-primary {
     box-shadow: none !important;
-    background-color: $btn-line-color;
-    border: 1px solid $btn-line-color;
-    &:hover {
-      background-color: $btn-line-color;
-      border-color: $btn-line-color;
-    }
-    &:focus,
-    &:active {
-      background-color: darken($btn-line-color, 10%) !important;
-      border-color: darken($btn-line-color, 10%) !important;
-    }
+    border-radius: 5px;
   }
 }
 

@@ -1,22 +1,20 @@
-$dashboard-banner-gradient-start: $primary !default;
-$dashboard-banner-gradient-end: lighten(
-  $dashboard-banner-gradient-start,
-  5%
-) !default;
+$dashboard-banner-gradient-start: $primary  !default;
+$dashboard-banner-gradient-end: lighten($dashboard-banner-gradient-start,
+    5%) !default;
 $dashboard-banner-network-plain-container-background-color: lighten($dashboard-banner-gradient-end, 5%) !default;
 $dashboard-line-color-price: lighten($dashboard-banner-gradient-end, 5%) !default;
 $dashboard-line-color-price-dark-theme: lighten($dashboard-banner-gradient-end, 5%) !default;
-$dashboard-line-color-market: $secondary !default;
-$dashboard-line-color-market-dark-theme: $secondary !default;
-$dashboard-line-color-transactions: $warning !default;
-$dashboard-line-color-transactions-dark-theme: $warning !default;
+$dashboard-line-color-market: $secondary  !default;
+$dashboard-line-color-market-dark-theme: $secondary  !default;
+$dashboard-line-color-transactions: $warning  !default;
+$dashboard-line-color-transactions-dark-theme: $warning  !default;
 $dashboard-stats-item-label-color: #fff !default;
 $dashboard-stats-item-value-color: #A5A5A5 !default;
 $dashboard-banner-chart-legend-label-color: #fff !default;
-$dashboard-banner-chart-legend-value-color: $dashboard-stats-item-value-color !default;
-$dashboard-stats-item-border-color: $primary !default;
+$dashboard-banner-chart-legend-value-color: $dashboard-stats-item-value-color  !default;
+$dashboard-stats-item-border-color: $primary  !default;
 $dashboard-banner-network-plain-container-height: 205px;
-$dashboard-banner-chart-axis-font-color: $dashboard-stats-item-value-color !default;
+$dashboard-banner-chart-axis-font-color: $dashboard-stats-item-value-color  !default;
 $dashboard-banner-chart-axis-font-color-alt: #333;
 
 .dashboard-banner-container {
@@ -51,7 +49,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     max-width: 100%;
   }
 
-  > canvas {
+  >canvas {
     max-height: 100%;
     max-width: 100%;
     width: 100%;
@@ -63,8 +61,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 }
 
 .dashboard-banner-chart-legend {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   position: absolute;
   top: 15px;
   right: 0;
@@ -117,7 +114,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
     &.market-cap-per-day {
       &::before {
-        background-color:$dashboard-line-color-market;
+        background-color: $dashboard-line-color-market;
       }
     }
 
@@ -164,6 +161,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .gas-price-icon {
     position: relative;
     top: -2px;
+
     path {
       fill: $dashboard-line-color-price;
     }
@@ -186,6 +184,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     padding: 30px;
     background: #fff;
     position: relative;
+    overflow: hidden;
 
     &::after {
       content: "";
@@ -199,7 +198,23 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     }
   }
 
-  .dashboard-banner-network-stats-item + .dashboard-banner-network-stats-item {
+  .dashboard-banner-network-stats-item .dashboard-banner-network-stats-item-backgroundImg {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    bottom: -41px;
+    right: -41px;
+    display: none;
+  }
+  .dashboard-banner-network-stats-item .dashboard-banner-network-stats-item-backgroundImg2 {
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    bottom: -44px;
+    right: -51px;
+    display: none;
+  }
+  .dashboard-banner-network-stats-item+.dashboard-banner-network-stats-item {
     margin-left: 15px;
   }
 
@@ -238,6 +253,13 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     .dashboard-banner-network-stats-label,
     .dashboard-banner-network-stats-value {
       color: #fff;
+    }
+
+    .dashboard-banner-network-stats-item-backgroundImg {
+      display: block;
+    }
+    .dashboard-banner-network-stats-item-backgroundImg2 {
+      display: block;
     }
   }
 }
