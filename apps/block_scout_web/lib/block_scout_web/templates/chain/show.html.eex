@@ -17,6 +17,7 @@
                   <%= Timex.format_duration(average_block_time, Explorer.Counters.AverageBlockTimeDurationFormat) %>
                 </span>
                 <img src="../images/home/time.png" class="dashboard-banner-network-stats-item-backgroundImg">
+                <img src="../images/home/timeWhenHover.png" class="dashboard-banner-network-stats-item-backgroundImg3">
               </div>
           <% end %>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-2">
@@ -41,6 +42,7 @@
               <% end %>
             </div>
                 <img src="../images/home/TotalTransactions.png" class="dashboard-banner-network-stats-item-backgroundImg">
+                <img src="../images/home/TotalTransactionsWhenHover.png" class="dashboard-banner-network-stats-item-backgroundImg3">
           </div>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-3">
             <span class="dashboard-banner-network-stats-label">
@@ -51,6 +53,7 @@
               <%= BlockScoutWeb.Cldr.Number.to_string!(@block_count, format: "#,###") %>
             </span>
                 <img src="../images/home/TotalBlocks.png" class="dashboard-banner-network-stats-item-backgroundImg">
+                <img src="../images/home/TotalBlocksWhenHover.png" class="dashboard-banner-network-stats-item-backgroundImg3">
           </div>
           <div class="dashboard-banner-network-stats-item dashboard-banner-network-stats-item-4">
             <span class="dashboard-banner-network-stats-label">
@@ -60,7 +63,8 @@
             <span class="dashboard-banner-network-stats-value" data-selector="address-count">
               <%= BlockScoutWeb.Cldr.Number.to_string!(@address_count, format: "#,###") %>
             </span>
-            <img src="../images/home/WalletAddresses.png" class="dashboard-banner-network-stats-item-backgroundImg">
+            <img src="../images/home/WalletAddresses.png" class="dashboard-banner-network-stats-item-backgroundImg2">
+            <img src="../images/home/WalletAddressesWhenHover.png" class="dashboard-banner-network-stats-item-backgroundImg4">
           </div>
         </div>
       </div>

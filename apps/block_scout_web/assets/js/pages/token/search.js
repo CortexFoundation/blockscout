@@ -4,6 +4,11 @@ import humps from 'humps'
 import { createAsyncLoadStore } from '../../lib/async_listing_load'
 import '../address'
 
+$('#activeBlocks').removeClass('show');
+$('#activeBlocks .dropdown-menu').removeClass('show');
+$('#activeTokens').addClass('show');
+$('#activeTokens .dropdown-menu').addClass('show');
+
 const $searchInput = $('.tokens-list-search-input')
 
 export const initialState = {

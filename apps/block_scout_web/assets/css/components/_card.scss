@@ -165,11 +165,17 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-chain-blocks {
   margin-right: 15px;
+  flex: 1;
+
   [class*="col-"]:last-child {
     .tile {
       margin-bottom: 0;
     }
   }
+}
+
+.card-chain-transactions {
+  flex: 2;
 }
 
 .card-tabs {

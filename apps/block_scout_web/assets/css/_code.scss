@@ -25,7 +25,12 @@ pre {
 }
 
 .pre-scrollable-shorty {
-  max-height: math.div($pre-scrollable-max-height, 7);
+  max-height: 60px;
+}
+
+.pre-scrollable {
+  padding: 15px !important;
+  color: #686868 !important;
 }
 
 .tile pre {

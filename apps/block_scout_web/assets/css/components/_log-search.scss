@@ -1,12 +1,8 @@
 .logs-topbar {
-	padding-bottom: 30px;
-	@media (min-width: 600px) {
-		display: flex;
-		justify-content: space-between;
-	}
-	.pagination-container.position-top {
-		padding-top: 0 !important;
-	}
+	padding-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .logs-search {
@@ -20,39 +16,32 @@
 }
 
 .logs-search-input, .logs-search-btn, .logs-search-btn-cancel {
-	height: 24px;
-	background-color: #f5f6fa;
-	border: 1px solid #f5f6fa;
-	color: #333;
-	border-radius: 2px;
 	outline: none;
-	font-family: Nunito, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 12px;
-    font-weight: 600;
-    -webkit-appearance: none;
+	border: 1px solid #DBDBDB;
+	color: #8C91A3;
+	border-radius: 5px;
+	font-size: 14px;
+	height: 40px;
 }
 
 .logs-search-input {
-    padding-left: 6px;
     display: inline-flex;
     flex-grow: 2;
     min-width: 160px;
-    font-weight: 300 !important;
     &::placeholder {
-    	color: #a3a9b5;
-    	font-weight: 300 !important;
+    	color: #DBDBDB;
     }
 }
 
 .logs-search-btn {
-	margin-left: 6px;
-	color: #a3a9b5;
+	padding: 0 20px;
+	background: #F2F2F2;
 	transition: .1s ease-in;
 	cursor: pointer;
+	position: absolute;
+	right: 0;
 	&:hover {
-		background-color: $primary;
-		color: #fff;
-		border-color: $primary;
+            color: #573BFF;
 	}
 }
 

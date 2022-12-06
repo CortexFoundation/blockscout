@@ -2,13 +2,10 @@ $form-control-border-color: #e2e5ec !default;
 $form-control-border-color-active: $primary !default;
 
 .form-control {
-  border-color: #e2e5ec !important;
+  border: 1px solid #DBDBDB !important;
   border-radius: 5px;
   font-size: 14px;
-
-  &.border-rounded {
-    border-radius: 4px;
-  }
+  color: #686868 !important;
 
   &:focus {
     box-shadow: none;
@@ -140,6 +137,7 @@ $form-control-border-color-active: $primary !default;
   background-position: left;
   background-position-x: 10px;
   background-size: 20px 20px;
+  padding-left: 35px;
 }
 
 .tokens-list-search-input {
@@ -148,6 +146,5 @@ $form-control-border-color-active: $primary !default;
   @include media-breakpoint-down(md) {
     width: 100%;
   }
-  padding: 10px 10px 10px 35px;
   outline: none;
 }

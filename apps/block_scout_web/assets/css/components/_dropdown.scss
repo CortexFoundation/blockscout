@@ -11,22 +11,11 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
   border-top: none;
   padding: 0;
   width: 100%;
-  position: static !important;
+  min-width: auto;
 
   &.right {
     left: auto;
     right: 0;
-  }
-
-  .nav-item & {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-    top: 45px;
-
-    .dropdown-item:first-child {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
   }
 
   &.exponention-dropdown {
@@ -47,6 +36,11 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
   transition: $transition-cont;
   white-space: initial;
 
+  &.tx-input-dropdown {
+    padding-left: 10px;
+    text-align: center;
+  }
+
   & {
     &.active,
     &:hover,
@@ -54,16 +48,6 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
       background-color: #573BFF;
       color: #fff;
     }
-  }
-
-  &:first-child {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  &:last-child {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
   }
 
   &.header {
@@ -85,6 +69,7 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
 
 .navbar .dropdown-menu {
   border: none;
+  position: static !important;
 }
 
 .dropdown-search-icon {
@@ -105,7 +90,7 @@ $dropdown-menu-item-hover-background: rgba($secondary, 0.1) !default;
 
 .token-balance-dropdown {
   transform: none !important;
-  top: 20px !important;
+  top: 30px !important;
   left: unset !important;
   width: 300px !important;
 }

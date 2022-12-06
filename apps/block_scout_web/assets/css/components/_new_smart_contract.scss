@@ -5,17 +5,11 @@ $new-smart-contract-center-column-margin-right: 30px;
 
 .new-smart-contract-container {
   background-color: #fff;
-  background-image: linear-gradient(
-    to bottom right,
-    #{$new-smart-contract-container-tooltips-background-color} 100%,
-    #{$new-smart-contract-container-tooltips-background-color} 100%
-  );
+  background-image: linear-gradient(to bottom right, #F7F8FA 100%, #F7F8FA 100%);
   background-position: 100% 0;
   background-repeat: repeat-y;
-  background-size: #{$new-smart-contract-tooltips-width} 1px;
-  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-  margin-bottom: 3rem;
-  padding: 50px 0 50px 22px;
+  background-size: 300px 1px;
+  padding: 30px 0;
 
   @include media-breakpoint-down(md) {
     background-image: none;
@@ -23,12 +17,15 @@ $new-smart-contract-center-column-margin-right: 30px;
   }
 }
 
+.new-smart-contract-form {
+  padding-left: 30px;
+}
+
 .smart-contract-title {
-  color: #333;
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 1.2;
-  margin: 0 0 70px 0;
+  color: #202020;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 50px;
   padding: 0;
   text-align: left;
 
@@ -79,12 +76,18 @@ $new-smart-contract-center-column-margin-right: 30px;
     flex-direction: column;
   }
 
+  #smart_contract_address_hash {
+    background-color: #F5F8FF;
+    color: #573BFF;
+    border: none;
+  }
+
   > label {
-    color: #333;
+    color: #74767D;
     flex-grow: 0;
     font-size: 14px;
     font-weight: normal;
-    line-height: 1.7;
+    line-height: 35px;
     margin: 0;
     padding-right: 15px;
     text-align: left;
@@ -118,15 +121,15 @@ $new-smart-contract-center-column-margin-right: 30px;
   }
 
   .smart-contract-form-group-tooltip {
-    color: $smart-contract-form-group-tooltip-color;
+    color: #B6B6B6;
     flex-grow: 0;
     flex-shrink: 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     line-height: 1.5;
     padding: 0 30px;
     text-align: left;
-    width: #{$new-smart-contract-tooltips-width};
+    width: 300px;
 
     @include media-breakpoint-down(md) {
       padding: 10px 0 0 0;
@@ -168,11 +171,9 @@ $new-smart-contract-center-column-margin-right: 30px;
 }
 
 .smart-contract-form-buttons {
-  align-items: center;
-  border-top: 1px solid $base-border-color;
+  border-top: 1px solid #F2F2F2;
   display: flex;
-  margin-right: $new-smart-contract-center-column-margin-right + $new-smart-contract-tooltips-width;
-  margin-top: -1px;
+  margin-right: 330px;
   padding-top: 30px;
   position: relative;
 
@@ -183,6 +184,19 @@ $new-smart-contract-center-column-margin-right: 30px;
   [class*="btn-"] {
     position: relative;
     z-index: 1;
+  }
+
+  .btn-no-border {
+    width: 120px;
+    height: 40px;
+    border: 1px solid #DBDBDB;
+    color: #8C91A3;
+    border-radius: 5px;
+  }
+
+  .js-smart-contract-form-reset {
+    width: 120px;
+    height: 40px;
   }
 
   .position-absolute {

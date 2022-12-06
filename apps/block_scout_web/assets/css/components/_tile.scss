@@ -5,16 +5,16 @@ $tile-type-uncle-bgcolor: #F3FFF5 !default;
 $tile-type-reorg-color: #7D32CC !default;
 $tile-type-reorg-bgcolor: #FBF5FF !default;
 $tile-type-emission-reward-color: $lilac !default;
-$tile-type-transaction-color: #323BCC !default;
+$tile-type-transaction-color: #485DFF !default;
 $tile-type-transaction-bgcolor: #E6F0FF !default;
 $tile-type-contract-call-color: #3AB696 !default;
 $tile-type-contract-call-bgcolor: #EEFFFB !default;
 $tile-type-contract-creation-color: $dark-purple !default;
-$tile-type-token-transfer-color: #323BCC !default;
+$tile-type-token-transfer-color: #485DFF !default;
 $tile-type-token-transfer-bgcolor: #E6F0FF !default;
 $tile-type-unique-token-color: $orange !default;
 $tile-type-unique-token-image-color: $orange !default;
-$tile-type-internal-transaction-color: #323BCC !default;
+$tile-type-internal-transaction-color: #485DFF !default;
 $tile-type-internal-transaction-bgcolor: #E6F0FF !default;
 $tile-type-api-documentation-color: $primary !default;
 $tile-type-progress-bar-color: $primary !default;
@@ -137,11 +137,19 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 .tile.tile-muted.text-center, .alert-info {
-  padding: 20px;
+  padding: 10px 20px;
   color: #474747;
   font-size: 14px;
   background-color: #F5F5FF;
   border: none;
+}
+
+.tile-muted[data-test="address_log"] {
+  padding: 15px 20px;
+
+  .text-dark {
+    color: #474747 !important;
+  }
 }
 
 .tile-code {
@@ -203,10 +211,7 @@ $tile-body-a-color: #5959d8 !default;
   );
   @include generate-tile-block(".tile-type-transaction", $tile-type-transaction-color, $tile-type-transaction-bgcolor );
   @include generate-tile-block(".tile-type-contract-call", $tile-type-transaction-color, $tile-type-transaction-bgcolor);
-  @include generate-tile-block(
-    ".tile-type-contract-creation",
-    $tile-type-contract-creation-color
-  );
+  @include generate-tile-block(".tile-type-contract-creation", $tile-type-transaction-color, $tile-type-transaction-bgcolor);
   @include generate-tile-block(".tile-type-token-transfer", $tile-type-token-transfer-color, $tile-type-token-transfer-bgcolor );
   @include generate-tile-block(
     ".tile-type-unique-token",
@@ -221,10 +226,7 @@ $tile-body-a-color: #5959d8 !default;
     ".tile-type-api-documentation",
     $tile-type-api-documentation-color
   );
-  @include generate-tile-block(
-    '[class*="status--error"]',
-    $tile-status-error-reason
-  );
+  @include generate-tile-block('[class*="status--error"]', $tile-type-transaction-color, $tile-type-transaction-bgcolor);
   @include generate-tile-block(
     ".tile-status--awaiting-internal-transactions",
     $tile-status-awaiting-internal-transactions

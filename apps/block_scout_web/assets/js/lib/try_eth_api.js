@@ -1,6 +1,9 @@
 import $ from 'jquery'
 import './try_api'
 
+$('#activeAPIs').addClass('show');
+$('#activeAPIs .dropdown-menu').addClass('show');
+
 function composeCurlCommand (data) {
   const url = $('[data-endpoint-url]').attr('data-endpoint-url')
   return `curl -H "content-type: application/json" -X POST --data '${JSON.stringify(data)}' ${url}`

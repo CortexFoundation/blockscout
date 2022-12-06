@@ -1,0 +1,20 @@
+module.exports = {
+	GETH_HOSTNAME: '127.0.0.1',
+	// GETH_HOSTNAME: '127.0.0.1',
+	//GETH_RPCPORT: 30089,
+	GETH_RPCPORT: 8545,
+	// GETH_RPCPORT: 31089,
+
+	DB_HOSTNAME: '127.0.0.1',
+	DB_PORT: 3306,
+	DB_NAME: 'ctxc_mainnet',
+	DB_USER: 'root',
+	DB_PASSWORD: '123456',
+	DAPP_DB_NAME:'dapp_00',
+
+	UPLOAD_URL: '127.0.0.1:5000/txion',
+
+	LOG_DIR: './logs',
+
+	LOCAL_PORT: 8585
+}

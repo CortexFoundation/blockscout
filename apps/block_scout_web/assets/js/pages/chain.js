@@ -381,7 +381,7 @@ export function placeHolderBlock (blockNumber) {
       <div
         class="tile tile-type-block d-flex align-items-center fade-up"
       >
-        <span class="loading-spinner-small ml-1 mr-4">
+        <span class="loading-spinner-small">
           <span class="loading-spinner-block-1"></span>
           <span class="loading-spinner-block-2"></span>
         </span>

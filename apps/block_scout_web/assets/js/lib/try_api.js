@@ -5,6 +5,9 @@ import { escapeHtml } from './utils'
 // This file adds event handlers responsible for the 'Try it out' UI in the
 // Etherscan-compatible API documentation page.
 
+$('#activeAPIs').addClass('show');
+$('#activeAPIs .dropdown-menu').addClass('show');
+
 function composeQuery (module, action, inputs) {
   const parameters = queryParametersFromInputs(inputs)
   return `?module=${module}&action=${action}` + parameters.join('')

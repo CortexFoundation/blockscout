@@ -17,6 +17,9 @@ export const initialState = {
 
 export const blockReducer = withMissingBlocks(baseReducer)
 
+$('#activeBlocks').addClass('show');
+$('#activeBlocks .dropdown-menu').addClass('show');
+
 function baseReducer (state = initialState, action) {
   switch (action.type) {
     case 'ELEMENTS_LOAD': {

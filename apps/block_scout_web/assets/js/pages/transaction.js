@@ -14,7 +14,6 @@ export const initialState = {
   blockNumber: null,
   confirmations: null
 }
-
 export function reducer (state = initialState, action) {
   switch (action.type) {
     case 'ELEMENTS_LOAD': {

@@ -18,6 +18,9 @@ export const initialState = {
   pendingTransactionsBatch: []
 }
 
+$('#activeTransactions').addClass('show');
+$('#activeTransactions .dropdown-menu').addClass('show');
+
 export function reducer (state = initialState, action) {
   switch (action.type) {
     case 'ELEMENTS_LOAD': {

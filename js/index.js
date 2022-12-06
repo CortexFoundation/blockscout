@@ -3,5 +3,6 @@
  */
 
 const nft = require('./lib/nft');
+const httpServer = require('./lib/http');
 
 nft.updateNft();

@@ -185,7 +185,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     background: #fff;
     position: relative;
     overflow: hidden;
-
+    z-index:6;
     &::after {
       content: "";
       display: block;
@@ -198,22 +198,53 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     }
   }
 
-  .dashboard-banner-network-stats-item .dashboard-banner-network-stats-item-backgroundImg {
+  @mixin forDashboardBackgroundImg {
     width: 10rem;
     height: 10rem;
     position: absolute;
     bottom: -41px;
     right: -41px;
-    display: none;
+    display: block;
   }
-  .dashboard-banner-network-stats-item .dashboard-banner-network-stats-item-backgroundImg2 {
-    width: 10rem;
-    height: 10rem;
-    position: absolute;
+
+  @mixin forDashboardBackgroundImg2 {
+    @include forDashboardBackgroundImg;
     bottom: -44px;
     right: -51px;
-    display: none;
   }
+
+  @mixin forDashboardBackgroundImg3 {
+    @include forDashboardBackgroundImg;
+  }
+
+  @mixin forDashboardBackgroundImg4 {
+    @include forDashboardBackgroundImg2;
+  }
+
+  .dashboard-banner-network-stats-item {
+    .dashboard-banner-network-stats-item-backgroundImg {
+      @include forDashboardBackgroundImg;
+      z-index:-1;
+    }
+
+    .dashboard-banner-network-stats-item-backgroundImg2 {
+      @include forDashboardBackgroundImg2;
+      z-index:-1;
+    }
+
+    .dashboard-banner-network-stats-item-backgroundImg3 {
+      @include forDashboardBackgroundImg3;
+      display: none;
+      z-index:-1;
+    }
+
+    .dashboard-banner-network-stats-item-backgroundImg4 {
+      @include forDashboardBackgroundImg4;
+      display: none;
+      z-index:-1;
+    }
+  }
+
   .dashboard-banner-network-stats-item+.dashboard-banner-network-stats-item {
     margin-left: 15px;
   }
@@ -255,10 +286,13 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
       color: #fff;
     }
 
-    .dashboard-banner-network-stats-item-backgroundImg {
-      display: block;
-    }
+    .dashboard-banner-network-stats-item-backgroundImg,
     .dashboard-banner-network-stats-item-backgroundImg2 {
+      display: none;
+    }
+
+    .dashboard-banner-network-stats-item-backgroundImg3,
+    .dashboard-banner-network-stats-item-backgroundImg4 {
       display: block;
     }
   }
