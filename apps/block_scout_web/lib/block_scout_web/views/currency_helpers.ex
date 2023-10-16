@@ -15,7 +15,13 @@ defmodule BlockScoutWeb.CurrencyHelpers do
   """
   @spec format_integer_to_currency(non_neg_integer()) :: String.t()
   def format_integer_to_currency(value) do
-    {:ok, formatted} = Number.to_string(value, format: "#,##0")
+    result =
+      if is_nil(value) do
+        0
+      else
+        value
+      end
+    {:ok, formatted} = Number.to_string(result, format: "#,##0")
 
     formatted
   end

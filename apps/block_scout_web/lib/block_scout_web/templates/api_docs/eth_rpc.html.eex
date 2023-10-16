@@ -2,9 +2,9 @@
   <div class="card">
     <div class="card-body">
       <h1 class="card-title margin-bottom-sm"><%= gettext("ETH RPC API Documentation") %></h2>
-      <p class="api-text-monospace" data-endpoint-url="<%= eth_rpc_api_url() %>">[ <%= gettext "Base URL:" %> <%= eth_rpc_api_url()%> ]</p>
+      <p class="api-text-monospace" data-endpoint-url="https://ansible.cortexlabs.ai/api/ctxc-rpc">[ <%= gettext "Base URL:" %> <%= gettext "https://ansible.cortexlabs.ai/api/ctxc-rpc"%> ]</p>
       <p class="card-subtitle margin-bottom-0">
-        <%= gettext "This API is provided to support some rpc methods in the exact format specified for ethereum nodes, which can be found " %>
+        <%= gettext "This API is provided to support some rpc methods in the exact format specified for Cortex nodes, which can be found " %>
 
         <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC"><%= gettext "here." %></a>
         <%= gettext "This is useful to allow sending requests to blockscout without having to change anything about the request." %>

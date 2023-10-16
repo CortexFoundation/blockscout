@@ -323,16 +323,20 @@ function pagesNumbersGenerate (pagesLimit, $container, currentPageNumber, loadin
   let resultHTML = ''
   if (pagesLimit < 1) { return }
   if (pagesLimit <= maxPageNumberInOneLine) {
+    console.log(326);
     resultHTML = renderPaginationElements(1, pagesLimit, currentPageNumber, loading)
   } else if (currentPageNumber < groupedPagesNumber) {
+    console.log(329);
     resultHTML += renderPaginationElements(1, groupedPagesNumber, currentPageNumber, loading)
     resultHTML += renderPaginationElement('...', false, loading)
     resultHTML += renderPaginationElement(pagesLimit, currentPageNumber === pagesLimit, loading)
   } else if (currentPageNumber > pagesLimit - groupedPagesNumber) {
+    console.log(334);
     resultHTML += renderPaginationElement(1, currentPageNumber === 1, loading)
     resultHTML += renderPaginationElement('...', false, loading)
     resultHTML += renderPaginationElements(pagesLimit - groupedPagesNumber, pagesLimit, currentPageNumber, loading)
   } else {
+    console.log(339);
     resultHTML += renderPaginationElement(1, currentPageNumber === 1, loading)
     const step = parseInt(groupedPagesNumber / 2)
     if (currentPageNumber - step - 1 === 2) {
@@ -360,6 +364,7 @@ function renderPaginationElements (start, end, currentPageNumber, loading) {
 }
 
 function renderPaginationElement (text, active, loading) {
+  console.log(367,text, active, loading)
   return '<li class="page-item' + (active ? ' active' : '') + (text === '...' || loading ? ' disabled' : '') + '"><a class="page-link page-link-light-hover" data-page-number=' + text + '>' + text + '</a></li>'
 }
 

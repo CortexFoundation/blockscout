@@ -70,8 +70,9 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
       "ContractAddress",
       "Type",
       "CallType",
-      "Gas",
-      "GasUsed",
+      "Endorphin",
+      "Endorphin Used",
+      "Transaction Fee",
       "Value",
       "Input",
       "Output",
@@ -96,6 +97,7 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
           internal_transaction.call_type,
           internal_transaction.gas,
           internal_transaction.gas_used,
+          fee(internal_transaction),
           Wei.to(internal_transaction.value, :wei),
           internal_transaction.input,
           internal_transaction.output,
@@ -105,4 +107,14 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
 
     Stream.concat([row_names], internal_transaction_lists)
   end
+
+  defp fee(internal_transactions) do
+    internal_transactions
+    |> Chain.fee(:wei)
+    |> case do
+      {:actual, value} -> value
+      {:maximum, value} -> "Max of #{value}"
+    end
+  end
+
 end

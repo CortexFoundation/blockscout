@@ -1,3 +1,16 @@
 <div class="bs-label <%= @additional_classes |> Enum.join(" ") %>">
-    <%= @text %>
+                       <%= if @text=="0xc06896e7" || @text=="0x0a7b7be4" do %>
+                        <%= gettext("Mint") %>
+                       <% else %>
+                        <%= if @text=="0x42842e0e" do %>
+                         <%= gettext("SafeTransferFrom") %>
+                        <% else %>
+                         <%= if @text=="0x23b872dd" do %>
+                          <%= gettext("TransferFrom") %>
+                         <% else %>
+                          <%= @text %>
+                         <% end %>
+                        <% end %>
+                       <% end %>
+
 </div>

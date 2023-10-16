@@ -1,0 +1,407 @@
+ Table "public.token_transfers"
+           Column            |            Type             | Collation | Nullable | Default
+-----------------------------+-----------------------------+-----------+----------+---------
+ transaction_hash            | bytea                       |           | not null |
+ log_index                   | integer                     |           | not null |
+ from_address_hash           | bytea                       |           | not null |
+ to_address_hash             | bytea                       |           | not null |
+ amount                      | numeric                     |           |          |
+ token_id                    | numeric(78,0)               |           |          |
+ token_contract_address_hash | bytea                       |           | not null |
+ inserted_at                 | timestamp without time zone |           | not null |
+ updated_at                  | timestamp without time zone |           | not null |
+ block_number                | integer                     |           |          |
+ block_hash                  | bytea                       |           | not null |
+ amounts                     | numeric[]                   |           |          |
+ token_ids                   | numeric(78,0)[]             |           |          |
+Indexes:
+   "token_transfers_pkey" PRIMARY KEY, btree (transaction_hash, block_hash, log_index)
+    "token_transfers_block_number_DESC_log_index_DESC_index" btree (block_number DESC, log_index DESC)
+    "token_transfers_block_number_index" btree (block_number)
+    "token_transfers_from_address_hash_transaction_hash_index" btree (from_address_hash, transaction_hash)
+    "token_transfers_to_address_hash_transaction_hash_index" btree (to_address_hash, transaction_hash)
+    "token_transfers_token_contract_address_hash_block_number_index" btree (token_contract_address_hash, block_number)
+    "token_transfers_token_contract_address_hash_token_id_DESC_block" btree (token_contract_address_hash, token_id DESC, block_number DESC)
+    "token_transfers_token_contract_address_hash_transaction_hash_in" btree (token_contract_address_hash, transaction_hash)
+    "token_transfers_token_id_index" btree (token_id)
+    "token_transfers_token_ids_index" gin (token_ids)
+    "token_transfers_transaction_hash_log_index_index" btree (transaction_hash, log_index)
+Foreign-key constraints:
+    "token_transfers_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash)
+    "token_transfers_from_address_hash_fkey" FOREIGN KEY (from_address_hash) REFERENCES addresses(hash)
+    "token_transfers_to_address_hash_fkey" FOREIGN KEY (to_address_hash) REFERENCES addresses(hash)
+    "token_transfers_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES addresses(hash)
+    "token_transfers_transaction_hash_fkey" FOREIGN KEY (transaction_hash) REFERENCES transactions(hash) ON DELETE CASCADE
+
+
+
+                                Table "public.tokens"
+        Column         |            Type             | Collation | Nullable | Default
+-----------------------+-----------------------------+-----------+----------+---------
+ name                  | text                        |           |          |
+ symbol                | text                        |           |          |
+ total_supply          | numeric                     |           |          |
+ decimals              | numeric                     |           |          |
+ type                  | character varying(255)      |           | not null |
+ cataloged             | boolean                     |           |          | false
+ contract_address_hash | bytea                       |           | not null |
+ inserted_at           | timestamp without time zone |           | not null |
+ updated_at            | timestamp without time zone |           | not null |
+ holder_count          | integer                     |           |          |
+ skip_metadata         | boolean                     |           |          |
+Indexes:
+    "tokens_pkey" PRIMARY KEY, btree (contract_address_hash)
+    "tokens_contract_address_hash_index" UNIQUE, btree (contract_address_hash)
+    "tokens_symbol_index" btree (symbol)
+    "tokens_trgm_idx" gin (to_tsvector('english'::regconfig, (symbol || ' '::text) || name))
+    "tokens_type_index" btree (type)
+Foreign-key constraints:
+    "tokens_contract_address_hash_fkey" FOREIGN KEY (contract_address_hash) REFERENCES addresses(hash) ON DELETE CASCADE
+Referenced by:
+    TABLE "address_current_token_balances" CONSTRAINT "address_current_token_balances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+    TABLE "address_token_balances" CONSTRAINT "address_token_balances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+    TABLE "token_instances" CONSTRAINT "token_instances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+
+
+                               Table "public.token_instances"
+           Column            |            Type             | Collation | Nullable | Default
+-----------------------------+-----------------------------+-----------+----------+---------
+ token_id                    | numeric(78,0)               |           | not null |
+ token_contract_address_hash | bytea                       |           | not null |
+ metadata                    | jsonb                       |           |          |
+ inserted_at                 | timestamp without time zone |           | not null |
+ updated_at                  | timestamp without time zone |           | not null |
+ error                       | character varying(255)      |           |          |
+Indexes:
+    "token_instances_pkey" PRIMARY KEY, btree (token_id, token_contract_address_hash)
+    "token_instances_error_index" btree (error)
+    "token_instances_token_contract_address_hash_token_id_index" btree (token_contract_address_hash, token_id)
+    "token_instances_token_id_index" btree (token_id)
+Foreign-key constraints:
+    "token_instances_token_contract_address_hash_fkey" FOREIGN KEY (token_contract_address_hash) REFERENCES tokens(contract_address_hash)
+
+
+
+                              Table "public.blocks"
+      Column      |            Type             | Collation | Nullable | Default
+------------------+-----------------------------+-----------+----------+---------
+ consensus        | boolean                     |           | not null |
+ difficulty       | numeric(50,0)               |           |          |
+ gas_limit        | numeric(100,0)              |           | not null |
+ gas_used         | numeric(100,0)              |           | not null |
+ hash             | bytea                       |           | not null |
+ miner_hash       | bytea                       |           | not null |
+ nonce            | bytea                       |           | not null |
+ number           | bigint                      |           | not null |
+ parent_hash      | bytea                       |           | not null |
+ size             | integer                     |           |          |
+ timestamp        | timestamp without time zone |           | not null |
+ total_difficulty | numeric(50,0)               |           |          |
+ inserted_at      | timestamp without time zone |           | not null |
+ updated_at       | timestamp without time zone |           | not null |
+ refetch_needed   | boolean                     |           |          | false
+ base_fee_per_gas | numeric(100,0)              |           |          |
+ is_empty         | boolean                     |           |          |
+Indexes:
+    "blocks_pkey" PRIMARY KEY, btree (hash)
+    "blocks_consensus_index" btree (consensus)
+    "blocks_inserted_at_index" btree (inserted_at)
+    "blocks_is_empty_index" btree (is_empty)
+    "blocks_miner_hash_index" btree (miner_hash)
+    "blocks_miner_hash_number_index" btree (miner_hash, number)
+    "blocks_number_index" btree (number)
+    "blocks_timestamp_index" btree ("timestamp")
+    "empty_consensus_blocks" btree (consensus) WHERE is_empty IS NULL
+    "one_consensus_block_at_height" UNIQUE, btree (number) WHERE consensus
+    "one_consensus_child_per_parent" UNIQUE, btree (parent_hash) WHERE consensus
+Foreign-key constraints:
+    "blocks_miner_hash_fkey" FOREIGN KEY (miner_hash) REFERENCES addresses(hash)
+Referenced by:
+    TABLE "block_rewards" CONSTRAINT "block_rewards_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash) ON DELETE CASCADE
+    TABLE "block_second_degree_relations" CONSTRAINT "block_second_degree_relations_nephew_hash_fkey" FOREIGN KEY (nephew_hash) REFERENCES blocks(hash)
+    TABLE "internal_transactions" CONSTRAINT "internal_transactions_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash)
+    TABLE "logs" CONSTRAINT "logs_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash)
+    TABLE "pending_block_operations" CONSTRAINT "pending_block_operations_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash) ON DELETE CASCADE
+    TABLE "token_transfers" CONSTRAINT "token_transfers_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash)
+    TABLE "transaction_forks" CONSTRAINT "transaction_forks_uncle_hash_fkey" FOREIGN KEY (uncle_hash) REFERENCES blocks(hash) ON DELETE CASCADE
+    TABLE "transactions" CONSTRAINT "transactions_block_hash_fkey" FOREIGN KEY (block_hash) REFERENCES blocks(hash) ON DELETE CASCADE
+
+
+
+Table "public.block_second_degree_relations"
+      Column      |            Type             | Collation | Nullable | Default
+------------------+-----------------------------+-----------+----------+---------
+ nephew_hash      | bytea                       |           | not null |
+ uncle_hash       | bytea                       |           | not null |
+ uncle_fetched_at | timestamp without time zone |           |          |
+ index            | integer                     |           |          |
+Indexes:
+    "block_second_degree_relations_pkey" PRIMARY KEY, btree (nephew_hash, uncle_hash)
+    "nephew_hash_to_uncle_hash" UNIQUE, btree (nephew_hash, uncle_hash)
+    "uncle_hash_to_nephew_hash" UNIQUE, btree (uncle_hash, nephew_hash)
+    "unfetched_uncles" UNIQUE, btree (nephew_hash, uncle_hash) WHERE uncle_fetched_at IS NULL
+Foreign-key constraints:
+    "block_second_degree_relations_nephew_hash_fkey" FOREIGN KEY (nephew_hash) REFERENCES blocks(hash)
+
+
+                                     Table "public.addresses"
+              Column               |            Type             | Collation | Nullable | Default
+-----------------------------------+-----------------------------+-----------+----------+---------
+ fetched_coin_balance              | numeric(100,0)              |           |          |
+ fetched_coin_balance_block_number | bigint                      |           |          |
+ hash                              | bytea                       |           | not null |
+ contract_code                     | bytea                       |           |          |
+ inserted_at                       | timestamp without time zone |           | not null |
+ updated_at                        | timestamp without time zone |           | not null |
+ nonce                             | integer                     |           |          |
+ decompiled                        | boolean                     |           |          |
+ verified                          | boolean                     |           |          |
+ gas_used                          | bigint                      |           |          |
+ transactions_count                | integer                     |           |          |
+ token_transfers_count             | integer                     |           |          |
+Indexes:
+    "addresses_pkey" PRIMARY KEY, btree (hash)
+    "addresses_fetched_coin_balance_hash_index" btree (fetched_coin_balance DESC, hash) WHERE fetched_coin_balance > 0::numeric
+    "addresses_fetched_coin_balance_index" btree (fetched_coin_balance)
+    "addresses_inserted_at_index" btree (inserted_at)
+Referenced by:
+    TABLE "address_coin_balances" CONSTRAINT "address_coin_balances_address_hash_fkey" FOREIGN KEY (address_hash) REFERENCES addresses(hash)
+    TABLE "address_coin_balances_daily" CONSTRAINT "address_coin_balances_daily_address_hash_fkey" FOREIGN KEY (address_hash) REFERENCES addresses(hash)
+    TABLE "address_current_token_balances" CONSTRAINT "address_current_token_balances_address_hash_fkey" FOREIGN KEY (address_hash) REFERENCES addresses(hash)
+
+
+
+
+address;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | char(44)   | NO   | PRI | NULL    |       |
+| type   | int(11)    | YES  |     | NULL    |       |
+| stdItf | int(11)    | YES  |     | NULL    |       |
+| code   | mediumtext | YES  |     | NULL    |       |
+| source | mediumtext | YES  |     | NULL    |       |
+| tag    | char(255)  | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+
+token
+
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| txHash      | char(68)   | NO   | PRI | NULL    |       |
+| blockNumber | int(11)    | YES  |     | NULL    |       |
+| logIndex    | char(10)   | NO   | PRI | NULL    |       |
+| from        | char(44)   | YES  | MUL | NULL    |       |
+| to          | char(44)   | YES  | MUL | NULL    |       |
+| token       | char(44)   | YES  | MUL | NULL    |       |
+| value       | char(44)   | YES  |     | NULL    |       |
+| timestamp   | bigint(20) | YES  |     | NULL    |       |
+| stdItf      | int(4)     | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+
+nft
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| tokenid     | int(11)      | NO   | MUL | NULL    |                |
+| tokenhash   | char(68)     | NO   | MUL | NULL    |                |
+| url         | varchar(516) | YES  |     | NULL    |                |
+| detail      | text         | YES  |     | NULL    |                |
+| title       | char(68)     | YES  |     | NULL    |                |
+| author      | char(68)     | YES  |     | NULL    |                |
+| description | text         | YES  |     | NULL    |                |
+| image       | varchar(516) | YES  |     | NULL    |                |
+| name        | char(68)     | YES  |     | NULL    |                |
+| timestamp   | bigint(20)   | YES  |     | NULL    |                |
+| owner       | char(44)     | YES  |     |         |                |
+| filetype    | char(8)      | YES  |     | 0       |                |
++-------------+--------------+------+-----+---------+----------------+
+
+| nft   | CREATE TABLE `nft` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tokenid` int(11) NOT NULL,
+  `tokenhash` char(68) NOT NULL,
+  `url` varchar(516) DEFAULT NULL,
+  `detail` text,
+  `title` char(68) DEFAULT NULL,
+  `author` char(68) DEFAULT NULL,
+  `description` text,
+  `image` varchar(516) DEFAULT NULL,
+  `name` char(68) DEFAULT NULL,
+  `timestamp` bigint(20) DEFAULT NULL,
+  `owner` char(44) DEFAULT '',
+  `filetype` char(8) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `tokenid` (`tokenid`),
+  KEY `tokenhash` (`tokenhash`)
+) ENGINE=InnoDB AUTO_INCREMENT=1974 DEFAULT CHARSET=utf8 |
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: token_instances; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.token_instances (
+    token_id numeric(78,0) NOT NULL,
+    token_contract_address_hash bytea NOT NULL,
+    metadata jsonb,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    error character varying(255),
+
+);
+
+
+ALTER TABLE public.token_instances OWNER TO postgres;
+
+--
+-- Name: token_instances token_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token_instances
+    ADD CONSTRAINT token_instances_pkey PRIMARY KEY (token_id, token_contract_address_hash);
+
+
+--
+-- Name: token_instances_error_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_error_index ON public.token_instances USING btree (error);
+
+
+--
+-- Name: token_instances_token_contract_address_hash_token_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_token_contract_address_hash_token_id_index ON public.token_instances USING btree (token_contract_address_hash, token_id);
+
+
+--
+-- Name: token_instances_token_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX token_instances_token_id_index ON public.token_instances USING btree (token_id);
+
+
+--
+-- Name: token_instances token_instances_token_contract_address_hash_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.token_instances
+    ADD CONSTRAINT token_instances_token_contract_address_hash_fkey FOREIGN KEY (token_contract_address_hash) REFERENCES public.tokens(contract_address_hash);
+
+CREATE TABLE nft_info (
+  tokenid numeric(78,0) NOT NULL,
+  tokenhash bytea NOT NULL,
+  url character varying(255) DEFAULT NULL,
+  detail text,
+  title character varying(255) DEFAULT NULL,
+  author character varying(255) DEFAULT NULL,
+  description text,
+  image character varying(255) DEFAULT NULL,
+  name character varying(255) DEFAULT NULL,
+  timestamp timestamp without time zone DEFAULT NULL,
+  owner bytea DEFAULT '',
+  filetype character varying(8) DEFAULT '0',
+  PRIMARY KEY (tokenid,tokenhash)
+  );
+
+
+
+
+
+
+  bad address
+
+
+"0xe00e0017d4e5d6a66fccfb8cd5ca420a37132fb0",
+"0xc4410034ecd32b796a7cf163c10c4fddf73a20c9",
+"0x27d3c3d43c2c41dc5dfdd94dde229ed52766c396",
+"0x9ce5df04b7f9f5aa9bc4c025c82930405f8bc88d",
+"0x4d77c83de4877f46e2cc734ca0fc2e9554c97d2b",
+"0x41bb67b4d006c02d3f58e46e19ac45d561b06cc7",
+//"0x3098cd2ac28af4a068eeb0c1eb3fcb82ff2d0424",
+//"0xb63b189e00b5a845f919c9c9518f903f99cfee63",
+//"0xe0d6d4aa5b33c459ea7616550966ae42cda92862",
+"0x00d4bc4f3c2af920ce7b52a8e8b8d47d15971f43",
+"0xeadcc4634dfdcfbe48d5fcf2fe51fdf83c9740f0",
+"0x8d3e262f02de200ef0576fbcf610a683170d1451",
+"0x5a12356240d0cba1a201161d4c81afb556a7fd4a",
+"0xec3bc67c43e20dd50ca74a73a69843f2615477e7",
+"0x953a9837f5a72966c15cf414e87bdf2634155d5b",
+"0x12e2026a9f764d33461c4e37e672e407bcf3c33f",
+"0x94fca5158d8fbad6f6054d35aab152658bf52671",
+"0xa450b73840276a079434e5cda4c2f6efb06f8911",
+"0x84c728762497306386aa7c3de9c8c9a689698196",
+"0xb5c849c964624a984387001aaee0e1ba801bed03",
+"0xff411d0dd4f92ef89470b829918835e8dba1a2ac",
+"0x9223387cd8494a4f9defb59ac0be700be7c9f8be",
+"0xe2108243092e8df8310c26b20ec0857f6fe46a17",
+"0x5fdd5c303ac99913b83a0942b007e9c7921ca474",
+"0x18ec574cf3a6469d3e8c14da3976f321ec0cad26",
+"0xa5c2882010e36f61fdb969a1de064ec1cd65ea5f",
+"0x5272e91fbf047f65bd6aa356414bae3699856169",
+"0x4b800ecb57b9ccc9f50e46dac81be58ae91125a6",
+"0xb0eb70c2c158b2b0d736dc80c6e5dfceaf76e8cd",
+"0x24fc3fc8622b0002a9816b77d99bbdc1ed72776a",
+"0x6824ee67e135085def9c082f05e83e5f68a51240",
+"0x62f7ffa9ed83f4a6dc46a08b3b0a2653d70e6bd3",
+"0x1511f5792ddeddccbf90f290310f3c66a943e14e",
+"0x9672484ba8cb1ad1f32dc955b09b7f2ed262e7cc",
+"0x7e6b4985a857c1b531f8d388c7ab83a76eb03dbd",
+"0x449ed958062ba2c46dd3ef311dffab15e36bf275",
+"0x83657bbac1e074cfabefc15078b78df693c2ef90",
+"0xf013f34d6243d215cb79bec734664d8503db9774",
+"0x898368e0aaab05db77f3101f5776b887fb56b7b2",
+"0xa5b2cd33852ef00edbf6b63ba8359d81788000ae",
+"0x3a1ab0b001f114c7edb2d0d9f362cef6c793e462",
+"0xaf2a4678ee6b7a137a47868fc933f64ca1bd98e3",
+"0x650f0c1bbce311dce7b6c13e69646e08e1e8d443",
+"0x39bc59074241969f510d38c4d4f972386e0394fc",
+"0x1c34a7940d9d0c77e3178686b05122779a76bcd8",
+"0x9b48a0c1eaf1e93ef96799edd4d5207974450665",
+"0xb8fb2e1fe51b8bb3e1e5f352086fe1e707099348",
+"0xfd9871012bfc9bad4ec8fc0536982e3ca520e3ab",
+"0x290f4f6ee789d2c540d8f4f97baa5b7f54f873b9",
+"0x27c841b7a6ea14290a4427ce0c937dea173ec8cd",
+"0xba19f0fb4472f4710d18b5cc189dbdb62dc7b220",
+"0xb06a249a32616f74bba9bb28bf63737daf8bf7bb",
+
+
+
+select miner_hash, min(timestamp), count(*) as num,consensus from blocks where (current_timestamp - interval '24 hour') <= timestamp group by miner_hash,consensus order by consensus,num DESC;
+
+
+
+(current_timestamp - interval '24 hour') <= timestamp
+
+
+ALTER table block ADD INDEX miner(miiner);
+
+
+
+
+0x60806040523480156200001157600080fd5b5060405162001b4938038062001b498339810160408190526200003491620001d1565b8151829082906200004d90600090602085019062000074565b5080516200006390600190602084019062000074565b50506001600755506200028e915050565b82805462000082906200023b565b90600052602060002090601f016020900481019282620000a65760008555620000f1565b82601f10620000c157805160ff1916838001178555620000f1565b82800160010185558215620000f1579182015b82811115620000f1578251825591602001919060010190620000d4565b50620000ff92915062000103565b5090565b5b80821115620000ff576000815560010162000104565b600082601f8301126200012c57600080fd5b81516001600160401b038082111562000149576200014962000278565b604051601f8301601f19908116603f0116810190828211818310171562000174576200017462000278565b816040528381526020925086838588010111156200019157600080fd5b600091505b83821015620001b5578582018301518183018401529082019062000196565b83821115620001c75760008385830101525b9695505050505050565b60008060408385031215620001e557600080fd5b82516001600160401b0380821115620001fd57600080fd5b6200020b868387016200011a565b935060208501519150808211156200022257600080fd5b5062000231858286016200011a565b9150509250929050565b600181811c908216806200025057607f821691505b602082108114156200027257634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052604160045260246000fd5b6118ab806200029e6000396000f3fe608060405234801561001057600080fd5b50600436106101005760003560e01c80636352211e11610097578063b88d4fde11610066578063b88d4fde14610213578063c06896e714610226578063c87b56dd14610239578063e985e9c51461024c57600080fd5b80636352211e146101d257806370a08231146101e557806395d89b41146101f8578063a22cb4651461020057600080fd5b80630a7b7be4116100d35780630a7b7be41461018257806323b872dd1461019557806342842e0e146101a8578063556d8628146101bb57600080fd5b806301ffc9a71461010557806306fdde031461012d578063081812fc14610142578063095ea7b31461016d575b600080fd5b6101186101133660046114dc565b610288565b60405190151581526020015b60405180910390f35b6101356102da565b6040516101249190611627565b610155610150366004611576565b61036c565b6040516001600160a01b039091168152602001610124565b61018061017b36600461143d565b6103f9565b005b610180610190366004611516565b61050f565b6101806101a33660046112e9565b61051d565b6101806101b63660046112e9565b61054e565b6101c460075481565b604051908152602001610124565b6101556101e0366004611576565b610569565b6101c46101f336600461129b565b6105e0565b610135610667565b61018061020e366004611401565b610676565b610180610221366004611325565b610681565b610180610234366004611467565b6106b9565b610135610247366004611576565b610700565b61011861025a3660046112b6565b6001600160a01b03918216600090815260056020908152604080832093909416825291909152205460ff1690565b60006001600160e01b031982166380ac58cd60e01b14806102b957506001600160e01b03198216635b5e139f60e01b145b806102d457506301ffc9a760e01b6001600160e01b03198316145b92915050565b6060600080546102e99061179a565b80601f01602080910402602001604051908101604052809291908181526020018280546103159061179a565b80156103625780601f1061033757610100808354040283529160200191610362565b820191906000526020600020905b81548152906001019060200180831161034557829003601f168201915b5050505050905090565b600061037782610877565b6103dd5760405162461bcd60e51b815260206004820152602c60248201527f4552433732313a20617070726f76656420717565727920666f72206e6f6e657860448201526b34b9ba32b73a103a37b5b2b760a11b60648201526084015b60405180910390fd5b506000908152600460205260409020546001600160a01b031690565b600061040482610569565b9050806001600160a01b0316836001600160a01b031614156104725760405162461bcd60e51b815260206004820152602160248201527f4552433732313a20617070726f76616c20746f2063757272656e74206f776e656044820152603960f91b60648201526084016103d4565b336001600160a01b038216148061048e575061048e813361025a565b6105005760405162461bcd60e51b815260206004820152603860248201527f4552433732313a20617070726f76652063616c6c6572206973206e6f74206f7760448201527f6e6572206e6f7220617070726f76656420666f7220616c6c000000000000000060648201526084016103d4565b61050a8383610894565b505050565b6105198282610902565b5050565b6105273382610965565b6105435760405162461bcd60e51b81526004016103d49061168c565b61050a838383610a4e565b61050a83838360405180602001604052806000815250610681565b6000818152600260205260408120546001600160a01b0316806102d45760405162461bcd60e51b815260206004820152602960248201527f4552433732313a206f776e657220717565727920666f72206e6f6e657869737460448201526832b73a103a37b5b2b760b91b60648201526084016103d4565b60006001600160a01b03821661064b5760405162461bcd60e51b815260206004820152602a60248201527f4552433732313a2062616c616e636520717565727920666f7220746865207a65604482015269726f206164647265737360b01b60648201526084016103d4565b506001600160a01b031660009081526003602052604090205490565b6060600180546102e99061179a565b610519338383610bea565b61068b3383610965565b6106a75760405162461bcd60e51b81526004016103d49061168c565b6106b384848484610cb9565b50505050565b60005b8181101561050a576106f08383838181106106d9576106d9611830565b90506020028101906106eb91906116dd565b610902565b6106f9816117d5565b90506106bc565b606061070b82610877565b6107715760405162461bcd60e51b815260206004820152603160248201527f45524337323155524953746f726167653a2055524920717565727920666f72206044820152703737b732bc34b9ba32b73a103a37b5b2b760791b60648201526084016103d4565b6000828152600660205260408120805461078a9061179a565b80601f01602080910402602001604051908101604052809291908181526020018280546107b69061179a565b80156108035780601f106107d857610100808354040283529160200191610803565b820191906000526020600020905b8154815290600101906020018083116107e657829003601f168201915b50505050509050600061082160408051602081019091526000815290565b9050805160001415610834575092915050565b81511561086657808260405160200161084e9291906115bb565b60405160208183030381529060405292505050919050565b61086f84610cec565b949350505050565b6000908152600260205260409020546001600160a01b0316151590565b600081815260046020526040902080546001600160a01b0319166001600160a01b03841690811790915581906108c982610569565b6001600160a01b03167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92560405160405180910390a45050565b61090e33600754610dc4565b61095060075483838080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250610dde92505050565b60075461095e906001610e69565b6007555050565b600061097082610877565b6109d15760405162461bcd60e51b815260206004820152602c60248201527f4552433732313a206f70657261746f7220717565727920666f72206e6f6e657860448201526b34b9ba32b73a103a37b5b2b760a11b60648201526084016103d4565b60006109dc83610569565b9050806001600160a01b0316846001600160a01b03161480610a2357506001600160a01b0380821660009081526005602090815260408083209388168352929052205460ff165b8061086f5750836001600160a01b0316610a3c8461036c565b6001600160a01b031614949350505050565b826001600160a01b0316610a6182610569565b6001600160a01b031614610ac55760405162461bcd60e51b815260206004820152602560248201527f4552433732313a207472616e736665722066726f6d20696e636f72726563742060448201526437bbb732b960d91b60648201526084016103d4565b6001600160a01b038216610b275760405162461bcd60e51b8152602060048201526024808201527f4552433732313a207472616e7366657220746f20746865207a65726f206164646044820152637265737360e01b60648201526084016103d4565b610b32600082610894565b6001600160a01b0383166000908152600360205260408120805460019290610b5b908490611757565b90915550506001600160a01b0382166000908152600360205260408120805460019290610b8990849061172b565b909155505060008181526002602052604080822080546001600160a01b0319166001600160a01b0386811691821790925591518493918716917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef91a4505050565b816001600160a01b0316836001600160a01b03161415610c4c5760405162461bcd60e51b815260206004820152601960248201527f4552433732313a20617070726f766520746f2063616c6c65720000000000000060448201526064016103d4565b6001600160a01b03838116600081815260056020908152604080832094871680845294825291829020805460ff191686151590811790915591519182527f17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31910160405180910390a3505050565b610cc4848484610a4e565b610cd084848484610e75565b6106b35760405162461bcd60e51b81526004016103d49061163a565b6060610cf782610877565b610d5b5760405162461bcd60e51b815260206004820152602f60248201527f4552433732314d657461646174613a2055524920717565727920666f72206e6f60448201526e3732bc34b9ba32b73a103a37b5b2b760891b60648201526084016103d4565b6000610d7260408051602081019091526000815290565b90506000815111610d925760405180602001604052806000815250610dbd565b80610d9c84610f82565b604051602001610dad9291906115bb565b6040516020818303038152906040525b9392505050565b610519828260405180602001604052806000815250611080565b610de782610877565b610e4a5760405162461bcd60e51b815260206004820152602e60248201527f45524337323155524953746f726167653a2055524920736574206f66206e6f6e60448201526d32bc34b9ba32b73a103a37b5b2b760911b60648201526084016103d4565b6000828152600660209081526040909120825161050a928401906111e6565b6000610dbd828461172b565b60006001600160a01b0384163b15610f7757604051630a85bd0160e11b81526001600160a01b0385169063150b7a0290610eb99033908990889088906004016115ea565b602060405180830381600087803b158015610ed357600080fd5b505af1925050508015610f03575060408051601f3d908101601f19168201909252610f00918101906114f9565b60015b610f5d573d808015610f31576040519150601f19603f3d011682016040523d82523d6000602084013e610f36565b606091505b508051610f555760405162461bcd60e51b81526004016103d49061163a565b805181602001fd5b6001600160e01b031916630a85bd0160e11b14905061086f565b506001949350505050565b606081610fa65750506040805180820190915260018152600360fc1b602082015290565b8160005b8115610fd05780610fba816117d5565b9150610fc99050600a83611743565b9150610faa565b60008167ffffffffffffffff811115610feb57610feb611846565b6040519080825280601f01601f191660200182016040528015611015576020820181803683370190505b5090505b841561086f5761102a600183611757565b9150611037600a866117f0565b61104290603061172b565b60f81b81838151811061105757611057611830565b60200101906001600160f81b031916908160001a905350611079600a86611743565b9450611019565b61108a83836110b3565b6110976000848484610e75565b61050a5760405162461bcd60e51b81526004016103d49061163a565b6001600160a01b0382166111095760405162461bcd60e51b815260206004820181905260248201527f4552433732313a206d696e7420746f20746865207a65726f206164647265737360448201526064016103d4565b61111281610877565b1561115f5760405162461bcd60e51b815260206004820152601c60248201527f4552433732313a20746f6b656e20616c7265616479206d696e7465640000000060448201526064016103d4565b6001600160a01b038216600090815260036020526040812080546001929061118890849061172b565b909155505060008181526002602052604080822080546001600160a01b0319166001600160a01b03861690811790915590518392907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef908290a45050565b8280546111f29061179a565b90600052602060002090601f016020900481019282611214576000855561125a565b82601f1061122d57805160ff191683800117855561125a565b8280016001018555821561125a579182015b8281111561125a57825182559160200191906001019061123f565b5061126692915061126a565b5090565b5b80821115611266576000815560010161126b565b80356001600160a01b038116811461129657600080fd5b919050565b6000602082840312156112ad57600080fd5b610dbd8261127f565b600080604083850312156112c957600080fd5b6112d28361127f565b91506112e06020840161127f565b90509250929050565b6000806000606084860312156112fe57600080fd5b6113078461127f565b92506113156020850161127f565b9150604084013590509250925092565b6000806000806080858703121561133b57600080fd5b6113448561127f565b93506113526020860161127f565b925060408501359150606085013567ffffffffffffffff8082111561137657600080fd5b818701915087601f83011261138a57600080fd5b81358181111561139c5761139c611846565b604051601f8201601f19908116603f011681019083821181831017156113c4576113c4611846565b816040528281528a60208487010111156113dd57600080fd5b82602086016020830137600060208483010152809550505050505092959194509250565b6000806040838503121561141457600080fd5b61141d8361127f565b91506020830135801515811461143257600080fd5b809150509250929050565b6000806040838503121561145057600080fd5b6114598361127f565b946020939093013593505050565b6000806020838503121561147a57600080fd5b823567ffffffffffffffff8082111561149257600080fd5b818501915085601f8301126114a657600080fd5b8135818111156114b557600080fd5b8660208260051b85010111156114ca57600080fd5b60209290920196919550909350505050565b6000602082840312156114ee57600080fd5b8135610dbd8161185c565b60006020828403121561150b57600080fd5b8151610dbd8161185c565b6000806020838503121561152957600080fd5b823567ffffffffffffffff8082111561154157600080fd5b818501915085601f83011261155557600080fd5b81358181111561156457600080fd5b8660208285010111156114ca57600080fd5b60006020828403121561158857600080fd5b5035919050565b600081518084526115a781602086016020860161176e565b601f01601f19169290920160200192915050565b600083516115cd81846020880161176e565b8351908301906115e181836020880161176e565b01949350505050565b6001600160a01b038581168252841660208201526040810183905260806060820181905260009061161d9083018461158f565b9695505050505050565b602081526000610dbd602083018461158f565b60208082526032908201527f4552433732313a207472616e7366657220746f206e6f6e20455243373231526560408201527131b2b4bb32b91034b6b83632b6b2b73a32b960711b606082015260800190565b60208082526031908201527f4552433732313a207472616e736665722063616c6c6572206973206e6f74206f6040820152701ddb995c881b9bdc88185c1c1c9bdd9959607a1b606082015260800190565b6000808335601e198436030181126116f457600080fd5b83018035915067ffffffffffffffff82111561170f57600080fd5b60200191503681900382131561172457600080fd5b9250929050565b6000821982111561173e5761173e611804565b500190565b6000826117525761175261181a565b500490565b60008282101561176957611769611804565b500390565b60005b83811015611789578181015183820152602001611771565b838111156106b35750506000910152565b600181811c908216806117ae57607f821691505b602082108114156117cf57634e487b7160e01b600052602260045260246000fd5b50919050565b60006000198214156117e9576117e9611804565b5060010190565b6000826117ff576117ff61181a565b500690565b634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052601260045260246000fd5b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b6001600160e01b03198116811461187257600080fd5b5056fea264697066735822122081e3e28bec1093a3cf4e345c5c54c21dc2779548869f361fceaa647463ea2e3f64736f6c63430008070033
+
+0x608060405234801561001057600080fd5b50600436106101005760003560e01c80636352211e11610097578063b88d4fde11610066578063b88d4fde14610213578063c06896e714610226578063c87b56dd14610239578063e985e9c51461024c57600080fd5b80636352211e146101d257806370a08231146101e557806395d89b41146101f8578063a22cb4651461020057600080fd5b80630a7b7be4116100d35780630a7b7be41461018257806323b872dd1461019557806342842e0e146101a8578063556d8628146101bb57600080fd5b806301ffc9a71461010557806306fdde031461012d578063081812fc14610142578063095ea7b31461016d575b600080fd5b6101186101133660046114dc565b610288565b60405190151581526020015b60405180910390f35b6101356102da565b6040516101249190611627565b610155610150366004611576565b61036c565b6040516001600160a01b039091168152602001610124565b61018061017b36600461143d565b6103f9565b005b610180610190366004611516565b61050f565b6101806101a33660046112e9565b61051d565b6101806101b63660046112e9565b61054e565b6101c460075481565b604051908152602001610124565b6101556101e0366004611576565b610569565b6101c46101f336600461129b565b6105e0565b610135610667565b61018061020e366004611401565b610676565b610180610221366004611325565b610681565b610180610234366004611467565b6106b9565b610135610247366004611576565b610700565b61011861025a3660046112b6565b6001600160a01b03918216600090815260056020908152604080832093909416825291909152205460ff1690565b60006001600160e01b031982166380ac58cd60e01b14806102b957506001600160e01b03198216635b5e139f60e01b145b806102d457506301ffc9a760e01b6001600160e01b03198316145b92915050565b6060600080546102e99061179a565b80601f01602080910402602001604051908101604052809291908181526020018280546103159061179a565b80156103625780601f1061033757610100808354040283529160200191610362565b820191906000526020600020905b81548152906001019060200180831161034557829003601f168201915b5050505050905090565b600061037782610877565b6103dd5760405162461bcd60e51b815260206004820152602c60248201527f4552433732313a20617070726f76656420717565727920666f72206e6f6e657860448201526b34b9ba32b73a103a37b5b2b760a11b60648201526084015b60405180910390fd5b506000908152600460205260409020546001600160a01b031690565b600061040482610569565b9050806001600160a01b0316836001600160a01b031614156104725760405162461bcd60e51b815260206004820152602160248201527f4552433732313a20617070726f76616c20746f2063757272656e74206f776e656044820152603960f91b60648201526084016103d4565b336001600160a01b038216148061048e575061048e813361025a565b6105005760405162461bcd60e51b815260206004820152603860248201527f4552433732313a20617070726f76652063616c6c6572206973206e6f74206f7760448201527f6e6572206e6f7220617070726f76656420666f7220616c6c000000000000000060648201526084016103d4565b61050a8383610894565b505050565b6105198282610902565b5050565b6105273382610965565b6105435760405162461bcd60e51b81526004016103d49061168c565b61050a838383610a4e565b61050a83838360405180602001604052806000815250610681565b6000818152600260205260408120546001600160a01b0316806102d45760405162461bcd60e51b815260206004820152602960248201527f4552433732313a206f776e657220717565727920666f72206e6f6e657869737460448201526832b73a103a37b5b2b760b91b60648201526084016103d4565b60006001600160a01b03821661064b5760405162461bcd60e51b815260206004820152602a60248201527f4552433732313a2062616c616e636520717565727920666f7220746865207a65604482015269726f206164647265737360b01b60648201526084016103d4565b506001600160a01b031660009081526003602052604090205490565b6060600180546102e99061179a565b610519338383610bea565b61068b3383610965565b6106a75760405162461bcd60e51b81526004016103d49061168c565b6106b384848484610cb9565b50505050565b60005b8181101561050a576106f08383838181106106d9576106d9611830565b90506020028101906106eb91906116dd565b610902565b6106f9816117d5565b90506106bc565b606061070b82610877565b6107715760405162461bcd60e51b815260206004820152603160248201527f45524337323155524953746f726167653a2055524920717565727920666f72206044820152703737b732bc34b9ba32b73a103a37b5b2b760791b60648201526084016103d4565b6000828152600660205260408120805461078a9061179a565b80601f01602080910402602001604051908101604052809291908181526020018280546107b69061179a565b80156108035780601f106107d857610100808354040283529160200191610803565b820191906000526020600020905b8154815290600101906020018083116107e657829003601f168201915b50505050509050600061082160408051602081019091526000815290565b9050805160001415610834575092915050565b81511561086657808260405160200161084e9291906115bb565b60405160208183030381529060405292505050919050565b61086f84610cec565b949350505050565b6000908152600260205260409020546001600160a01b0316151590565b600081815260046020526040902080546001600160a01b0319166001600160a01b03841690811790915581906108c982610569565b6001600160a01b03167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92560405160405180910390a45050565b61090e33600754610dc4565b61095060075483838080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250610dde92505050565b60075461095e906001610e69565b6007555050565b600061097082610877565b6109d15760405162461bcd60e51b815260206004820152602c60248201527f4552433732313a206f70657261746f7220717565727920666f72206e6f6e657860448201526b34b9ba32b73a103a37b5b2b760a11b60648201526084016103d4565b60006109dc83610569565b9050806001600160a01b0316846001600160a01b03161480610a2357506001600160a01b0380821660009081526005602090815260408083209388168352929052205460ff165b8061086f5750836001600160a01b0316610a3c8461036c565b6001600160a01b031614949350505050565b826001600160a01b0316610a6182610569565b6001600160a01b031614610ac55760405162461bcd60e51b815260206004820152602560248201527f4552433732313a207472616e736665722066726f6d20696e636f72726563742060448201526437bbb732b960d91b60648201526084016103d4565b6001600160a01b038216610b275760405162461bcd60e51b8152602060048201526024808201527f4552433732313a207472616e7366657220746f20746865207a65726f206164646044820152637265737360e01b60648201526084016103d4565b610b32600082610894565b6001600160a01b0383166000908152600360205260408120805460019290610b5b908490611757565b90915550506001600160a01b0382166000908152600360205260408120805460019290610b8990849061172b565b909155505060008181526002602052604080822080546001600160a01b0319166001600160a01b0386811691821790925591518493918716917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef91a4505050565b816001600160a01b0316836001600160a01b03161415610c4c5760405162461bcd60e51b815260206004820152601960248201527f4552433732313a20617070726f766520746f2063616c6c65720000000000000060448201526064016103d4565b6001600160a01b03838116600081815260056020908152604080832094871680845294825291829020805460ff191686151590811790915591519182527f17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31910160405180910390a3505050565b610cc4848484610a4e565b610cd084848484610e75565b6106b35760405162461bcd60e51b81526004016103d49061163a565b6060610cf782610877565b610d5b5760405162461bcd60e51b815260206004820152602f60248201527f4552433732314d657461646174613a2055524920717565727920666f72206e6f60448201526e3732bc34b9ba32b73a103a37b5b2b760891b60648201526084016103d4565b6000610d7260408051602081019091526000815290565b90506000815111610d925760405180602001604052806000815250610dbd565b80610d9c84610f82565b604051602001610dad9291906115bb565b6040516020818303038152906040525b9392505050565b610519828260405180602001604052806000815250611080565b610de782610877565b610e4a5760405162461bcd60e51b815260206004820152602e60248201527f45524337323155524953746f726167653a2055524920736574206f66206e6f6e60448201526d32bc34b9ba32b73a103a37b5b2b760911b60648201526084016103d4565b6000828152600660209081526040909120825161050a928401906111e6565b6000610dbd828461172b565b60006001600160a01b0384163b15610f7757604051630a85bd0160e11b81526001600160a01b0385169063150b7a0290610eb99033908990889088906004016115ea565b602060405180830381600087803b158015610ed357600080fd5b505af1925050508015610f03575060408051601f3d908101601f19168201909252610f00918101906114f9565b60015b610f5d573d808015610f31576040519150601f19603f3d011682016040523d82523d6000602084013e610f36565b606091505b508051610f555760405162461bcd60e51b81526004016103d49061163a565b805181602001fd5b6001600160e01b031916630a85bd0160e11b14905061086f565b506001949350505050565b606081610fa65750506040805180820190915260018152600360fc1b602082015290565b8160005b8115610fd05780610fba816117d5565b9150610fc99050600a83611743565b9150610faa565b60008167ffffffffffffffff811115610feb57610feb611846565b6040519080825280601f01601f191660200182016040528015611015576020820181803683370190505b5090505b841561086f5761102a600183611757565b9150611037600a866117f0565b61104290603061172b565b60f81b81838151811061105757611057611830565b60200101906001600160f81b031916908160001a905350611079600a86611743565b9450611019565b61108a83836110b3565b6110976000848484610e75565b61050a5760405162461bcd60e51b81526004016103d49061163a565b6001600160a01b0382166111095760405162461bcd60e51b815260206004820181905260248201527f4552433732313a206d696e7420746f20746865207a65726f206164647265737360448201526064016103d4565b61111281610877565b1561115f5760405162461bcd60e51b815260206004820152601c60248201527f4552433732313a20746f6b656e20616c7265616479206d696e7465640000000060448201526064016103d4565b6001600160a01b038216600090815260036020526040812080546001929061118890849061172b565b909155505060008181526002602052604080822080546001600160a01b0319166001600160a01b03861690811790915590518392907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef908290a45050565b8280546111f29061179a565b90600052602060002090601f016020900481019282611214576000855561125a565b82601f1061122d57805160ff191683800117855561125a565b8280016001018555821561125a579182015b8281111561125a57825182559160200191906001019061123f565b5061126692915061126a565b5090565b5b80821115611266576000815560010161126b565b80356001600160a01b038116811461129657600080fd5b919050565b6000602082840312156112ad57600080fd5b610dbd8261127f565b600080604083850312156112c957600080fd5b6112d28361127f565b91506112e06020840161127f565b90509250929050565b6000806000606084860312156112fe57600080fd5b6113078461127f565b92506113156020850161127f565b9150604084013590509250925092565b6000806000806080858703121561133b57600080fd5b6113448561127f565b93506113526020860161127f565b925060408501359150606085013567ffffffffffffffff8082111561137657600080fd5b818701915087601f83011261138a57600080fd5b81358181111561139c5761139c611846565b604051601f8201601f19908116603f011681019083821181831017156113c4576113c4611846565b816040528281528a60208487010111156113dd57600080fd5b82602086016020830137600060208483010152809550505050505092959194509250565b6000806040838503121561141457600080fd5b61141d8361127f565b91506020830135801515811461143257600080fd5b809150509250929050565b6000806040838503121561145057600080fd5b6114598361127f565b946020939093013593505050565b6000806020838503121561147a57600080fd5b823567ffffffffffffffff8082111561149257600080fd5b818501915085601f8301126114a657600080fd5b8135818111156114b557600080fd5b8660208260051b85010111156114ca57600080fd5b60209290920196919550909350505050565b6000602082840312156114ee57600080fd5b8135610dbd8161185c565b60006020828403121561150b57600080fd5b8151610dbd8161185c565b6000806020838503121561152957600080fd5b823567ffffffffffffffff8082111561154157600080fd5b818501915085601f83011261155557600080fd5b81358181111561156457600080fd5b8660208285010111156114ca57600080fd5b60006020828403121561158857600080fd5b5035919050565b600081518084526115a781602086016020860161176e565b601f01601f19169290920160200192915050565b600083516115cd81846020880161176e565b8351908301906115e181836020880161176e565b01949350505050565b6001600160a01b038581168252841660208201526040810183905260806060820181905260009061161d9083018461158f565b9695505050505050565b602081526000610dbd602083018461158f565b60208082526032908201527f4552433732313a207472616e7366657220746f206e6f6e20455243373231526560408201527131b2b4bb32b91034b6b83632b6b2b73a32b960711b606082015260800190565b60208082526031908201527f4552433732313a207472616e736665722063616c6c6572206973206e6f74206f6040820152701ddb995c881b9bdc88185c1c1c9bdd9959607a1b606082015260800190565b6000808335601e198436030181126116f457600080fd5b83018035915067ffffffffffffffff82111561170f57600080fd5b60200191503681900382131561172457600080fd5b9250929050565b6000821982111561173e5761173e611804565b500190565b6000826117525761175261181a565b500490565b60008282101561176957611769611804565b500390565b60005b83811015611789578181015183820152602001611771565b838111156106b35750506000910152565b600181811c908216806117ae57607f821691505b602082108114156117cf57634e487b7160e01b600052602260045260246000fd5b50919050565b60006000198214156117e9576117e9611804565b5060010190565b6000826117ff576117ff61181a565b500690565b634e487b7160e01b600052601160045260246000fd5b634e487b7160e01b600052601260045260246000fd5b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b6001600160e01b03198116811461187257600080fd5b5056fea2646970667358221220c5f68a0b342f8eea18f674266bd8d7063bb1624b64677a7bf6687aee803f30ca64736f6c63430008070033
+
+
+
+
+

@@ -1,6 +1,16 @@
 <div data-token-type="<%= @type %>">
   <h6 class="dropdown-header" style="margin-left: 5px;">
-    <%= @type %> (<span data-number-of-tokens-by-type="<%= @type %>"><%= Enum.count(@token_balances)%></span>)
+                 <span class="mr-4">
+                   <%= if @type=="ERC-721" do %>
+                    <%= gettext("CRC4") %>
+                   <% else %>
+                    <%= if @type=="ERC-20" do %>
+                     <%= gettext("CRC2") %>
+                    <% else %>
+                     <% @type %>
+                    <% end %>
+                   <% end %>
+                  </span> (<span data-number-of-tokens-by-type="<%= @type %>"><%= Enum.count(@token_balances)%></span>)
   </h6>
 
   <%= for {token_balance, token} <- sort_by_usd_value_and_name(@token_balances) do %>

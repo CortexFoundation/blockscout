@@ -46,7 +46,17 @@
                   </a>
                 </span>
               <% end %>
-              <span class="mr-4"> <%= @token.type %> </span>
+              <span class="mr-4">
+               <%= if @token.type=="ERC-721" do %>
+                <%= gettext("CRC4") %>
+               <% else %>
+                <%= if @token.type=="ERC-20" do %>
+                 <%= gettext("CRC2") %>
+                <% else %>
+                 <% @token.type %>
+                <% end %>
+               <% end %>
+              </span>
               <span class="mr-4"><%= @total_token_transfers %> <%= gettext "Transfers" %></span>
               <%= if decimals?(@token) do %>
                 <span class="mr-4"><%= @token.decimals %> <%= gettext "Decimals" %></span>

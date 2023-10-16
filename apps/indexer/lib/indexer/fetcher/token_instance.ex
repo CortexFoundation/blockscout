@@ -18,7 +18,7 @@ defmodule Indexer.Fetcher.TokenInstance do
   @defaults [
     flush_interval: 300,
     max_batch_size: 1,
-    max_concurrency: 10,
+    max_concurrency: 3,
     task_supervisor: Indexer.Fetcher.TokenInstance.TaskSupervisor
   ]
 
@@ -83,6 +83,10 @@ defmodule Indexer.Fetcher.TokenInstance do
           token_contract_address_hash: token_contract_address_hash,
           error: error
         }
+
+          Logger.debug(["87 error: #{inspect(error)}."],
+            fetcher: :token_instances
+          )
 
         {:ok, _result} = Chain.upsert_token_instance(params)
 

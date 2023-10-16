@@ -57,6 +57,7 @@ defmodule BlockScoutWeb.Router do
 
     get("/api-docs", APIDocsController, :index)
     get("/eth-rpc-api-docs", APIDocsController, :eth_rpc)
+    get("/ctxc-rpc-api-docs", APIDocsController, :ctxc_rpc)
   end
 
   url_params = Application.compile_env(:block_scout_web, BlockScoutWeb.Endpoint)[:url]

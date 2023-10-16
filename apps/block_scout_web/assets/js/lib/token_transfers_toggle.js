@@ -15,3 +15,9 @@ $(document.body).on('click', '[data-selector="token-transfer-close"]', event => 
   $tokenTransferClose.classList.add('d-none')
   $tokenTransferOpen.classList.remove('d-none')
 })
+if ($('[data-page-number]')) {
+  window.onbeforeunload = () => {
+    window.loading = true
+  }
+  
+}

@@ -396,6 +396,7 @@ defmodule EthereumJSONRPC do
   """
   @spec quantity_to_integer(quantity) :: non_neg_integer() | :error
   def quantity_to_integer("0x" <> hexadecimal_digits) do
+
     String.to_integer(hexadecimal_digits, 16)
   end
 

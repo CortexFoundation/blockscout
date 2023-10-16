@@ -77,6 +77,10 @@ defmodule Explorer.Token.InstanceMetadataRetriever do
       |> query_contract(contract_functions, @abi)
       |> fetch_json()
 
+          Logger.debug(["80 res: #{inspect(res)}."],
+            fetcher: :token_instances
+          )
+
     if res == {:ok, %{error: @vm_execution_error}} do
       hex_normalized_token_id = token_id |> Integer.to_string(16) |> String.downcase() |> String.pad_leading(64, "0")
 
@@ -188,6 +192,26 @@ defmodule Explorer.Token.InstanceMetadataRetriever do
     fetch_metadata_inner(ipfs_url, hex_token_id)
   end
 
+    def fetch_json(%{@token_uri => {:ok, ["Qm" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
+    def fetch_json(%{@uri => {:ok, ["Qm" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
+    def fetch_json(%{@token_uri => {:ok, ["ba" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
+    def fetch_json(%{@uri => {:ok, ["ba" <> ipfs_uid]}}, hex_token_id) do
+      ipfs_url = "https://icarusart.mypinata.cloud/ipfs/Qm" <> ipfs_uid
+      fetch_metadata_inner(ipfs_url, hex_token_id)
+    end
+
   def fetch_json(%{@token_uri => {:ok, [json]}}, hex_token_id) do
     {:ok, json} = decode_json(json)
 
@@ -221,9 +245,26 @@ defmodule Explorer.Token.InstanceMetadataRetriever do
   end
 
   defp fetch_metadata_inner(uri, hex_token_id) do
-    prepared_uri = substitute_token_id_to_token_uri(uri, hex_token_id)
 
-    case HTTPoison.get(prepared_uri) do
+            Logger.debug(["229 uri: #{inspect(uri)}."],
+              fetcher: :token_instances
+            )
+
+    prepared_uri = substitute_token_id_to_token_uri(uri, hex_token_id)
+          Logger.debug(["225 prepared_uri: #{inspect(prepared_uri)}."],
+            fetcher: :token_instances
+          )
+    result =
+      if String.length(prepared_uri) == 46 do
+       # "https://icarusart.mypinata.cloud/ipfs/" <> prepared_uri
+       # String.concat("https://icarusart.mypinata.cloud/ipfs/",prepared_uri)
+      else
+        prepared_uri
+      end
+          Logger.debug(["233 prepared_uri: #{inspect(prepared_uri)}."],
+            fetcher: :token_instances
+          )
+    case HTTPoison.get(result) do
       {:ok, %Response{body: body, status_code: 200, headers: headers}} ->
         if Enum.member?(headers, {"Content-Type", "image/png"}) do
           json = %{"image" => prepared_uri}
