@@ -3,7 +3,9 @@ $alert-danger-border-color: #fff3f7 !default;
 $alert-danger-color: #ff7986 !default;
 
 .alert-danger {
-    background-color: $alert-danger-background-color;
-    border-color: $alert-danger-border-color;
-    color: $alert-danger-color;
+    background-color: #fff3f7;
+    border-color: #fff3f7;
+    color: #ff7986;
+    padding: 10px 0;
+    text-align: center;
 }

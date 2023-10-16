@@ -8,7 +8,7 @@
 /doc
 /*.ez
 /logs
-
+/js/web.log
 # mix dialyzer artifacts
 /priv/plts
 

@@ -1,21 +1,29 @@
-.mobile-search-show {
-    @media screen and (max-width: 992px) {
-        width: 100%;
-    }
-    @media screen and (min-width: 992px) {
-        display: none !important;
-    }
-}
+.mobileshow {
+    display: none;
+} 
 
-.mobile-search-hide {
-    @media screen and (max-width: 992px) {
-        display: none !important;
+@media screen and (max-width: 844px) {
+    .mobileshow {
+        display: flex;
+	background: transparent !important;
+    }
+
+    .mobilehide {
+        display: none;
     }
 }
 
 .input-group {
     flex-wrap: nowrap;
     align-items: center;
+    background: #fff;
+}
+
+.mobilebtn {
+    cursor: pointer;
+    img {
+        width: 34px;
+    }
 }
 
 .net {
@@ -39,7 +47,6 @@
 
 .input-group-append {
     margin-left: 0 !important;
-    margin-right: 10px;
 }
 
 .input-group-text {
@@ -53,6 +60,7 @@
 
 .autoComplete_wrapper {
     width: 100% !important;
+    padding-right: 10px;
 }
 
 .main-search-autocomplete {

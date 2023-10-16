@@ -7,6 +7,7 @@ import intersectionBy from 'lodash.intersectionby'
 import differenceBy from 'lodash.differenceby'
 import morph from 'nanomorph'
 import { updateAllAges } from './from_now'
+console.log(1);
 
 // The goal of this function is to DOM diff lists, so upon completion `container.innerHTML` should be
 // equivalent to `newElements.join('')`.

@@ -14,15 +14,7 @@ $radio-dimensions: 20px !default;
     z-index: 5;
 
     &:checked + .radio-icon::before {
-      background-color: $radio-color;
-      border-radius: 50%;
-      content: "";
-      height: 12px;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      width: 12px;
+      display: block;
     }
   }
 
@@ -36,6 +28,19 @@ $radio-dimensions: 20px !default;
     position: relative;
     width: $radio-dimensions;
     z-index: 1;
+  }
+
+  .radio-icon::before {
+    background-color: $radio-color;
+    border-radius: 50%;
+    content: "";
+    height: 12px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 12px;
+    display: none;
   }
 
   .radio-text {

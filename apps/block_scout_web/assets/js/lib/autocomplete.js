@@ -173,6 +173,16 @@ const openOnFocus = (event, type) => {
   }
 }
 
+const mobileopen = () => {
+    $('.maskbox').show();
+    $('.leftbox').show();
+}
+
+const mobilehide = () => {
+    $('.maskbox').hide();
+    $('.leftbox').hide();
+}
+
 document.querySelector('#main-search-autocomplete') && document.querySelector('#main-search-autocomplete').addEventListener('selection', function (event) {
   selection(event)
 })
@@ -187,3 +197,12 @@ document.querySelector('#main-search-autocomplete') && document.querySelector('#
 document.querySelector('#main-search-autocomplete-mobile') && document.querySelector('#main-search-autocomplete-mobile').addEventListener('focus', function (event) {
   openOnFocus(event, 'mobile')
 })
+
+document.querySelector('.mobilebtn').addEventListener('click', function () {
+    mobileopen()
+})
+
+document.querySelector('.maskbox').addEventListener('click', function () {
+    mobilehide()
+})
+

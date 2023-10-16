@@ -15,4 +15,10 @@ defmodule BlockScoutWeb.APIDocsController do
     |> assign(:documentation, EthRPC.methods())
     |> render("eth_rpc.html")
   end
+
+  def ctxc_rpc(conn, _params) do
+    conn
+    |> assign(:documentation, EthRPC.methods())
+    |> render("eth_rpc.html")
+  end
 end

@@ -123,6 +123,7 @@ defmodule BlockScoutWeb.ApiRouter do
 
     if Application.compile_env(:block_scout_web, __MODULE__)[:reading_enabled] do
       post("/eth-rpc", EthRPC.EthController, :eth_request)
+      post("/ctxc-rpc", EthRPC.EthController, :eth_request)
 
       forward("/", RPCTranslatorForwarder, %{
         "block" => {RPC.BlockController, []},

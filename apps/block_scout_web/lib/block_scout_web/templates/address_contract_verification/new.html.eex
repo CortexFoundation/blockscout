@@ -18,37 +18,37 @@
               <div class="form-radios-group vertical">
                 <div class="radio-big mb-3">
                   <%= radio_button f, :verify_via, true, checked: true, class: "form-check-input verify-via-flattened-code", "aria-describedby": "verify_via-help-block" %>
-                  <div class="radio-icon"></div>
+                  <div class="radio-icon"><div></div></div>
                   <%= label :verify_via, :true, gettext("Via flattened source code"), class: "radio-text" %>
                 </div>
                 <div class="radio-big">
                   <%= radio_button f, :verify_via, false, class: "form-check-input verify-via-standard-json-input" %>
-                  <div class="radio-icon"></div>
+                  <div class="radio-icon"><div></div></div>
                   <%= label :verify_via, :false, gettext("Via Standard Input JSON"), class: "radio-text" %>
                 </div>
                 <%= if Application.get_env(:explorer, Explorer.ThirdPartyIntegrations.Sourcify)[:enabled] do %>
                   <div class="radio-big">
                     <%= radio_button f, :verify_via, false, class: "form-check-input verify-via-sourcify" %>
-                    <div class="radio-icon"></div>
+                    <div class="radio-icon"><div></div></div>
                     <%= label :verify_via, :false, gettext("Via Sourcify: Sources and metadata JSON file"), class: "radio-text" %>
                   </div>
                 <% end %>
                 <%= if RustVerifierInterface.enabled?() do %>
                   <div class="radio-big">
                     <%= radio_button f, :verify_via, false, class: "form-check-input verify-via-multi-part-files" %>
-                    <div class="radio-icon"></div>
+                    <div class="radio-icon"><div></div></div>
                     <%= label :verify_via, :false, gettext("Via multi-part files"), class: "radio-text" %>
                   </div>
                 <% end %>
                 <div class="radio-big">
                   <%= radio_button f, :verify_via, false, class: "form-check-input verify-vyper-contract" %>
-                  <div class="radio-icon"></div>
+                  <div class="radio-icon"><div></div></div>
                   <%= label :verify_via, :false, gettext("Vyper contract"), class: "radio-text" %>
                 </div>
               </div>
               <%= error_tag f, :verify_via, id: "verify_via-help-block", class: "text-danger form-error" %>
             </div>
-            <div class="smart-contract-form-group-tooltip">Choose a smart-contract verification method. Currently, Blockscout supports 2 methods:<br/>
+            <div class="smart-contract-form-group-tooltip">Choose a smart-contract verification method. Currently, Cortex Explorer supports 3 methods:<br/>
             1. Verification through flattened source code. <span
                       data-toggle="tooltip"
                       data-placement="top"
@@ -57,10 +57,7 @@
                       title="If using a flat file for contract verification, you can use the POA Solidity flattener or the Truffle flattener">
                       <i class="fa fa-info-circle ml-1" data-test="token-bridge-supply"></i></span><br/>
             2. Verification using <a href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description">Standard input JSON</a> file.<br/>
-            3. Verification through <a href="https://sourcify.dev">Sourcify</a>.<br/>
-              a) if smart-contract already verified on Sourcify, it will automatically fetch the data from the <a href="https://repo.sourcify.dev">repo</a><br/>
-              b) otherwise you will be asked to upload source files and JSON metadata file(s).<br/>
-            4. Verification of Vyper contract.
+            3. Verification of Vyper contract.
             </div>
               
           </div>

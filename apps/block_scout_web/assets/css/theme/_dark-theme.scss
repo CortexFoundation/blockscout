@@ -7,9 +7,6 @@ $dark-stakes-banned-background: #3e314c;
 
 // Switcher
 .dark-mode-changer {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
 	width: 36px;
 	height: 36px;
 	background: transparent;
@@ -18,17 +15,8 @@ $dark-stakes-banned-background: #3e314c;
 	margin-right: 5px;
 	outline: none !important;
 	box-shadow: none !important;
-	transition: .2s ease-in;
-	&:hover {
-		opacity: .8;
-	}
-	svg path {
-		fill: #828ba0;
-	}
-	&--dark {
-		svg path {
-			fill: $dark-primary;
-		}
+	img {
+		width: 100%;
 	}
 }
 

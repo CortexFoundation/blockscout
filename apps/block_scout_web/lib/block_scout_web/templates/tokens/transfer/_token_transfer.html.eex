@@ -30,21 +30,21 @@
                 ) %>
         <% end %>
       </span>
-      <span class="d-flex flex-md-row flex-column mt-3 mt-md-0">
+      <span class="d-flex flex-md-row flex-column">
         <span class="tile-title">
           <%= render BlockScoutWeb.TransactionView, "_total_transfers.html", Map.put(assigns, :transfer, @token_transfer) %>
         </span>
       </span>
     </div>
     <!-- Block info -->
-    <div class="col-md-3 col-lg-2 d-flex flex-row flex-md-column flex-nowrap justify-content-center text-md-right mt-3 mt-md-0">
-      <span class="mr-2 mr-md-0 order-1">
+    <div class="col-md-3 col-lg-2 d-flex flex-row flex-md-column flex-nowrap text-md-right tile-bottom">
+      <span>
         <%= link(
           gettext("Block #%{number}", number: @token_transfer.block_number),
           to: block_path(BlockScoutWeb.Endpoint, :show, @token_transfer.block_number)
         ) %>
       </span>
-      <span class="mr-2 mr-md-0 order-2" data-from-now="<%= @token_transfer.transaction.block && @token_transfer.transaction.block.timestamp %>"></span>
+      <span data-from-now="<%= @token_transfer.transaction.block && @token_transfer.transaction.block.timestamp %>"></span>
     </div>
   </div>
 </div>

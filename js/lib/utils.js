@@ -4,8 +4,9 @@
 
 const Pool = require('pg-pool');
 const url = require('url');
+const Web3 = require('web3');
 
-const params = url.parse(process.env.DATABASE_URL_BLOCKSCOUT);
+const params = url.parse('postgresql://postgres:postgres@localhost:5432/blockscout');
 const auth = params.auth.split(':');
 
 const config = {
@@ -27,7 +28,25 @@ const getDBConnection = function() {
 
     return con;
 };
+
+let web3;	// web3 链接实例
+
+const createWeb3Connection = function() {
+    const address = `http://127.0.0.1:8545`;
+    web3 = new Web3(address);
+};
+
+function getWeb3Instance() {
+    if (web3 === undefined) {
+        console.log('Try connect geth via web3.');
+        createWeb3Connection();
+    }
+
+    return web3;
+}
+
 module.exports = {
-    getDBConnection
+    getDBConnection,
+    getWeb3Instance
 }
 

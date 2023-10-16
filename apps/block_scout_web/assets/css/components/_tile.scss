@@ -6,19 +6,17 @@ $tile-type-reorg-color: #7D32CC !default;
 $tile-type-reorg-bgcolor: #FBF5FF !default;
 $tile-type-emission-reward-color: $lilac !default;
 $tile-type-transaction-color: #485DFF !default;
-$tile-type-transaction-bgcolor: #E6F0FF !default;
-$tile-type-contract-call-color: #3AB696 !default;
-$tile-type-contract-call-bgcolor: #EEFFFB !default;
-$tile-type-contract-creation-color: $dark-purple !default;
-$tile-type-token-transfer-color: #485DFF !default;
-$tile-type-token-transfer-bgcolor: #E6F0FF !default;
+$tile-type-transaction-bgcolor: #F7FAFF !default;
+$tile-type-contract-call-color: #7D32CC !default;
+$tile-type-contract-creation-color: #F26419 !default;
+$tile-type-token-transfer-color: #F6AE2D !default;
+$tile-type-internal-transaction-color: #2A9D8F !default;
+$tile-status-error-reason: #EA3546 !default;
+
 $tile-type-unique-token-color: $orange !default;
 $tile-type-unique-token-image-color: $orange !default;
-$tile-type-internal-transaction-color: #485DFF !default;
-$tile-type-internal-transaction-bgcolor: #E6F0FF !default;
 $tile-type-api-documentation-color: $primary !default;
 $tile-type-progress-bar-color: $primary !default;
-$tile-status-error-reason: #ff7986 !default;
 $tile-status-awaiting-internal-transactions: $warning !default;
 $tile-padding: 1rem;
 $tile-title-color: #333 !default;
@@ -28,12 +26,32 @@ $tile-body-a-color: #5959d8 !default;
   &#{ $prefix } {
 
     .tile-type-block, .row, .tile-body {
-      height: 90px;
+      height: 100px;
       width: 100%;
       margin: 0;
       align-items: center;
       @if ($bgcolor) {
         background-color: $bgcolor;
+      }
+
+      .col-md-7 {
+      	height: 100px;
+	overflow: auto;
+	justify-content: center;
+      }
+
+      @media screen and (max-width: 844px) {
+        height: auto;
+        flex-direction: column;
+	align-items: flex-start;
+	padding-top: 15px;
+        padding-bottom: 15px;
+
+	.col-md-7 {
+	  height: auto;
+	  padding-top: 0;
+	  padding-bottom: 0;
+	}
       }
     }
 
@@ -41,8 +59,12 @@ $tile-body-a-color: #5959d8 !default;
       border: 1px solid $color;
       border-left-width: 6px;
       color: $color;
-      height: 90px;
-      position: relative;
+      height: 100px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
     .tile-transaction-type-block:after {
@@ -55,6 +77,29 @@ $tile-body-a-color: #5959d8 !default;
       background: #fff;
     }
 
+    @media screen and (max-width: 844px) {
+      .tile-transaction-type-block {
+        border: none !important;
+        height: auto;
+        width: auto;
+        margin-left: 15px;
+	margin-bottom: 4px;
+        flex-direction: row;
+        justify-content: flex-start;
+        color: #fff;
+        background: $color;
+        border-radius: 2px;
+	padding: 0 8px;
+      }
+      .tile-transaction-type-block:after {
+        display: none;
+      }
+      .tile-label {
+        font-weight: 400;
+	color: #fff;
+      }
+    }
+
     a {
       color: $color;
     }
@@ -63,63 +108,51 @@ $tile-body-a-color: #5959d8 !default;
 
 /*********************************************************************/
 
+.tile.tile-type-token-transfer .tile-body .col-md-7 {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  justify-content: unset !important;
+}
+
+[data-transactions-path="/recent-transactions"] .tile.tile-type-token-transfer .tile-body .col-md-7 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  justify-content: unset !important;
+}
+
 .tile-label {
   font-size: 12px;
   font-weight: 700;
-  text-align: center;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &.font-weight-400 {
-    font-weight: 400;
-  }
-}
-
-.tile-transaction-type-block {
-  align-items: center;
-  justify-content: center;
-
-  @include media-breakpoint-down(sm) {
-    align-items: flex-start;
-    background: none !important;
-    border: none !important;
-    bottom: auto;
-    flex-direction: column !important;
-    margin: 0 0 10px;
-    padding-left: 1rem;
-    top: auto;
-
-    .tile-status-label {
-      margin-left: 0 !important;
-    }
-  }
+  white-space: nowrap;
 }
 
 .tile-status-label {
   font-size: 12px;
   font-weight: 400;
-  line-height: 1.2;
-  text-align: center;
-  padding: 0 5px;
-}
-
-.tile-transaction-type-block {
-  .tile-status-label {
-    padding: 0;
+  @media screen and (max-width: 844px) {
+    margin-left: 4px;
   }
 }
 
+.tile-fromto {
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
 .tile-bottom {
-  @media (max-width: 767px) {
-    justify-content: flex-start !important;
+  padding-left: 0;
+  @media screen and (max-width: 844px) {
+    justify-content: space-between !important;
+    padding-left: 15px;
+    .inoutbox {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
 .tile-badge {
   line-height: 1.25rem;
-  margin-bottom: 0.1rem;
   padding: 0;
   text-align: center;
   width: 2.5rem;
@@ -137,7 +170,7 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 .tile.tile-muted.text-center, .alert-info {
-  padding: 10px 20px;
+  padding: 10px 15px;
   color: #474747;
   font-size: 14px;
   background-color: #F5F5FF;
@@ -199,6 +232,7 @@ $tile-body-a-color: #5959d8 !default;
 
     .text-truncate {
       font-weight: bold;
+      font-size: 14px;
     }
   }
 
@@ -210,9 +244,9 @@ $tile-body-a-color: #5959d8 !default;
     $tile-type-emission-reward-color
   );
   @include generate-tile-block(".tile-type-transaction", $tile-type-transaction-color, $tile-type-transaction-bgcolor );
-  @include generate-tile-block(".tile-type-contract-call", $tile-type-transaction-color, $tile-type-transaction-bgcolor);
-  @include generate-tile-block(".tile-type-contract-creation", $tile-type-transaction-color, $tile-type-transaction-bgcolor);
-  @include generate-tile-block(".tile-type-token-transfer", $tile-type-token-transfer-color, $tile-type-token-transfer-bgcolor );
+  @include generate-tile-block(".tile-type-contract-call", $tile-type-contract-call-color, $tile-type-transaction-bgcolor);
+  @include generate-tile-block(".tile-type-contract-creation", $tile-type-contract-creation-color, $tile-type-transaction-bgcolor);
+  @include generate-tile-block(".tile-type-token-transfer", $tile-type-token-transfer-color, $tile-type-transaction-bgcolor);
   @include generate-tile-block(
     ".tile-type-unique-token",
     $tile-type-unique-token-color
@@ -221,12 +255,12 @@ $tile-body-a-color: #5959d8 !default;
     ".tile-type-unique-token-image",
     $tile-type-unique-token-image-color
   );
-  @include generate-tile-block(".tile-type-internal-transaction", $tile-type-internal-transaction-color, $tile-type-internal-transaction-bgcolor);
+  @include generate-tile-block(".tile-type-internal-transaction", $tile-type-internal-transaction-color, $tile-type-transaction-bgcolor);
   @include generate-tile-block(
     ".tile-type-api-documentation",
     $tile-type-api-documentation-color
   );
-  @include generate-tile-block('[class*="status--error"]', $tile-type-transaction-color, $tile-type-transaction-bgcolor);
+  @include generate-tile-block('[class*="status--error"]', $tile-status-error-reason, $tile-type-transaction-bgcolor);
   @include generate-tile-block(
     ".tile-status--awaiting-internal-transactions",
     $tile-status-awaiting-internal-transactions
@@ -257,6 +291,7 @@ $tile-body-a-color: #5959d8 !default;
 
   &.tile-type-token {
     border: 1px solid $border-color;
+    padding: 0 15px;
   }
 
   &.tile-type-token-transfer {
@@ -396,8 +431,8 @@ $tile-body-a-color: #5959d8 !default;
     position: relative;
     background-color: #F6F8FF;
     border-left: 6px solid #573BFF;
-    padding: 16px 10px;
-    height: 90px;
+    padding: 20px 10px;
+    height: 100px;
   }
   .tile-type-block-animation {
     opacity: 0;

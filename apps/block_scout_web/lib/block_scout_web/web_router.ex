@@ -147,8 +147,12 @@ defmodule BlockScoutWeb.WebRouter do
     end
 
     resources("/accounts", AddressController, only: [:index])
+    resources("/accountstest", AddresstestController, only: [:index])
+    resources("/topminers", TopMinersController, only: [:index])
 
     resources("/tokens", TokensController, only: [:index])
+    resources("/crc2", TokensCRC2Controller, only: [:index])
+    resources("/crc4", TokensCRC4Controller, only: [:index])
 
     resources "/address", AddressController, only: [:show] do
       resources("/transactions", AddressTransactionController, only: [:index], as: :transaction)

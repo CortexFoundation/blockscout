@@ -1,7 +1,19 @@
 <!-- Search navbar -->
-<div class="search-form d-lg-flex d-inline-block <%= if assigns[:additional_classes] do @additional_classes |> Enum.join(" ") end %>">
-	<div class="input-group" style="width: 100%;" title='<%= gettext("Search by address, token symbol name, transaction hash, or block number") %>'>
-		<div class="input-group-append">
+<div class="search-form d-flex <%= if assigns[:additional_classes] do @additional_classes |> Enum.join(" ") end %>">
+  <div class="input-group justify-content-between mobileshow">
+    <%= link to: webapp_url(@conn), "data-test": "header_logo" do %>
+      <img class="navbar-logo" id="navbar-logo" src="/images/logo.png" />
+    <% end %>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="net">Cortex Mainnet</div>
+      <div class="mobilebtn">
+	<img src="/images/menubar.png" />
+      </div>
+      <div class="maskbox"></div>
+    </div>
+  </div>
+  <div class="input-group" title='<%= gettext("Search by address, token symbol name, transaction hash, or block number") %>'>	
+    <div class="input-group-append">
                         <button class="input-group-text" id="search-icon">
                         <%= render BlockScoutWeb.IconsView, "_search_icon.html" %>
                         </button>
@@ -18,12 +30,6 @@
 			>
 		</div>
 	<!-- Dark mode changer -->
-        <button class="dark-mode-changer" id="dark-mode-changer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16">
-            <path fill="#9B62FF" fill-rule="evenodd" d="M14.88 11.578a.544.544 0 0 0-.599-.166 5.7 5.7 0 0 1-1.924.321c-3.259 0-5.91-2.632-5.91-5.866 0-1.947.968-3.759 2.59-4.849a.534.534 0 0 0-.225-.97A5.289 5.289 0 0 0 8.059 0C3.615 0 0 3.588 0 8s3.615 8 8.059 8c2.82 0 5.386-1.423 6.862-3.806a.533.533 0 0 0-.041-.616z"/>
-          </svg>
-        </button>
-	<div class="net">Cortex Mainnet</div>
-	</div>
-	<button class="btn btn-outline-success my-2 my-sm-0 sr-only hidden" type="submit"><%= gettext "Search" %></button>
+	<div class="net mobilehide">Cortex Mainnet</div>
+  </div>
 </div>

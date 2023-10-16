@@ -42,6 +42,10 @@ import '../app'
  *
  */
 
+$('#activeBlocks').addClass('show');
+$('#activeBlocks .dropdown-menu').addClass('show');
+    console.log(47);
+
 let enableFirstLoading = true
 
 export const asyncInitialState = {
@@ -70,6 +74,7 @@ export const asyncInitialState = {
 }
 
 export function asyncReducer (state = asyncInitialState, action) {
+    console.log(73,action.type);
   switch (action.type) {
     case 'ELEMENTS_LOAD': {
       return Object.assign({}, state, {
@@ -101,8 +106,14 @@ export function asyncReducer (state = asyncInitialState, action) {
       if (state.pagesStack.length >= 2) {
         prevPagePath = state.pagesStack[state.pagesStack.length - 2]
       }
-
-      return Object.assign({}, state, {
+            const href = window.location.href;
+            const pathname = window.location.pathname;
+            const search = window.location.search;
+	    //(state.pagesStack.length == 0 && search != '')
+            if (search != '') {
+    window.sessionStorage.setItem('pagestate', JSON.stringify(state.pagesStack))
+	    }
+	return Object.assign({}, state, {
         requestError: false,
         emptyResponse: action.items.length === 0,
         items: action.items,
@@ -217,12 +228,22 @@ export const elements = {
       }
 
       $el.attr('disabled', false)
-      $el.attr('href', state.prevPagePath)
+
+	    const urlParams = new URLSearchParams(window.location.search)
+            const blockParam = urlParams.get('block_type')
+            const firstPageHref = window.location.href.split('?')[0]
+
+            if(blockParam == 'Uncle' && firstPageHref == 'https://ansible.cortexlabs.ai/blocks'){
+                $el.attr('href', 'uncles')
+            }else{
+                $el.attr('href', state.prevPagePath)
+            }
+
     }
   },
   '[data-async-listing] [data-first-page-button]': {
     render ($el, state) {
-      if (state.pagesStack.length === 0) {
+      if (state.pagesStack.length == 0) {
         return $el.hide()
       }
 
@@ -243,8 +264,12 @@ export const elements = {
 
       if (queryParam !== null) {
         url = firstPageHref + '?q=' + queryParam
-      } else {
+      } else{
         url = firstPageHref
+      }
+
+      if (blockParam == 'Uncle') {
+        url = 'uncles'
       }
 
       $el.attr('href', url)
@@ -255,13 +280,12 @@ export const elements = {
       if (state.emptyResponse) {
         return $el.hide()
       }
-
       $el.show()
-      if (state.pagesStack.length === 0) {
-        return $el.text('Page 1')
-      }
-
-      $el.text('Page ' + state.pagesStack.length)
+	if (state.pagesStack.length == 0) {
+            return $el.text('Page 1')
+        } else {
+            return $el.text('Page ' + state.pagesStack.length)
+        }
     }
   },
   '[data-async-listing] [data-loading-button]': {
@@ -304,7 +328,11 @@ export const elements = {
  * adding or removing with the correct animation. Check list_morph.js for more informantion.
  */
 export function createAsyncLoadStore (reducer, initialState, itemKey) {
+    console.log(329,reducer, initialState, itemKey);
   const state = merge(asyncInitialState, initialState)
+if (state.beyondPageOne) {
+    state.pagesStack = JSON.parse(window.sessionStorage.getItem('pagestate'))
+}
   const store = createStore(reduceReducers(state, asyncReducer, reducer))
 
   if (typeof itemKey !== 'undefined') {
@@ -320,10 +348,13 @@ export function createAsyncLoadStore (reducer, initialState, itemKey) {
 }
 
 export function refreshPage (store) {
+    console.log(346,store);
+	console.log(store.getState())
   loadPage(store, store.getState().currentPagePath)
 }
 
 export function loadPage (store, path) {
+    console.log(351,store, path);
   store.dispatch({ type: 'START_REQUEST', path })
   $.getJSON(path, merge({ type: 'JSON' }, store.getState().additionalParams))
     .done(response => store.dispatch(Object.assign({ type: 'ITEMS_FETCHED' }, humps.camelizeKeys(response))))
@@ -357,7 +388,7 @@ function firstPageLoad (store) {
     event.stopImmediatePropagation()
   })
 
-  $element.on('click', '[data-prev-page-button]', (event) => {
+  $element.on('click', '[data-prev-page-button][href!="uncles"]', (event) => {
     event.preventDefault()
     loadItemsPrev()
     store.dispatch({ type: 'NAVIGATE_TO_NEWER' })

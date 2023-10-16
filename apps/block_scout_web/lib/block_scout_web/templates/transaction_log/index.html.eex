@@ -5,10 +5,10 @@
     <%= render BlockScoutWeb.TransactionView, "_tabs.html", assigns %>
 
     <div class="card-body" data-async-load data-async-listing="<%= @current_path %>">
-      <h2 class="card-title  list-title-description"><%= gettext "Logs" %></h2>
 
       <div class="list-top-pagination-container-wrapper">
-        <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", position: "top", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
+	<h2 class="card-title  list-title-description"><%= gettext "Logs" %></h2>
+        <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
       </div>
 
         <button data-error-message class="alert alert-danger col-12 text-left" style="display: none;">

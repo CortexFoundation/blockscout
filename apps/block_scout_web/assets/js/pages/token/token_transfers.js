@@ -51,6 +51,7 @@ const elements = {
 }
 
 if ($('[data-page="token-transfer-list"]')) {
+    console.log(54);
   window.onbeforeunload = () => {
     window.loading = true
   }

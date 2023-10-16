@@ -15,10 +15,10 @@
         <% end %>
 
         <%= if !assigns[:token] do %>
-        <div class="clearfix">
-          <h2 class="card-title float-left"><%= gettext "Token Transfers" %></h2>
-          <div class="top-pagination-outer-container float-right">
-            <div class="dropdown u-push-sm">
+        <div class="list-top-pagination-container-wrapper">
+          <h2 class="card-title"><%= gettext "Token Transfers" %></h2>
+          <div class="top-pagination-outer-container">
+            <div class="dropdown">
               <button data-test="filter_dropdown" class="btn-dropdown-line dropdown-toggle" type="button"
                 id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter: <%= format_current_filter(@filter) %>

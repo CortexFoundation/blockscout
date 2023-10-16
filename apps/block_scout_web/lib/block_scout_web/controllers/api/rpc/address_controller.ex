@@ -50,6 +50,35 @@ defmodule BlockScoutWeb.API.RPC.AddressController do
     end
   end
 
+  def ctxc_get_balance(conn, params) do
+    with {:address_param, {:ok, address_param}} <- fetch_address(params),
+         {:block_param, {:ok, block}} <- {:block_param, fetch_block_param(params)},
+         {:format, {:ok, address_hash}} <- to_address_hash(address_param),
+         {:balance, {:ok, balance}} <- {:balance, Blocks.get_balance_as_of_block(address_hash, block)} do
+      render(conn, :eth_get_balance, %{balance: Wei.hex_format(balance)})
+    else
+      {:address_param, :error} ->
+        conn
+        |> put_status(400)
+        |> render(:eth_get_balance_error, %{message: "Query parameter 'address' is required"})
+
+      {:format, :error} ->
+        conn
+        |> put_status(400)
+        |> render(:eth_get_balance_error, %{error: "Invalid address hash"})
+
+      {:block_param, :error} ->
+        conn
+        |> put_status(400)
+        |> render(:eth_get_balance_error, %{error: "Invalid block"})
+
+      {:balance, {:error, :not_found}} ->
+        conn
+        |> put_status(404)
+        |> render(:eth_get_balance_error, %{error: "Balance not found"})
+    end
+  end 
+
   def balance(conn, params, template \\ :balance) do
     with {:address_param, {:ok, address_param}} <- fetch_address(params),
          {:format, {:ok, address_hashes}} <- to_address_hashes(address_param) do

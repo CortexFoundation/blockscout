@@ -150,6 +150,10 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-body {
   padding: $card-horizontal-padding;
+
+  @media screen and (max-width: 844px) {
+    padding: 15px;
+  }
 }
 
 .card-body-flex-column-space-between {
@@ -203,15 +207,16 @@ $card-tab-icon-color-active: #fff !default;
   text-align: center;
   transition: $transition-cont;
 
+  @media screen and (max-width: 844px) {
+    height: 40px;
+    display: none;
+    width: 100%;
+  }
+
   &:hover {
     background-color: #573BFF;
     color: #fff;
     text-decoration: none;
-  }
-
-  @include media-breakpoint-down(md) {
-    display: none;
-    width: 100%;
   }
 
   .fa-check-circle {
@@ -308,8 +313,14 @@ $card-tab-icon-color-active: #fff !default;
 }
 
 .list-top-pagination-container-wrapper {
-  @media (min-width: 992px) {
-    float: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+
+  .card-title {
+    margin-bottom: 0;
   }
 }
 

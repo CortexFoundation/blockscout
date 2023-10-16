@@ -74,6 +74,10 @@ if ($('[data-page="address-logs"]').length) {
       addressHash
     })
     const topic = $('[data-search-field]').val()
+      if (!topic) {
+        window.location.reload();
+        return
+      }
     const addressHashPlain = store.getState().addressHash
     const addressHashChecksum = addressHashPlain && utils.toChecksumAddress(addressHashPlain)
     const path = '/search-logs?topic=' + topic + '&address_id=' + addressHashChecksum

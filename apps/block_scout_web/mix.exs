@@ -145,6 +145,7 @@ defmodule BlockScoutWeb.Mixfile do
   defp aliases do
     [
       compile: "compile --warnings-as-errors",
+#      compile: "compile ",
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [

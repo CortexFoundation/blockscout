@@ -12,7 +12,7 @@ $('#activeBlocks').removeClass('show');
 $('#activeBlocks .dropdown-menu').removeClass('show');
 $('#activeTokens').addClass('show');
 $('#activeTokens .dropdown-menu').addClass('show');
-console.log(11)
+
 export const initialState = {
   channelDisconnected: false,
   transferCount: null,

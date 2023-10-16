@@ -142,7 +142,15 @@
               <%= gettext("Token type") %>
             </dt>
             <dd class="col-sm-8 col-md-8 col-lg-9">
-              <%= @token.type %>
+              <%= if @token.type=="ERC-721" do %>
+               <%= gettext("CRC4") %>
+              <% else %>
+               <%= if @token.type=="ERC-20" do %>
+                <%= gettext("CRC2") %>
+               <% else %>
+                <% @token.type %>
+               <% end %>
+              <% end %>
             </dd>
           </dl>
         </div>

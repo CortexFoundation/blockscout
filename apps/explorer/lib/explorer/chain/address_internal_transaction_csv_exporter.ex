@@ -56,6 +56,8 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
     res
   end
 
+
+
   defp to_csv_format(internal_transactions) do
     row_names = [
       "TxHash",
@@ -70,8 +72,6 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
       "ContractAddress",
       "Type",
       "CallType",
-      "Gas",
-      "GasUsed",
       "Value",
       "Input",
       "Output",
@@ -94,8 +94,6 @@ defmodule Explorer.Chain.AddressInternalTransactionCsvExporter do
           to_string(internal_transaction.created_contract_address_hash),
           internal_transaction.type,
           internal_transaction.call_type,
-          internal_transaction.gas,
-          internal_transaction.gas_used,
           Wei.to(internal_transaction.value, :wei),
           internal_transaction.input,
           internal_transaction.output,

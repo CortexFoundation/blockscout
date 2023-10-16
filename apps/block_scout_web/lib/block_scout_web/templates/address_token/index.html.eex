@@ -8,9 +8,10 @@
       <%= render BlockScoutWeb.AddressView, "_tabs.html", address: @address, is_proxy: is_proxy, conn: @conn %>
       <div class="card-body" data-async-load data-async-listing="<%= @current_path %>">
 
-<div class="list-top-pagination-container-wrapper">
-          <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", position: "top", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
-        </div>
+      <div class="list-top-pagination-container-wrapper">
+	<h2 class="card-title"><%= gettext "Tokens" %></h2>
+        <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %> 
+      </div>
 
         <%= render BlockScoutWeb.AddressTokenView,
           "overview.html",

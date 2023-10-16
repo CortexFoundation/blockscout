@@ -1205,9 +1205,9 @@ defmodule BlockScoutWeb.Etherscan do
   }
 
   @account_eth_get_balance_action %{
-    name: "eth_get_balance",
+    name: "ctxc_get_balance",
     description:
-      "Mimics Ethereum JSON RPC's eth_getBalance. Returns the balance as of the provided block (defaults to latest)",
+      "Mimics Cortex JSON RPC's ctxc_getBalance. Returns the balance as of the provided block (defaults to latest)",
     required_params: [
       %{
         key: "address",
@@ -2037,7 +2037,7 @@ defmodule BlockScoutWeb.Etherscan do
   }
 
   @stats_ethsupplyexchange_action %{
-    name: "ethsupplyexchange",
+    name: "ctxcsupplyexchange",
     description: "Get total supply in Wei from exchange.",
     required_params: [],
     optional_params: [],
@@ -2063,7 +2063,7 @@ defmodule BlockScoutWeb.Etherscan do
   }
 
   @stats_ethsupply_action %{
-    name: "ethsupply",
+    name: "ctxcsupply",
     description: "Get total supply in Wei from DB.",
     required_params: [],
     optional_params: [],
@@ -2175,8 +2175,8 @@ defmodule BlockScoutWeb.Etherscan do
   }
 
   @block_eth_block_number_action %{
-    name: "eth_block_number",
-    description: "Mimics Ethereum JSON RPC's eth_blockNumber. Returns the lastest block number",
+    name: "ctxc_block_number",
+    description: "Mimics Cortex JSON RPC's ctxc_blockNumber. Returns the lastest block number",
     required_params: [],
     optional_params: [
       %{

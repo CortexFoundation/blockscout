@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "async": "^3.2.4",
-    "pg-pool": "^3.5.2"
+    "pg-pool": "^3.5.2",
+    "web3": "^1.8.1"
   }
 }

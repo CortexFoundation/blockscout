@@ -36,7 +36,24 @@ defmodule BlockScoutWeb.API.RPC.StatsController do
     render(conn, "ethsupplyexchange.json", total_supply: wei_total_supply)
   end
 
+  def ctxcsupplyexchange(conn, _params) do
+    wei_total_supply =
+      Chain.total_supply()
+      |> Decimal.new()
+      |> Wei.from(:ether)
+      |> Wei.to(:wei)
+      |> Decimal.to_string()
+
+    render(conn, "ethsupplyexchange.json", total_supply: wei_total_supply)
+  end
+
   def ethsupply(conn, _params) do
+    cached_wei_total_supply = AddressSum.get_sum()
+
+    render(conn, "ethsupply.json", total_supply: cached_wei_total_supply)
+  end
+
+  def ctxcsupply(conn, _params) do
     cached_wei_total_supply = AddressSum.get_sum()
 
     render(conn, "ethsupply.json", total_supply: cached_wei_total_supply)

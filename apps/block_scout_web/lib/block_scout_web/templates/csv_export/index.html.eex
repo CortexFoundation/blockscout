@@ -17,7 +17,14 @@
 	    </div>
 
       <div class="dates-container">
-      from <input class="js-datepicker js-datepicker-from form-control" type="text" /> to <input class="js-datepicker js-datepicker-to form-control" type="text" />
+	<div>
+	  <span>from</span>
+	  <input class="js-datepicker js-datepicker-from form-control" type="text" />
+	</div>
+	<div>
+	  <span>to</span>
+	  <input class="js-datepicker js-datepicker-to form-control" type="text" />
+	</div>
       </div>
 
       <div id="recaptcha" class=mb-3></div>

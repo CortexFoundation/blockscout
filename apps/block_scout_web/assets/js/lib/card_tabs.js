@@ -1,5 +1,5 @@
 import $ from 'jquery'
-
+console.log(2);
 $(function () {
   const tabCards = $('.js-card-tabs')
   const activeTabCard = tabCards.find('.active')

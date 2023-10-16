@@ -1,0 +1,19 @@
+<tr>
+  <td class="stakes-td">
+      <!-- incremented number by order in the list -->
+      <span class="color-lighten">
+        <%= @index %>
+      </span>
+  </td>
+  <td class="stakes-td">
+    <%= @address |> BlockScoutWeb.AddressView.address_partial_selector(nil, nil) |> BlockScoutWeb.RenderHelpers.render_partial() %>
+  </td>
+  <td class="stakes-td">
+    <span class="mr-4">
+      <span data-test="transaction_count">
+        <%= @num %>
+      </span>
+    </span>
+  </td>
+</tr>
+

@@ -10,15 +10,15 @@
         </ul>
       </div>
       <div class="">
-        <p class="footer-info-text"><%= gettext("Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.") %></p>
+        <p class="footer-info-text"><%= gettext("Cortex Blockchain is an open source public blockchain that seeks to solve one of the biggest challenges facing blockchains like Bitcoin and Ethereum today-on-chain AI execution.") %></p>
         <div class="footer-social-icons">
-          <a href="<%= Application.get_env(:block_scout_web, :footer)[:github_link] %>" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Github") %>'>
+          <a href="https://github.com/CortexFoundation" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Github") %>'>
         	<img src="/images/home/foot1.png">   
           </a>
-          <a href="https://www.twitter.com/blockscoutcom/" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Twitter") %>'>
+          <a href="https://twitter.com/CTXCBlockchain" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Twitter") %>'>
 		<img src="/images/home/foot2.png">           
           </a>
-          <a href="https://t.me/poa_network" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Telegram") %>'>
+          <a href="https://t.me/CortexOfficialEN" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Telegram") %>'>
 		<img src="/images/home/foot3.png">           
           </a>
         </div>

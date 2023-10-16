@@ -37,9 +37,11 @@
   class: "dropdown-item #{tab_status("accounts", @conn.request_path)}",
   to: address_path(@conn, :index)
   ) %>
-	      <%= link to: reorg_path(@conn, :reorg), class: "dropdown-item #{tab_status("reorgs", @conn.request_path)}" do %>
-                <%= gettext("Forked Blocks (Reorgs)") %>
-              <% end %>
+<%= link(
+  gettext("Top Miners"),
+  class: "dropdown-item #{tab_status("topminers", @conn.request_path)}",
+  to: top_miners_path(@conn, :index)
+  ) %>
             </div>
           </li>
           <li class="nav-item dropdown" id="activeTransactions">
@@ -74,16 +76,16 @@
               </span>
               <%= gettext("CRC Token") %>
             </a>
-            <div class="dropdown-menu" aria-labeledby="navbarTransactionsDropdown"> 
+            <div class="dropdown-menu" aria-labeledby="navbarTokensDropdown"> 
               <%= link(
-                    gettext("All"),
-                    class: "dropdown-item #{tab_status("tokens", @conn.request_path)}",
-                    to: tokens_path(@conn, :index)
+                    gettext("CRC2 Tokens"),
+                    class: "dropdown-item #{tab_status("crc2", @conn.request_path)}",
+                    to: tokens_crc2_path(@conn, :index)
                   ) %>
-              <%= link(
-                    Explorer.coin_name(),
-                    class: "dropdown-item #{tab_status("accounts", @conn.request_path)}",
-                    to: address_path(@conn, :index)
+	      <%= link(
+                    gettext("CRC4 Tokens"),
+                    class: "dropdown-item #{tab_status("crc4", @conn.request_path)}",
+                    to: tokens_crc4_path(@conn, :index)
                   ) %>
             </div>
           </li>
@@ -109,8 +111,8 @@
                   ) %>
               <%= link(
                     gettext("CTXC RPC"),
-                    class: "dropdown-item #{tab_status("eth-rpc-api-docs", @conn.request_path)}",
-                    to: api_url() <> api_docs_path(@conn, :eth_rpc)
+                    class: "dropdown-item #{tab_status("ctxc-rpc-api-docs", @conn.request_path)}",
+                    to: api_url() <> api_docs_path(@conn, :ctxc_rpc)
                   ) %>
             </div>
           </li>

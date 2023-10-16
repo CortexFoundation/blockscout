@@ -113,7 +113,7 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
         external_url(nil)
       end
 
-    if !result || (result && String.trim(result)) == "", do: external_url(nil), else: result
+    if !result || (result) == "", do: external_url(nil), else: Map.values(result)
   end
 
   def total_supply_usd(token) do
@@ -197,6 +197,9 @@ defmodule BlockScoutWeb.Tokens.Instance.OverviewView do
 
       String.slice(image_url, 0, 2) == "Qm" ->
         "https://icarusart.mypinata.cloud/ipfs/" <> image_url  
+
+      String.slice(image_url, 0, 1) == "ba" ->
+        "https://icarusart.mypinata.cloud/ipfs/" <> image_url
 
       true ->
         image_url

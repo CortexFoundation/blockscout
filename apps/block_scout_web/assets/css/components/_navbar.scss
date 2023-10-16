@@ -100,14 +100,13 @@ $navbar-logo-width: 100% !default;
 
 .navbar-brand {
   margin: 0 0 20px;
-  .navbar-logo {
-    width: 128px;
-  }
 }
 
 .navbar-logo {
-  max-height: $navbar-logo-height;
-  width: $navbar-logo-width;
+  width: 128px;
+  @media screen and (max-width: 844px) {
+    width: 90px;
+  }
 }
 
 .logo-text {

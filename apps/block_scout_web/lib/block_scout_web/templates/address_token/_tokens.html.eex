@@ -23,7 +23,15 @@
     <% end %>
   </td>
   <td class="stakes-td">
-    <%= @token.type  %>
+                   <%= if @token.type=="ERC-721" do %>
+                    <%= gettext("CRC4") %>
+                   <% else %>
+                    <%= if @token.type=="ERC-20" do %>
+                     <%= gettext("CRC2") %>
+                    <% else %>
+                     <% @token.type %>
+                    <% end %>
+                   <% end %>  
   </td>
   <td class="stakes-td">
     <%= format_according_to_decimals(@token_balance.value, @token.decimals)  %>

@@ -13,16 +13,8 @@ $radio-big-dimensions: 30px !default;
     width: 100%;
     z-index: 5;
 
-    &:checked + .radio-icon::before {
-      background-color: #573BFF;
-      border-radius: 50%;
-      content: "";
-      width: 12px;
-      height: 12px;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
+    &:checked + .radio-icon div {
+      display: block;
     }
   }
 
@@ -36,6 +28,19 @@ $radio-big-dimensions: 30px !default;
     margin: 0 10px 0 0;
     position: relative;
     z-index: 1;
+  }
+
+  .radio-icon div {
+    background-color: #573BFF;
+    border-radius: 50%;
+    content: "";
+    width: 12px;
+    height: 12px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: none;
   }
 
   .radio-text {

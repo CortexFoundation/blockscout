@@ -208,6 +208,8 @@ if ($contractVerificationPage.length) {
       $('#verify_vyper_contract_button').hide()
       $('#verify_via_standard_json_input_button').hide()
       $('#verify_via_multi_part_files_button').hide()
+$('.radio-big .radio-icon div').hide();
+$('.verify-via-flattened-code + .radio-icon div').css('display', 'block');
     }
   })
 
@@ -218,6 +220,8 @@ if ($contractVerificationPage.length) {
       $('#verify_vyper_contract_button').hide()
       $('#verify_via_standard_json_input_button').hide()
       $('#verify_via_multi_part_files_button').hide()
+$('.radio-big .radio-icon div').hide();
+$('.verify-via-sourcify + .radio-icon div').css('display', 'block');
     }
   })
 
@@ -228,6 +232,8 @@ if ($contractVerificationPage.length) {
       $('#verify_vyper_contract_button').show()
       $('#verify_via_standard_json_input_button').hide()
       $('#verify_via_multi_part_files_button').hide()
+$('.radio-big .radio-icon div').hide();
+$('.verify-vyper-contract + .radio-icon div').css('display', 'block');
     }
   })
 
@@ -238,6 +244,8 @@ if ($contractVerificationPage.length) {
       $('#verify_vyper_contract_button').hide()
       $('#verify_via_standard_json_input_button').show()
       $('#verify_via_multi_part_files_button').hide()
+$('.radio-big .radio-icon div').hide();
+$('.verify-via-standard-json-input + .radio-icon div').css('display', 'block');
     }
   })
 
@@ -248,9 +256,14 @@ if ($contractVerificationPage.length) {
       $('#verify_vyper_contract_button').hide()
       $('#verify_via_standard_json_input_button').hide()
       $('#verify_via_multi_part_files_button').show()
+$('.radio-big .radio-icon div').hide();
+$('.verify-via-multi-part-files + .radio-icon div').css('display', 'block');
     }
   })
 }
+
+$('.radio-big .radio-icon div').hide();
+$('.verify-via-flattened-code + .radio-icon div').css('display', 'block');
 
 function convertFormToJSON (form) {
   const array = $(form).serializeArray()

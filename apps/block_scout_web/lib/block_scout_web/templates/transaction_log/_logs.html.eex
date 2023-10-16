@@ -16,7 +16,7 @@
       <%= nil %>
   <% end %>
 
-  <dl class="row">
+  <dl class="row" style="padding: 0 15px 15px">
     <dt class="col-lg-2"> <%= gettext "Address" %> </dt>
     <dd class="col-lg-10">
       <h3 class="logs-hash">

@@ -79,6 +79,63 @@ defmodule BlockScoutWeb.AddressController do
     )
   end
 
+  def index(conn, %{"type" => "JSONtest"} = params) do
+    addresses =
+      params
+      |> paging_options()
+      |> Chain.list_top_addresses()
+
+    {addresses_page, next_page} = split_list_by_page(addresses)
+
+    next_page_path =
+      case next_page_params(next_page, addresses_page, params) do
+        nil ->
+          nil
+
+        next_page_params ->
+          address_path(
+            conn,
+            :index,
+            Map.delete(next_page_params, "type")
+          )
+      end
+
+    exchange_rate = Market.get_exchange_rate(Explorer.coin()) || Token.null()
+    total_supply = Chain.total_supply()
+
+    items_count_str = Map.get(params, "items_count")
+
+    items_count =
+      if items_count_str do
+        {items_count, _} = Integer.parse(items_count_str)
+        items_count
+      else
+        0
+      end
+
+    items =
+      addresses_page
+      |> Enum.with_index(1)
+      |> Enum.map(fn {{address, tx_count}, index} ->
+        View.render_to_string(
+          AddressView,
+          "_tile.html",
+          address: address,
+          index: items_count + index,
+          exchange_rate: exchange_rate,
+          total_supply: total_supply,
+          tx_count: tx_count
+        )
+      end)
+
+    json(
+      conn,
+      %{
+        items: items,
+      }
+    )
+  end
+
   def index(conn, _params) do
     total_supply = Chain.total_supply()
 

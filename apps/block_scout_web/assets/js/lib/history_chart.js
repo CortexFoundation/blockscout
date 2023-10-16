@@ -118,7 +118,7 @@ const config = {
     plugins: {
       legend,
       title: {
-        display: true,
+        display: false,
         color: '#202020',
 	font: {
 	  size: 20
@@ -273,6 +273,8 @@ class MarketHistoryChart {
       chartTitle = marketChartTitle
     }
     config.options.plugins.title.text = chartTitle
+
+	  $('#chart-title').html(chartTitle)
 
     config.data.datasets = [this.price, this.marketCap, this.numTransactions]
 

@@ -13,9 +13,9 @@
           </div>
         </div>
         <%= render BlockScoutWeb.CommonComponentsView, "_channel_disconnected_message.html", text: gettext("Connection Lost, click to load newer internal transactions") %>
-        <div class="clearfix">
-          <h2 class="card-title float-left"><%= gettext "Internal Transactions" %></h2>
-          <div class="top-pagination-outer-container float-right">
+        <div class="list-top-pagination-container-wrapper">
+          <h2 class="card-title"><%= gettext "Internal Transactions" %></h2>
+          <div class="top-pagination-outer-container">
             <div class="dropdown u-push-sm">
               <button data-test="filter_dropdown" class="btn-dropdown-line dropdown-toggle" type="button"
                 id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

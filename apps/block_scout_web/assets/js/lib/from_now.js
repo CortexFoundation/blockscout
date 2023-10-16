@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import moment from 'moment'
-
+console.log(1);
 moment.relativeTimeThreshold('M', 12)
 moment.relativeTimeThreshold('d', 30)
 moment.relativeTimeThreshold('h', 24)

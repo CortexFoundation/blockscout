@@ -31,23 +31,25 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 }
 
 .dashboard-banner-network-graph {
-  padding: 15px 0;
+  padding-top: 70px;
+  padding-bottom: 15px;
   width: 100%;
   background: #fff;
   position: relative;
+
+  .chart-title {
+    font-size: 20px;
+    color: #202020;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+  }
 }
 
 .dashboard-banner-chart {
-  margin: 15px 0;
   position: relative;
   height: 250px;
-
-  @include media-breakpoint-down(md) {
-    flex-grow: 0;
-    margin-top: 20px;
-    margin-bottom: auto;
-    max-width: 100%;
-  }
 
   >canvas {
     max-height: 100%;
@@ -55,8 +57,8 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     width: 100%;
   }
 
-  @include media-breakpoint-down(sm) {
-    height: 150px !important;
+  @media screen and (max-width: 844px) {
+    height: 160px !important;
   }
 }
 
@@ -65,29 +67,19 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   position: absolute;
   top: 15px;
   right: 0;
+  font-size: 14px;
 
-  @include media-breakpoint-down(sm) {
-    grid-template-columns: 1fr 1fr;
+  @media screen and (max-width: 844px) {
+    font-size: 10px;
+    flex-direction: column;
   }
 
   .dashboard-banner-chart-legend-item {
     position: relative;
-    padding: 8px 15px;
-
-    @include media-breakpoint-down(md) {
-      display: flex;
-      flex-direction: row;
-    }
-
-    @include media-breakpoint-down(sm) {
-      margin-top: 10px;
-    }
-
-    @media (max-width: 599px) {
-      padding-top: 0;
-      padding-bottom: 0;
-      flex-direction: column;
-    }
+    padding: 0 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 
     &::before {
       content: "";
@@ -128,26 +120,13 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .dashboard-banner-chart-legend-label {
     color: #A5A5A5;
     display: block;
-    font-size: 14px;
     font-weight: 600;
-    line-height: 1.2;
-
-    @media (max-width: 374px) {
-      position: relative;
-      top: -2px;
-    }
-
-    @include media-breakpoint-down(md) {
-      margin: 0 5px 0 0;
-    }
   }
 
   .dashboard-banner-chart-legend-value {
     color: #A5A5A5;
     display: block;
-    font-size: 14px;
     font-weight: normal;
-    line-height: 1.2;
 
     &.inline {
       display: inline-block;
@@ -170,22 +149,33 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
 .dashboard-banner-network-plain-container {
   position: relative;
-  margin-bottom: 15px;
+  @media screen and (min-width: 844px) {
+    margin-bottom: 15px;
+  }
 }
 
 .dashboard-banner-network-stats {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   width: 100%;
 
   @include stats-item($dashboard-stats-item-border-color, $dashboard-stats-item-label-color, $dashboard-stats-item-value-color);
 
   .dashboard-banner-network-stats-item {
-    flex: 1;
+    width: 23%;
     padding: 30px;
     background: #fff;
     position: relative;
     overflow: hidden;
     z-index:6;
+
+    @media screen and (max-width: 844px) {
+      width: 48%;
+      margin-bottom: 15px;
+      padding: 15px;
+    }
+
     &::after {
       content: "";
       display: block;
@@ -245,16 +235,16 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     }
   }
 
-  .dashboard-banner-network-stats-item+.dashboard-banner-network-stats-item {
-    margin-left: 15px;
-  }
-
   .dashboard-banner-network-stats-label {
     color: #474747;
     font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: 844px) {
+      font-size: 10px;
+    }
 
     div {
       width: 34px;
@@ -264,6 +254,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
       background: #573BFF;
       border-radius: 50px;
       border: 1px solid #fff;
+      flex-shrink: 0;
     }
 
     img {
@@ -276,6 +267,10 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     color: #272727;
     font-size: 32px;
     font-weight: bolder;
+
+    @media screen and (max-width: 844px) {
+      font-size: 18px;
+    }
   }
 
   .dashboard-banner-network-stats-item:hover {

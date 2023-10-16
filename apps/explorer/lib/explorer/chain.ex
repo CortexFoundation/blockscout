@@ -2293,6 +2293,33 @@ defmodule Explorer.Chain do
     |> Repo.all()
   end
 
+ @doc """
+  Lists the top `t:Explorer.Chain.Miner.t/0`'s' in descending order based on coin balance and address hash.
+
+  """
+  @spec list_top_miners :: [{Address.t(), non_neg_integer()}]
+  def list_top_miners(options \\ []) do
+    paging_options = Keyword.get(options, :paging_options, @default_paging_options)
+
+      fetch_top_miners(paging_options)
+  end
+
+  defp fetch_top_miners(paging_options) do
+    base_query =
+      from(b in Block,
+        join: addr in Address,
+        where: b.miner_hash == addr.hash and b.timestamp >= fragment("(current_timestamp - interval \'24 hour\')") and b.consensus == true,
+        order_by: [desc: fragment("COUNT(*)")],
+        group_by: [b.miner_hash,addr.hash],
+        select: {addr, fragment("COUNT(*) as num")}
+      )
+    base_query
+    |> page_addresses(paging_options)
+    |> limit(^paging_options.page_size)
+    |> Repo.all()
+  end
+
+
   @doc """
   Lists the top `t:Explorer.Chain.Token.t/0`'s'.
 
@@ -2308,6 +2335,78 @@ defmodule Explorer.Chain do
     base_query =
       from(t in Token,
         where: t.total_supply > ^0,
+        order_by: [desc_nulls_last: t.holder_count, asc: t.name],
+        preload: [:contract_address]
+      )
+
+    base_query_with_paging =
+      base_query
+      |> page_tokens(paging_options)
+      |> limit(^paging_options.page_size)
+
+    query =
+      if filter && filter !== "" do
+        base_query_with_paging
+        |> where(fragment("to_tsvector('english', symbol || ' ' || name ) @@ to_tsquery(?)", ^filter))
+      else
+        base_query_with_paging
+      end
+
+    query
+    |> Repo.all()
+  end
+
+  @doc """
+  Lists the top `t:Explorer.Chain.TokenCRC2.t/0`'s'.
+
+  """
+  @spec list_top_tokens_crc2(String.t()) :: [{Token.t(), non_neg_integer()}]
+  def list_top_tokens_crc2(filter, options \\ []) do
+    paging_options = Keyword.get(options, :paging_options, @default_paging_options)
+
+    fetch_top_tokens_crc2(filter, paging_options)
+  end
+
+  defp fetch_top_tokens_crc2(filter, paging_options) do
+    base_query =
+      from(t in Token,
+        where: t.total_supply > ^0 and t.type == ^"ERC-20",
+        order_by: [desc_nulls_last: t.holder_count, asc: t.name],
+        preload: [:contract_address]
+      )
+
+    base_query_with_paging =
+      base_query
+      |> page_tokens(paging_options)
+      |> limit(^paging_options.page_size)
+
+    query =
+      if filter && filter !== "" do
+        base_query_with_paging
+        |> where(fragment("to_tsvector('english', symbol || ' ' || name ) @@ to_tsquery(?)", ^filter))
+      else
+        base_query_with_paging
+      end
+
+    query
+    |> Repo.all()
+  end
+
+  @doc """
+  Lists the top `t:Explorer.Chain.TokenCRC4.t/0`'s'.
+
+  """
+  @spec list_top_tokens_crc4(String.t()) :: [{Token.t(), non_neg_integer()}]
+  def list_top_tokens_crc4(filter, options \\ []) do
+    paging_options = Keyword.get(options, :paging_options, @default_paging_options)
+
+    fetch_top_tokens_crc4(filter, paging_options)
+  end
+
+  defp fetch_top_tokens_crc4(filter, paging_options) do
+    base_query =
+      from(t in Token,
+        where: t.type == ^"ERC-721",
         order_by: [desc_nulls_last: t.holder_count, asc: t.name],
         preload: [:contract_address]
       )

@@ -2,7 +2,7 @@ import $ from 'jquery'
 import humps from 'humps'
 import numeral from 'numeral'
 import socket from '../socket'
-
+console.log(1);
 function tryUpdateIndexedStatus (el, indexedRatio = el.dataset.indexedRatio, indexingFinished = false) {
   if (indexingFinished) return $("[data-selector='indexed-status']").remove()
   const blocksPercentComplete = numeral(indexedRatio).format('0%')

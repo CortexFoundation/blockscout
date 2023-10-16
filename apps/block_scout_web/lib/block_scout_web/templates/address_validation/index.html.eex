@@ -8,10 +8,10 @@
       <%= render BlockScoutWeb.AddressView, "_tabs.html", address: @address, is_proxy: is_proxy, conn: @conn %>
       <div data-async-listing="<%= @current_path %>" class="card-body">
         <%= render BlockScoutWeb.CommonComponentsView, "_channel_disconnected_message.html", text: gettext("Connection Lost, click to load newer validations") %>
-<div class="top-pagination-outer-container float-right">
-	<%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", cur_page_number: "1", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
-</div>       
- <h2 class="card-title"><%=gettext("Blocks Validated")%></h2>
+	<div class="list-top-pagination-container-wrapper">
+	  <h2 class="card-title"><%=gettext("Blocks Validated")%></h2>
+	  <%= render BlockScoutWeb.CommonComponentsView, "_pagination_container.html", cur_page_number: "1", show_pagination_limit: true, data_next_page_button: true, data_prev_page_button: true %>
+	</div>
         
 	<div data-empty-response-message class="tile tile-muted text-center" style="display: none;">
           <span><%= gettext "There are no blocks validated by this address." %></span>
